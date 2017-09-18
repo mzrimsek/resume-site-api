@@ -1,3 +1,4 @@
+using Integration.EntityFramework.Models.DatabaseModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace Integration.EntityFramework.Models
@@ -10,5 +11,7 @@ namespace Integration.EntityFramework.Models
         {
             base.OnModelCreating(builder);
         }
+
+        public DbSet<Work> Work { get; set; }
     }
 }
