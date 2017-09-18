@@ -28,7 +28,8 @@ namespace Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DatabaseContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+            string connectionString = GetConnectionStringFromEnvironment();
+            services.AddDbContext<DatabaseContext>(options => options.UseNpgsql(connectionString));
             services.AddMvc();
         }
 
@@ -40,6 +41,17 @@ namespace Web
             }
 
             app.UseMvc();
+        }
+
+        private string GetConnectionStringFromEnvironment()
+        {
+            var databaseUser = Environment.GetEnvironmentVariable("RESUME_DATABASE_USER");
+            var databasePass = Environment.GetEnvironmentVariable("RESUME_DATABASE_PASS");
+            var databaseName = Environment.GetEnvironmentVariable("RESUME_DATABASE_NAME");
+            var databaseHost = Environment.GetEnvironmentVariable("RESUME_DATABASE_HOST");
+            var databasePort = Environment.GetEnvironmentVariable("RESUME_DATABASE_PORT");
+
+            return $"User ID={databaseUser};Password={databasePass};Host={databaseHost};Port={databasePort};Database={databaseName};Pooling=true;";
         }
     }
 }
