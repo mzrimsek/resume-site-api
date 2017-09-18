@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Integration.EntityFramework.Models.DatabaseModels
+namespace Integration.EntityFramework.Models
 {
     public class Work
     {

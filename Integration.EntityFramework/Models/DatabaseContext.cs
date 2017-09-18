@@ -1,4 +1,3 @@
-using Integration.EntityFramework.Models.DatabaseModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace Integration.EntityFramework.Models
