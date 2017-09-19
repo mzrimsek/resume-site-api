@@ -7,6 +7,6 @@ namespace Core.Interfaces
   {
     IEnumerable<JobProject> GetAll();
     JobProject GetById(int id);
-    JobProject GetByJobId(int jobId);
+    IEnumerable<JobProject> GetByJobId(int jobId);
   }
 }
