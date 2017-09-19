@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Core.Interfaces;
 using Integration.EntityFramework.Models;
+using Integration.EntityFramework.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -31,6 +33,10 @@ namespace Web
       string connectionString = GetConnectionStringFromEnvironment();
       services.AddDbContext<DatabaseContext>(options => options.UseNpgsql(connectionString));
       services.AddMvc();
+
+      services.AddScoped<IJobRepository, JobRepository>();
+      services.AddScoped<IJobProjectRepository, JobProjectRepository>();
+      services.AddScoped<ISchoolRepository, SchoolRepository>();
     }
 
     public void Configure(IApplicationBuilder app, IHostingEnvironment env)
