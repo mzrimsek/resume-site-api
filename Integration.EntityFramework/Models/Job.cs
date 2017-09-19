@@ -6,17 +6,17 @@ namespace Integration.EntityFramework.Models
     public class Job
     {
         [Key]
-        public int Id;
+        public int Id { get; set; }
         [Required]
-        public string Name;
+        public string Name { get; set; }
         [Required]
-        public string City;
+        public string City { get; set; }
         [Required]
-        public string State;
+        public string State { get; set; }
         [Required]
-        public string Title;
+        public string Title { get; set; }
         [Required]
-        public DateTime StartDate;
+        public DateTime StartDate { get; set; }
         public DateTime EndDate;
     }
 }
