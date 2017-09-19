@@ -13,45 +13,45 @@ using Microsoft.Extensions.Options;
 
 namespace Web
 {
-    public class Startup
+  public class Startup
+  {
+    public Startup(IHostingEnvironment env)
     {
-        public Startup(IHostingEnvironment env)
-        {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
-            Configuration = builder.Build();
+      var builder = new ConfigurationBuilder()
+          .SetBasePath(env.ContentRootPath)
+          .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+      Configuration = builder.Build();
 
-        }
-
-        public IConfiguration Configuration { get; }
-
-        public void ConfigureServices(IServiceCollection services)
-        {
-            string connectionString = GetConnectionStringFromEnvironment();
-            services.AddDbContext<DatabaseContext>(options => options.UseNpgsql(connectionString));
-            services.AddMvc();
-        }
-
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
-            app.UseMvc();
-        }
-
-        private string GetConnectionStringFromEnvironment()
-        {
-            var databaseUser = Environment.GetEnvironmentVariable("RESUME_DATABASE_USER");
-            var databasePass = Environment.GetEnvironmentVariable("RESUME_DATABASE_PASS");
-            var databaseName = Environment.GetEnvironmentVariable("RESUME_DATABASE_NAME");
-            var databaseHost = Environment.GetEnvironmentVariable("RESUME_DATABASE_HOST");
-            var databasePort = Environment.GetEnvironmentVariable("RESUME_DATABASE_PORT");
-
-            return $"User ID={databaseUser};Password={databasePass};Host={databaseHost};Port={databasePort};Database={databaseName};Pooling=true;";
-        }
     }
+
+    public IConfiguration Configuration { get; }
+
+    public void ConfigureServices(IServiceCollection services)
+    {
+      string connectionString = GetConnectionStringFromEnvironment();
+      services.AddDbContext<DatabaseContext>(options => options.UseNpgsql(connectionString));
+      services.AddMvc();
+    }
+
+    public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+    {
+      if (env.IsDevelopment())
+      {
+        app.UseDeveloperExceptionPage();
+      }
+
+      app.UseMvc();
+    }
+
+    private string GetConnectionStringFromEnvironment()
+    {
+      var databaseUser = Environment.GetEnvironmentVariable("RESUME_DATABASE_USER");
+      var databasePass = Environment.GetEnvironmentVariable("RESUME_DATABASE_PASS");
+      var databaseName = Environment.GetEnvironmentVariable("RESUME_DATABASE_NAME");
+      var databaseHost = Environment.GetEnvironmentVariable("RESUME_DATABASE_HOST");
+      var databasePort = Environment.GetEnvironmentVariable("RESUME_DATABASE_PORT");
+
+      return $"User ID={databaseUser};Password={databasePass};Host={databaseHost};Port={databasePort};Database={databaseName};Pooling=true;";
+    }
+  }
 }
