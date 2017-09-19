@@ -4,7 +4,7 @@ namespace Integration.EntityFramework.Models
 {
     public class DatabaseContext : DbContext
     {
-        public DbSet<Work> Work { get; set; }
+        public DbSet<Job> Jobs { get; set; }
         
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) {}
 
