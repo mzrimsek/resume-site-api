@@ -17,6 +17,6 @@ namespace Integration.EntityFramework.Models
     public string Title { get; set; }
     [Required]
     public DateTime StartDate { get; set; }
-    public DateTime EndDate;
+    public DateTime EndDate { get; set; }
   }
 }
