@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Integration.EntityFramework.Models
 {
-  public class JobDatabaseModel
+  public class Job
   {
     [Key]
     public int Id { get; set; }
