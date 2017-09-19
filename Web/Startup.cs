@@ -45,11 +45,11 @@ namespace Web
 
     private string GetConnectionStringFromEnvironment()
     {
-      var databaseUser = Environment.GetEnvironmentVariable("RESUME_DATABASE_USER");
-      var databasePass = Environment.GetEnvironmentVariable("RESUME_DATABASE_PASS");
-      var databaseName = Environment.GetEnvironmentVariable("RESUME_DATABASE_NAME");
-      var databaseHost = Environment.GetEnvironmentVariable("RESUME_DATABASE_HOST");
-      var databasePort = Environment.GetEnvironmentVariable("RESUME_DATABASE_PORT");
+      var databaseUser = Environment.GetEnvironmentVariable("DATABASE_USER");
+      var databasePass = Environment.GetEnvironmentVariable("DATABASE_PASS");
+      var databaseName = Environment.GetEnvironmentVariable("DATABASE_NAME");
+      var databaseHost = Environment.GetEnvironmentVariable("DATABASE_HOST");
+      var databasePort = Environment.GetEnvironmentVariable("DATABASE_PORT");
 
       return $"User ID={databaseUser};Password={databasePass};Host={databaseHost};Port={databasePort};Database={databaseName};Pooling=true;";
     }
