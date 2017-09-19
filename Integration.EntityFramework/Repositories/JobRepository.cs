@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using Core.Interfaces;
-using Integration.EntityFramework.Models;
 using System.Linq;
-using Integration.EntityFramework.Mappers;
+using Core.Interfaces;
+using Integration.EntityFramework.Mappers.JobMappers;
+using Integration.EntityFramework.Models;
 
 namespace Integration.EntityFramework.Repositories
 {

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Integration.EntityFramework.Models;
 
-namespace Integration.EntityFramework.Mappers
+namespace Integration.EntityFramework.Mappers.JobMappers
 {
   public static class JobDomainModelMapper
   {
