@@ -25,7 +25,7 @@ namespace Integration.EntityFramework.Repositories
     public Core.Models.School GetById(int id)
     {
       var school = _databaseContext.Schools.SingleOrDefault(x => x.Id == id);
-      return SchoolDomainModelMapper.MapFrom(school);
+      return school == null ? null : SchoolDomainModelMapper.MapFrom(school);
     }
   }
 }

@@ -24,7 +24,7 @@ namespace Integration.EntityFramework.Repositories
     public Core.Models.JobProject GetById(int id)
     {
       var jobProject = _databaseContext.JobProjects.SingleOrDefault(x => x.Id == id);
-      return JobProjectDomainModelMapper.MapFrom(jobProject);
+      return jobProject == null ? null : JobProjectDomainModelMapper.MapFrom(jobProject);
     }
 
     public IEnumerable<Core.Models.JobProject> GetByJobId(int jobId)

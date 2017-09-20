@@ -24,7 +24,7 @@ namespace Integration.EntityFramework.Repositories
     public Core.Models.Job GetById(int id)
     {
       var job = _databaseContext.Jobs.SingleOrDefault(x => x.Id == id);
-      return JobDomainModelMapper.MapFrom(job);
+      return job == null ? null : JobDomainModelMapper.MapFrom(job);
     }
   }
 }
