@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using Core.Interfaces;
-using Core.Models;
 using Microsoft.AspNetCore.Mvc;
 using Web.Mappers.JobMappers;
+using Web.Models;
 
 namespace Web.Controllers
 {
@@ -33,6 +34,19 @@ namespace Web.Controllers
                 return NotFound();
             }
             return Ok(job);
+        }
+
+        [HttpPost]
+        public IActionResult AddJob(Job job)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var domainModel = JobDomainModelMapper.MapFrom(job);
+            var savedJob = _jobRepository.Save(domainModel);
+
+            return CreatedAtRoute($"/{savedJob.Id}", savedJob);
         }
     }
 }
