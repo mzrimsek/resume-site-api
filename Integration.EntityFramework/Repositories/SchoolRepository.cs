@@ -27,5 +27,14 @@ namespace Integration.EntityFramework.Repositories
             var school = _databaseContext.Schools.SingleOrDefault(x => x.Id == id);
             return school == null ? null : SchoolDomainModelMapper.MapFrom(school);
         }
+
+        public Core.Models.School Save(Core.Models.School school)
+        {
+            var databaseModel = SchoolDatabaseModelMapper.MapFrom(school);
+            _databaseContext.Schools.Add(databaseModel);
+            _databaseContext.SaveChanges();
+
+            return SchoolDomainModelMapper.MapFrom(databaseModel);
+        }
     }
 }

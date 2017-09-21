@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Interfaces;
+using Core.Models;
 using Integration.EntityFramework.Mappers.JobProjectMappers;
 using Integration.EntityFramework.Models;
 
@@ -31,6 +32,15 @@ namespace Integration.EntityFramework.Repositories
         {
             var jobProjects = _databaseContext.JobProjects.Where(x => x.JobId == jobId);
             return JobProjectDomainModelMapper.MapFrom(jobProjects);
+        }
+
+        public Core.Models.JobProject Save(Core.Models.JobProject jobProject)
+        {
+            var databaseModel = JobProjectDatabaseModelMapper.MapFrom(jobProject);
+            _databaseContext.JobProjects.Add(databaseModel);
+            _databaseContext.SaveChanges();
+
+            return JobProjectDomainModelMapper.MapFrom(databaseModel);
         }
     }
 }
