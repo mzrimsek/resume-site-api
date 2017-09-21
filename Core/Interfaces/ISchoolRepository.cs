@@ -7,5 +7,6 @@ namespace Core.Interfaces
     {
         IEnumerable<School> GetAll();
         School GetById(int id);
+        School Save(School school);
     }
 }

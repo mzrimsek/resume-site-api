@@ -7,5 +7,6 @@ namespace Core.Interfaces
     {
         IEnumerable<Job> GetAll();
         Job GetById(int id);
+        Job Save(Job job);
     }
 }
