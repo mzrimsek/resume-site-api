@@ -9,6 +9,7 @@ namespace Web.Mappers.JobMappers
         {
             return new Job()
             {
+                Id = domainModel.Id,
                 Name = domainModel.Name,
                 City = domainModel.City,
                 State = domainModel.State,
