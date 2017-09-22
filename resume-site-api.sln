@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Integration.EntityFramework
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{4A3DD00B-3F9A-4116-AE68-A2224ED662A7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Integration", "Test.Integration\Test.Integration.csproj", "{8A6C39D0-1CF5-49E4-B29A-39F723A5036D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,5 +74,17 @@ Global
 		{4A3DD00B-3F9A-4116-AE68-A2224ED662A7}.Release|x64.Build.0 = Release|x64
 		{4A3DD00B-3F9A-4116-AE68-A2224ED662A7}.Release|x86.ActiveCfg = Release|x86
 		{4A3DD00B-3F9A-4116-AE68-A2224ED662A7}.Release|x86.Build.0 = Release|x86
+		{8A6C39D0-1CF5-49E4-B29A-39F723A5036D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A6C39D0-1CF5-49E4-B29A-39F723A5036D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A6C39D0-1CF5-49E4-B29A-39F723A5036D}.Debug|x64.ActiveCfg = Debug|x64
+		{8A6C39D0-1CF5-49E4-B29A-39F723A5036D}.Debug|x64.Build.0 = Debug|x64
+		{8A6C39D0-1CF5-49E4-B29A-39F723A5036D}.Debug|x86.ActiveCfg = Debug|x86
+		{8A6C39D0-1CF5-49E4-B29A-39F723A5036D}.Debug|x86.Build.0 = Debug|x86
+		{8A6C39D0-1CF5-49E4-B29A-39F723A5036D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A6C39D0-1CF5-49E4-B29A-39F723A5036D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A6C39D0-1CF5-49E4-B29A-39F723A5036D}.Release|x64.ActiveCfg = Release|x64
+		{8A6C39D0-1CF5-49E4-B29A-39F723A5036D}.Release|x64.Build.0 = Release|x64
+		{8A6C39D0-1CF5-49E4-B29A-39F723A5036D}.Release|x86.ActiveCfg = Release|x86
+		{8A6C39D0-1CF5-49E4-B29A-39F723A5036D}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 EndGlobal
