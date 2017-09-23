@@ -13,6 +13,6 @@ namespace Integration.EntityFramework.Models
         public string Name { get; set; }
         public string Description { get; set; }
         [ForeignKey("JobId")]
-        public Job Job { get; set; }
+        public JobDatabaseModel Job { get; set; }
     }
 }

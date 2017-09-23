@@ -6,9 +6,9 @@ namespace Integration.EntityFramework.Mappers.JobMappers
 {
     public static class JobDatabaseModelMapper
     {
-        public static Job MapFrom(JobDomainModel domainModel)
+        public static JobDatabaseModel MapFrom(JobDomainModel domainModel)
         {
-            return new Job
+            return new JobDatabaseModel
             {
                 Id = domainModel.Id,
                 Name = domainModel.Name,
@@ -20,7 +20,7 @@ namespace Integration.EntityFramework.Mappers.JobMappers
             };
         }
 
-        public static IEnumerable<Job> MapFrom(IEnumerable<JobDomainModel> domainModels)
+        public static IEnumerable<JobDatabaseModel> MapFrom(IEnumerable<JobDomainModel> domainModels)
         {
             foreach (var domainModel in domainModels)
             {
