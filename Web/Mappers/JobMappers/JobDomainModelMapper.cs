@@ -1,14 +1,15 @@
 using System;
 using System.Collections.Generic;
+using Core.Models;
 using Web.Models;
 
 namespace Web.Mappers.JobMappers
 {
     public static class JobDomainModelMapper
     {
-        public static Core.Models.Job MapFrom(Job viewModel)
+        public static JobDomainModel MapFrom(Job viewModel)
         {
-            return new Core.Models.Job()
+            return new JobDomainModel()
             {
                 Id = viewModel.Id,
                 Name = viewModel.Name,
@@ -20,7 +21,7 @@ namespace Web.Mappers.JobMappers
             };
         }
 
-        public static IEnumerable<Core.Models.Job> MapFrom(IEnumerable<Job> viewModels)
+        public static IEnumerable<JobDomainModel> MapFrom(IEnumerable<Job> viewModels)
         {
             foreach (var viewModel in viewModels)
             {

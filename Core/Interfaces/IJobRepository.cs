@@ -5,8 +5,8 @@ namespace Core.Interfaces
 {
     public interface IJobRepository
     {
-        IEnumerable<Job> GetAll();
-        Job GetById(int id);
-        Job Save(Job job);
+        IEnumerable<JobDomainModel> GetAll();
+        JobDomainModel GetById(int id);
+        JobDomainModel Save(JobDomainModel job);
     }
 }

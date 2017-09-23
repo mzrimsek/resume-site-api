@@ -16,19 +16,19 @@ namespace Integration.EntityFramework.Repositories
             _databaseContext = databaseContext;
         }
 
-        public IEnumerable<Core.Models.Job> GetAll()
+        public IEnumerable<JobDomainModel> GetAll()
         {
             var jobs = _databaseContext.Jobs.ToList();
             return JobDomainModelMapper.MapFrom(jobs);
         }
 
-        public Core.Models.Job GetById(int id)
+        public JobDomainModel GetById(int id)
         {
             var job = _databaseContext.Jobs.SingleOrDefault(x => x.Id == id);
             return job == null ? null : JobDomainModelMapper.MapFrom(job);
         }
 
-        public Core.Models.Job Save(Core.Models.Job job)
+        public JobDomainModel Save(JobDomainModel job)
         {
             var databaseModel = JobDatabaseModelMapper.MapFrom(job);
             _databaseContext.Jobs.Add(databaseModel);
