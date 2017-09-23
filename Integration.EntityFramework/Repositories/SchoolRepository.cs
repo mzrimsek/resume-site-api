@@ -16,19 +16,19 @@ namespace Integration.EntityFramework.Repositories
             _databaseContext = databaseContext;
         }
 
-        public IEnumerable<Core.Models.School> GetAll()
+        public IEnumerable<SchoolDomainModel> GetAll()
         {
             var schools = _databaseContext.Schools.ToList();
             return SchoolDomainModelMapper.MapFrom(schools);
         }
 
-        public Core.Models.School GetById(int id)
+        public SchoolDomainModel GetById(int id)
         {
             var school = _databaseContext.Schools.SingleOrDefault(x => x.Id == id);
             return school == null ? null : SchoolDomainModelMapper.MapFrom(school);
         }
 
-        public Core.Models.School Save(Core.Models.School school)
+        public SchoolDomainModel Save(SchoolDomainModel school)
         {
             var databaseModel = SchoolDatabaseModelMapper.MapFrom(school);
             _databaseContext.Schools.Add(databaseModel);

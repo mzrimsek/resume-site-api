@@ -5,8 +5,8 @@ namespace Core.Interfaces
 {
     public interface ISchoolRepository
     {
-        IEnumerable<School> GetAll();
-        School GetById(int id);
-        School Save(School school);
+        IEnumerable<SchoolDomainModel> GetAll();
+        SchoolDomainModel GetById(int id);
+        SchoolDomainModel Save(SchoolDomainModel school);
     }
 }

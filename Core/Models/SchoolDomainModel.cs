@@ -2,7 +2,7 @@ using System;
 
 namespace Core.Models
 {
-    public class School
+    public class SchoolDomainModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

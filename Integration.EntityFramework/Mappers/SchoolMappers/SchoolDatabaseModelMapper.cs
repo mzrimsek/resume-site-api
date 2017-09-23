@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using Core.Models;
 using Integration.EntityFramework.Models;
 
 namespace Integration.EntityFramework.Mappers.SchoolMappers
 {
     public static class SchoolDatabaseModelMapper
     {
-        public static School MapFrom(Core.Models.School domainModel)
+        public static School MapFrom(SchoolDomainModel domainModel)
         {
             return new School
             {
@@ -20,7 +21,7 @@ namespace Integration.EntityFramework.Mappers.SchoolMappers
             };
         }
 
-        public static IEnumerable<School> MapFrom(IEnumerable<Core.Models.School> domainModels)
+        public static IEnumerable<School> MapFrom(IEnumerable<SchoolDomainModel> domainModels)
         {
             foreach (var domainModel in domainModels)
             {
