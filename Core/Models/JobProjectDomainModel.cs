@@ -1,6 +1,6 @@
 namespace Core.Models
 {
-    public class JobProject
+    public class JobProjectDomainModel
     {
         public int Id { get; set; }
         public int JobId { get; set; }

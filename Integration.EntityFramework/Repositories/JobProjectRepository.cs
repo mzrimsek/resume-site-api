@@ -16,25 +16,25 @@ namespace Integration.EntityFramework.Repositories
             _databaseContext = databaseContext;
         }
 
-        public IEnumerable<Core.Models.JobProject> GetAll()
+        public IEnumerable<JobProjectDomainModel> GetAll()
         {
             var jobProjects = _databaseContext.JobProjects.ToList();
             return JobProjectDomainModelMapper.MapFrom(jobProjects);
         }
 
-        public Core.Models.JobProject GetById(int id)
+        public JobProjectDomainModel GetById(int id)
         {
             var jobProject = _databaseContext.JobProjects.SingleOrDefault(x => x.Id == id);
             return jobProject == null ? null : JobProjectDomainModelMapper.MapFrom(jobProject);
         }
 
-        public IEnumerable<Core.Models.JobProject> GetByJobId(int jobId)
+        public IEnumerable<JobProjectDomainModel> GetByJobId(int jobId)
         {
             var jobProjects = _databaseContext.JobProjects.Where(x => x.JobId == jobId);
             return JobProjectDomainModelMapper.MapFrom(jobProjects);
         }
 
-        public Core.Models.JobProject Save(Core.Models.JobProject jobProject)
+        public JobProjectDomainModel Save(JobProjectDomainModel jobProject)
         {
             var databaseModel = JobProjectDatabaseModelMapper.MapFrom(jobProject);
             _databaseContext.JobProjects.Add(databaseModel);

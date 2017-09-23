@@ -1,13 +1,14 @@
 using System.Collections.Generic;
+using Core.Models;
 using Integration.EntityFramework.Models;
 
 namespace Integration.EntityFramework.Mappers.JobProjectMappers
 {
     public static class JobProjectDomainModelMapper
     {
-        public static Core.Models.JobProject MapFrom(JobProject databaseModel)
+        public static JobProjectDomainModel MapFrom(JobProject databaseModel)
         {
-            return new Core.Models.JobProject
+            return new JobProjectDomainModel
             {
                 Id = databaseModel.Id,
                 JobId = databaseModel.JobId,
@@ -16,7 +17,7 @@ namespace Integration.EntityFramework.Mappers.JobProjectMappers
             };
         }
 
-        public static IEnumerable<Core.Models.JobProject> MapFrom(IEnumerable<JobProject> databaseModels)
+        public static IEnumerable<JobProjectDomainModel> MapFrom(IEnumerable<JobProject> databaseModels)
         {
             foreach (var databaseModel in databaseModels)
             {

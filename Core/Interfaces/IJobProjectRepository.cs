@@ -5,9 +5,9 @@ namespace Core.Interfaces
 {
     public interface IJobProjectRepository
     {
-        IEnumerable<JobProject> GetAll();
-        JobProject GetById(int id);
-        IEnumerable<JobProject> GetByJobId(int jobId);
-        JobProject Save(JobProject jobProject);
+        IEnumerable<JobProjectDomainModel> GetAll();
+        JobProjectDomainModel GetById(int id);
+        IEnumerable<JobProjectDomainModel> GetByJobId(int jobId);
+        JobProjectDomainModel Save(JobProjectDomainModel jobProject);
     }
 }
