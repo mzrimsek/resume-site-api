@@ -6,9 +6,9 @@ namespace Integration.EntityFramework.Mappers.JobProjectMappers
 {
     public class JobProjectDatabaseModelMapper
     {
-        public static JobProject MapFrom(JobProjectDomainModel domainModel)
+        public static JobProjectDatabaseModel MapFrom(JobProjectDomainModel domainModel)
         {
-            return new JobProject
+            return new JobProjectDatabaseModel
             {
                 Id = domainModel.Id,
                 JobId = domainModel.JobId,
@@ -17,7 +17,7 @@ namespace Integration.EntityFramework.Mappers.JobProjectMappers
             };
         }
 
-        public static IEnumerable<JobProject> MapFrom(IEnumerable<JobProjectDomainModel> domainModels)
+        public static IEnumerable<JobProjectDatabaseModel> MapFrom(IEnumerable<JobProjectDomainModel> domainModels)
         {
             foreach (var domainModel in domainModels)
             {

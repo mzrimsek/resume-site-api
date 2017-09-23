@@ -5,7 +5,7 @@ namespace Integration.EntityFramework.Models
     public class DatabaseContext : DbContext
     {
         public DbSet<JobDatabaseModel> Jobs { get; set; }
-        public DbSet<JobProject> JobProjects { get; set; }
+        public DbSet<JobProjectDatabaseModel> JobProjects { get; set; }
         public DbSet<School> Schools { get; set; }
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) { }
