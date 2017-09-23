@@ -6,9 +6,9 @@ namespace Integration.EntityFramework.Mappers.SchoolMappers
 {
     public static class SchoolDatabaseModelMapper
     {
-        public static School MapFrom(SchoolDomainModel domainModel)
+        public static SchoolDatabaseModel MapFrom(SchoolDomainModel domainModel)
         {
-            return new School
+            return new SchoolDatabaseModel
             {
                 Id = domainModel.Id,
                 Name = domainModel.Name,
@@ -21,7 +21,7 @@ namespace Integration.EntityFramework.Mappers.SchoolMappers
             };
         }
 
-        public static IEnumerable<School> MapFrom(IEnumerable<SchoolDomainModel> domainModels)
+        public static IEnumerable<SchoolDatabaseModel> MapFrom(IEnumerable<SchoolDomainModel> domainModels)
         {
             foreach (var domainModel in domainModels)
             {
