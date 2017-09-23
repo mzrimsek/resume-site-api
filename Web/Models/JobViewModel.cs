@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Web.Models
 {
-    public class Job
+    public class JobViewModel
     {
         public int Id { get; set; }
         [Required]

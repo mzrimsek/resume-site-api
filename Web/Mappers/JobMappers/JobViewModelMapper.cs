@@ -6,9 +6,9 @@ namespace Web.Mappers.JobMappers
 {
     public static class JobViewModelMapper
     {
-        public static Job MapFrom(JobDomainModel domainModel)
+        public static JobViewModel MapFrom(JobDomainModel domainModel)
         {
-            return new Job()
+            return new JobViewModel()
             {
                 Id = domainModel.Id,
                 Name = domainModel.Name,
@@ -20,7 +20,7 @@ namespace Web.Mappers.JobMappers
             };
         }
 
-        public static IEnumerable<Job> MapFrom(IEnumerable<JobDomainModel> domainModels)
+        public static IEnumerable<JobViewModel> MapFrom(IEnumerable<JobDomainModel> domainModels)
         {
             foreach (var domainModel in domainModels)
             {

@@ -37,7 +37,7 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddJob(Job job)
+        public IActionResult AddJob(JobViewModel job)
         {
             if (!ModelState.IsValid)
             {
