@@ -9,10 +9,10 @@ using Web.Models;
 namespace Web.Controllers
 {
     [Route("api/[controller]")]
-    public class JobsController : Controller
+    public class JobController : Controller
     {
         private readonly IJobRepository _jobRepository;
-        public JobsController(IJobRepository jobRepository)
+        public JobController(IJobRepository jobRepository)
         {
             _jobRepository = jobRepository;
         }

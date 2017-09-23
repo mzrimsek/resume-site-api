@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http;
 using Web;
 
-namespace Test.Integration.JobsControllerTests
+namespace Test.Integration.JobControllerTests
 {
     [TestClass]
     public class GetAllJobsShould
@@ -23,7 +23,7 @@ namespace Test.Integration.JobsControllerTests
         [TestMethod]
         public void ReturnStatusCodeOk()
         {
-            var response = _client.GetAsync("/api/jobs").Result;
+            var response = _client.GetAsync("/api/job").Result;
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         }
     }
