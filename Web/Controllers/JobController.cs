@@ -25,7 +25,7 @@ namespace Web.Controllers
             return Ok(jobViews);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetJob")]
         public IActionResult GetJob(int id)
         {
             var job = _jobRepository.GetById(id);
@@ -46,7 +46,7 @@ namespace Web.Controllers
             var domainModel = JobDomainModelMapper.MapFrom(job);
             var savedJob = _jobRepository.Save(domainModel);
 
-            return CreatedAtRoute($"/{savedJob.Id}", savedJob);
+            return CreatedAtRoute("GetJob", new { id = savedJob.Id }, savedJob);
         }
     }
 }
