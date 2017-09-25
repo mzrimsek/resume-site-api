@@ -36,7 +36,7 @@ namespace Test.Integration.JobControllerTests
             };
             var requestContent = RequestHelper.GetContentFromObject(model);
 
-            var response = _client.PostAsync("api/job", requestContent).Result;
+            var response = _client.PostAsync("/api/job", requestContent).Result;
 
             Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
         }
@@ -54,7 +54,7 @@ namespace Test.Integration.JobControllerTests
             };
             var requestContent = RequestHelper.GetContentFromObject(model);
 
-            var response = _client.PostAsync("api/job", requestContent).Result;
+            var response = _client.PostAsync("/api/job", requestContent).Result;
 
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
         }
