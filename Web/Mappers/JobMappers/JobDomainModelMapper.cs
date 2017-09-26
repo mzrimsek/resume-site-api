@@ -41,13 +41,5 @@ namespace Web.Mappers.JobMappers
                 EndDate = DateTime.Parse(viewModel.EndDate)
             };
         }
-
-        public static IEnumerable<JobDomainModel> MapFrom(IEnumerable<AddUpdateJobViewModel> viewModels)
-        {
-            foreach (var viewModel in viewModels)
-            {
-                yield return MapFrom(viewModel);
-            }
-        }
     }
 }
