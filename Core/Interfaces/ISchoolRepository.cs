@@ -9,5 +9,6 @@ namespace Core.Interfaces
         SchoolDomainModel GetById(int id);
         SchoolDomainModel Save(SchoolDomainModel school);
         void Delete(int id);
+        SchoolDomainModel Update(SchoolDomainModel school);
     }
 }

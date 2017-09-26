@@ -47,5 +47,16 @@ namespace Integration.EntityFramework.Repositories
                 _databaseContext.SaveChanges();
             }
         }
+
+        public JobDomainModel Update(JobDomainModel job)
+        {
+            var databaseModel = JobDatabaseModelMapper.MapFrom(job);
+            var existingModel = _databaseContext.Jobs.SingleOrDefault(x => x.Id == job.Id);
+            existingModel = databaseModel;
+
+            _databaseContext.SaveChanges();
+
+            return JobDomainModelMapper.MapFrom(existingModel);
+        }
     }
 }

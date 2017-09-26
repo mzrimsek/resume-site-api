@@ -47,5 +47,16 @@ namespace Integration.EntityFramework.Repositories
                 _databaseContext.SaveChanges();
             }
         }
+
+        public SchoolDomainModel Update(SchoolDomainModel school)
+        {
+            var databaseModel = SchoolDatabaseModelMapper.MapFrom(school);
+            var existingModel = _databaseContext.Schools.SingleOrDefault(x => x.Id == school.Id);
+            existingModel = databaseModel;
+
+            _databaseContext.SaveChanges();
+
+            return SchoolDomainModelMapper.MapFrom(existingModel);
+        }
     }
 }
