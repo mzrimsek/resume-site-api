@@ -55,14 +55,14 @@ namespace Web.Controllers
         [HttpDelete("${id}")]
         public IActionResult DeleteJob(int id)
         {
-            var job = _jobRepository.Delete(id);
+            var job = _jobRepository.GetById(id);
             if (job == null)
             {
                 return NotFound();
             }
 
-            var jobViewModel = JobViewModelMapper.MapFrom(job);
-            return Ok(jobViewModel);
+            _jobRepository.Delete(id);
+            return NoContent();
         }
 
         [HttpPut("${id}")]
