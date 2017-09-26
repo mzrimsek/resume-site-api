@@ -45,8 +45,7 @@ namespace Test.Integration.JobControllerTests
             var requestContent = RequestHelper.GetContentFromObject(model);
 
             var postResponse = _client.PostAsync("/api/job", requestContent).Result;
-            var serializedContent = RequestHelper.GetObjectFromResponseContent<JobViewModel>(postResponse);
-            _jobId = serializedContent.Id;
+            _jobId = RequestHelper.GetObjectFromResponseContent<JobViewModel>(postResponse).Id;
             var getResponse = _client.GetAsync($"/api/job/{_jobId}").Result;
 
             Assert.AreEqual(HttpStatusCode.OK, getResponse.StatusCode);
