@@ -49,7 +49,7 @@ namespace Web.Controllers
             return CreatedAtRoute("GetJob", new { id = jobViewModel.Id }, jobViewModel);
         }
 
-        [HttpDelete("${id}")]
+        [HttpDelete("{id}")]
         public IActionResult DeleteJob(int id)
         {
             var job = _jobRepository.GetById(id);
@@ -62,7 +62,7 @@ namespace Web.Controllers
             return NoContent();
         }
 
-        [HttpPut("${id}")]
+        [HttpPut("{id}")]
         public IActionResult UpdateJob(int id, [FromBody] AddUpdateJobViewModel job)
         {
             var foundJob = _jobRepository.GetById(id);
