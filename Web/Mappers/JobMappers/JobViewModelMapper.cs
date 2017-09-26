@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Core.Helpers;
 using Core.Models;
 using Web.Models.JobModels;
 
@@ -15,8 +16,8 @@ namespace Web.Mappers.JobMappers
                 City = domainModel.City,
                 State = domainModel.State,
                 Title = domainModel.Title,
-                StartDate = domainModel.StartDate.ToString("M/d/yyyy"),
-                EndDate = domainModel.EndDate.ToString("M/d/yyyy")
+                StartDate = DateHelper.FormatDate(domainModel.StartDate),
+                EndDate = DateHelper.FormatDate(domainModel.EndDate)
             };
         }
 
