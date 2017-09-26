@@ -31,7 +31,15 @@ namespace Integration.EntityFramework.Repositories
         public JobDomainModel Save(JobDomainModel job)
         {
             var databaseModel = JobDatabaseModelMapper.MapFrom(job);
-            _databaseContext.Jobs.Add(databaseModel);
+            if (databaseModel.Id == 0)
+            {
+                _databaseContext.Jobs.Add(databaseModel);
+
+            }
+            else
+            {
+                _databaseContext.Jobs.Update(databaseModel);
+            }
             _databaseContext.SaveChanges();
 
             return JobDomainModelMapper.MapFrom(databaseModel);
