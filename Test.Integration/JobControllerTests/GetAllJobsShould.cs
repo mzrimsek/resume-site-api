@@ -24,7 +24,9 @@ namespace Test.Integration.JobControllerTests
         [TestCleanup]
         public void TearDown()
         {
-            _client.DeleteAsync($"/api/job/{_jobId}");
+            var _ = _client.DeleteAsync($"/api/job/{_jobId}").Result;
+            _client.Dispose();
+            _server.Dispose();
         }
 
         [TestMethod]

@@ -18,6 +18,13 @@ namespace Test.Integration.JobControllerTests
             (_server, _client) = new TestSetupHelper().GetTestServerAndClient();
         }
 
+        [TestCleanup]
+        public void TearDown()
+        {
+            _client.Dispose();
+            _server.Dispose();
+        }
+
         [TestMethod]
         public void ReturnStatusCodeNotFound_WhenGivenInvalidId()
         {
