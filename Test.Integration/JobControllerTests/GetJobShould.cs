@@ -41,13 +41,34 @@ namespace Test.Integration.JobControllerTests
         [TestMethod]
         public void ReturnStatusCodeOk_WhenGivenValidId()
         {
-            Assert.Fail();
+            var model = TestObjectCreator.GetAddUpdateJobViewModel();
+            var requestContent = RequestHelper.GetContentFromObject(model);
+
+            var postResponse = _client.PostAsync("/api/job", requestContent).Result;
+            var serializedContent = RequestHelper.GetObjectFromResponseContent<JobViewModel>(postResponse);
+            _jobId = serializedContent.Id;
+            var getResponse = _client.GetAsync($"/api/job/{_jobId}").Result;
+
+            Assert.AreEqual(HttpStatusCode.OK, getResponse.StatusCode);
         }
 
         [TestMethod]
         public void ReturnCorrectViewModel()
         {
-            Assert.Fail();
+            var model = TestObjectCreator.GetAddUpdateJobViewModel();
+            var requestContent = RequestHelper.GetContentFromObject(model);
+
+            var postResponse = _client.PostAsync("/api/job", requestContent).Result;
+            _jobId = RequestHelper.GetObjectFromResponseContent<JobViewModel>(postResponse).Id;
+            var getResponse = _client.GetAsync($"/api/job/{_jobId}").Result;
+            var serializedContent = RequestHelper.GetObjectFromResponseContent<JobViewModel>(getResponse);
+
+            Assert.AreEqual(model.Name, serializedContent.Name);
+            Assert.AreEqual(model.City, serializedContent.City);
+            Assert.AreEqual(model.State, serializedContent.State);
+            Assert.AreEqual(model.Title, serializedContent.Title);
+            Assert.AreEqual(model.StartDate, serializedContent.StartDate);
+            Assert.AreEqual(model.EndDate, serializedContent.EndDate);
         }
     }
 }
