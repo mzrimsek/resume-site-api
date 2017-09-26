@@ -42,5 +42,19 @@ namespace Integration.EntityFramework.Repositories
 
             return JobProjectDomainModelMapper.MapFrom(databaseModel);
         }
+
+        public JobProjectDomainModel Delete(int id)
+        {
+            var jobProjectToDelete = _databaseContext.JobProjects.SingleOrDefault(x => x.Id == id);
+            if (jobProjectToDelete == null)
+            {
+                return null;
+            }
+
+            _databaseContext.Remove(jobProjectToDelete);
+            _databaseContext.SaveChanges();
+
+            return JobProjectDomainModelMapper.MapFrom(jobProjectToDelete);
+        }
     }
 }
