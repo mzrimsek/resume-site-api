@@ -37,15 +37,8 @@ namespace Integration.EntityFramework.Repositories
         public JobProjectDomainModel Save(JobProjectDomainModel jobProject)
         {
             var databaseModel = JobProjectDatabaseModelMapper.MapFrom(jobProject);
-            if (databaseModel.Id == 0)
-            {
-                _databaseContext.JobProjects.Add(databaseModel);
 
-            }
-            else
-            {
-                _databaseContext.JobProjects.Update(databaseModel);
-            }
+            _databaseContext.Add(databaseModel);
             _databaseContext.SaveChanges();
 
             return JobProjectDomainModelMapper.MapFrom(databaseModel);

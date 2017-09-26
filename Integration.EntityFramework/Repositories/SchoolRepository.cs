@@ -31,15 +31,8 @@ namespace Integration.EntityFramework.Repositories
         public SchoolDomainModel Save(SchoolDomainModel school)
         {
             var databaseModel = SchoolDatabaseModelMapper.MapFrom(school);
-            if (databaseModel.Id == 0)
-            {
-                _databaseContext.Schools.Add(databaseModel);
 
-            }
-            else
-            {
-                _databaseContext.Schools.Update(databaseModel);
-            }
+            _databaseContext.Add(databaseModel);
             _databaseContext.SaveChanges();
 
             return SchoolDomainModelMapper.MapFrom(databaseModel);
