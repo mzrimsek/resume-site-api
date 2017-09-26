@@ -33,7 +33,7 @@ namespace Test.Integration.JobControllerTests
         public void ReturnStatusCodeCreated_WhenGivenValidModel()
         {
             var model = TestObjectCreator.GetAddUpdateJobViewModel();
-            var requestContent = RequestHelper.GetContentFromObject(model);
+            var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PostAsync("/api/job", requestContent).Result;
             _jobId = RequestHelper.GetObjectFromResponseContent<JobViewModel>(response).Id;
@@ -46,7 +46,7 @@ namespace Test.Integration.JobControllerTests
         {
             var model = TestObjectCreator.GetAddUpdateJobViewModel();
             model.Name = null;
-            var requestContent = RequestHelper.GetContentFromObject(model);
+            var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PostAsync("/api/job", requestContent).Result;
 
@@ -57,7 +57,7 @@ namespace Test.Integration.JobControllerTests
         public void ReturnCorrectViewModel()
         {
             var model = TestObjectCreator.GetAddUpdateJobViewModel();
-            var requestContent = RequestHelper.GetContentFromObject(model);
+            var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PostAsync("/api/job", requestContent).Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<JobViewModel>(response);

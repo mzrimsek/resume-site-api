@@ -34,7 +34,7 @@ namespace Test.Integration.JobControllerTests
         public void ReturnStatusCodeNotFound_WhenGivenInvalidId()
         {
             var model = TestObjectCreator.GetAddUpdateJobViewModel();
-            var requestContent = RequestHelper.GetContentFromObject(model);
+            var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PutAsync("/api/job/1", requestContent).Result;
 
@@ -45,11 +45,11 @@ namespace Test.Integration.JobControllerTests
         public void ReturnStatusCodeBadRequest_WhenGivenInvalidModel()
         {
             var model = TestObjectCreator.GetAddUpdateJobViewModel();
-            var postRequestContent = RequestHelper.GetContentFromObject(model);
+            var postRequestContent = RequestHelper.GetRequestContentFromObject(model);
             var postResponse = _client.PostAsync("/api/job", postRequestContent).Result;
             _jobId = RequestHelper.GetObjectFromResponseContent<JobViewModel>(postResponse).Id;
             model.Name = null;
-            var putRequestContent = RequestHelper.GetContentFromObject(model);
+            var putRequestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var putResponse = _client.PutAsync($"/api/job/{_jobId}", putRequestContent).Result;
 
@@ -60,10 +60,10 @@ namespace Test.Integration.JobControllerTests
         public void ReturnStatusCodeOk_WhenGivenValidIdAndValidModel()
         {
             var model = TestObjectCreator.GetAddUpdateJobViewModel();
-            var postRequestContent = RequestHelper.GetContentFromObject(model);
+            var postRequestContent = RequestHelper.GetRequestContentFromObject(model);
             var postResponse = _client.PostAsync("/api/job", postRequestContent).Result;
             _jobId = RequestHelper.GetObjectFromResponseContent<JobViewModel>(postResponse).Id;
-            var putRequestContent = RequestHelper.GetContentFromObject(model);
+            var putRequestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var putResponse = _client.PutAsync($"/api/job/{_jobId}", putRequestContent).Result;
 
@@ -73,7 +73,22 @@ namespace Test.Integration.JobControllerTests
         [TestMethod]
         public void ReturnUpdatedViewModel()
         {
-            Assert.Fail();
+            var model = TestObjectCreator.GetAddUpdateJobViewModel();
+            var postRequestContent = RequestHelper.GetRequestContentFromObject(model);
+            var postResponse = _client.PostAsync("/api/job", postRequestContent).Result;
+            _jobId = RequestHelper.GetObjectFromResponseContent<JobViewModel>(postResponse).Id;
+            model.Name = "A Different Company";
+            var putRequestContent = RequestHelper.GetRequestContentFromObject(model);
+
+            var putResponse = _client.PutAsync($"/api/job/{_jobId}", putRequestContent).Result;
+            var serializedContent = RequestHelper.GetObjectFromResponseContent<JobViewModel>(putResponse);
+
+            Assert.AreEqual(model.Name, serializedContent.Name);
+            Assert.AreEqual(model.City, serializedContent.City);
+            Assert.AreEqual(model.State, serializedContent.State);
+            Assert.AreEqual(model.Title, serializedContent.Title);
+            Assert.AreEqual(model.StartDate, serializedContent.StartDate);
+            Assert.AreEqual(model.EndDate, serializedContent.EndDate);
         }
     }
 }

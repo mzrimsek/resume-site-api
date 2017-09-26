@@ -50,7 +50,7 @@ namespace Test.Integration.JobControllerTests
         public void ReturnOneJob_WhenOneJobIsCreated()
         {
             var model = TestObjectCreator.GetAddUpdateJobViewModel();
-            var requestContent = RequestHelper.GetContentFromObject(model);
+            var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var postResponse = _client.PostAsync("/api/job", requestContent).Result;
             _jobId = RequestHelper.GetObjectFromResponseContent<JobViewModel>(postResponse).Id;

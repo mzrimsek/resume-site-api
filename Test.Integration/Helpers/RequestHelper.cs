@@ -6,7 +6,7 @@ namespace Test.Integration.Helpers
 {
     public static class RequestHelper
     {
-        public static HttpContent GetContentFromObject(object value)
+        public static HttpContent GetRequestContentFromObject(object value)
         {
             var valueJson = JsonConvert.SerializeObject(value);
             return new StringContent(valueJson, Encoding.UTF8, "application/json");
