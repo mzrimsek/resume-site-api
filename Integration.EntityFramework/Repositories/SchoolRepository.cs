@@ -37,18 +37,14 @@ namespace Integration.EntityFramework.Repositories
             return SchoolDomainModelMapper.MapFrom(databaseModel);
         }
 
-        public SchoolDomainModel Delete(int id)
+        public void Delete(int id)
         {
             var schoolToDelete = _databaseContext.Schools.SingleOrDefault(x => x.Id == id);
             if (schoolToDelete == null)
             {
-                return null;
+                _databaseContext.Remove(schoolToDelete);
+                _databaseContext.SaveChanges();
             }
-
-            _databaseContext.Remove(schoolToDelete);
-            _databaseContext.SaveChanges();
-
-            return SchoolDomainModelMapper.MapFrom(schoolToDelete);
         }
     }
 }

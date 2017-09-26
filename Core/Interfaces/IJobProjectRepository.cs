@@ -9,6 +9,6 @@ namespace Core.Interfaces
         JobProjectDomainModel GetById(int id);
         IEnumerable<JobProjectDomainModel> GetByJobId(int jobId);
         JobProjectDomainModel Save(JobProjectDomainModel jobProject);
-        JobProjectDomainModel Delete(int id);
+        void Delete(int id);
     }
 }
