@@ -15,8 +15,8 @@ namespace Web.Mappers.JobMappers
                 City = domainModel.City,
                 State = domainModel.State,
                 Title = domainModel.Title,
-                StartDate = domainModel.StartDate.ToShortDateString(),
-                EndDate = domainModel.EndDate.ToShortDateString()
+                StartDate = domainModel.StartDate.ToString("M/d/yyyy"),
+                EndDate = domainModel.EndDate.ToString("M/d/yyyy")
             };
         }
 
