@@ -17,7 +17,7 @@ namespace Test.Integration.JobControllerTests
         private int _jobId;
 
         [TestInitialize]
-        public void Setup()
+        public void SetUp()
         {
             _server = new TestServer(new WebHostBuilder().UseStartup<Startup>());
             _client = _server.CreateClient();
@@ -32,15 +32,7 @@ namespace Test.Integration.JobControllerTests
         [TestMethod]
         public void ReturnStatusCodeCreated_WhenGivenValidModel()
         {
-            var model = new AddUpdateJobViewModel()
-            {
-                Name = "Some Company",
-                City = "San Francisco",
-                State = "CA",
-                Title = "Developer",
-                StartDate = "1/1/2017",
-                EndDate = "7/1/2017"
-            };
+            var model = TestObjectCreator.GetAddUpdateJobViewModel();
             var requestContent = RequestHelper.GetContentFromObject(model);
 
             var response = _client.PostAsync("/api/job", requestContent).Result;
@@ -53,14 +45,8 @@ namespace Test.Integration.JobControllerTests
         [TestMethod]
         public void ReturnStatusCodeBadRequest_WhenGivenInvalidModel()
         {
-            var model = new AddUpdateJobViewModel()
-            {
-                City = "San Francisco",
-                State = "CA",
-                Title = "Developer",
-                StartDate = "1/1/2017",
-                EndDate = "7/1/2017"
-            };
+            var model = TestObjectCreator.GetAddUpdateJobViewModel();
+            model.Name = null;
             var requestContent = RequestHelper.GetContentFromObject(model);
 
             var response = _client.PostAsync("/api/job", requestContent).Result;
@@ -71,15 +57,7 @@ namespace Test.Integration.JobControllerTests
         [TestMethod]
         public void ReturnCorrespondingViewModel()
         {
-            var model = new AddUpdateJobViewModel()
-            {
-                Name = "Some Company",
-                City = "San Francisco",
-                State = "CA",
-                Title = "Developer",
-                StartDate = "1/1/2017",
-                EndDate = "7/1/2017"
-            };
+            var model = TestObjectCreator.GetAddUpdateJobViewModel();
             var requestContent = RequestHelper.GetContentFromObject(model);
 
             var response = _client.PostAsync("/api/job", requestContent).Result;
