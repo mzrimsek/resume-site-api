@@ -5,10 +5,10 @@ using System.Net.Http;
 using Test.Integration.Helpers;
 using Web.Models.JobModels;
 
-namespace Test.Integration.JobControllerTests
+namespace Test.Integration.ControllerTests.JobControllerTests
 {
     [TestClass]
-    public class GetJobShould
+    public class AddJobShould
     {
         private TestServer _server;
         private HttpClient _client;
@@ -29,23 +29,26 @@ namespace Test.Integration.JobControllerTests
         }
 
         [TestMethod]
-        public void ReturnStatusCodeNotFound_WhenGivenInvalidId()
-        {
-            var response = _client.GetAsync("/api/job/1").Result;
-            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
-        }
-
-        [TestMethod]
-        public void ReturnStatusCodeOk_WhenGivenValidId()
+        public void ReturnStatusCodeCreated_WhenGivenValidModel()
         {
             var model = TestObjectCreator.GetAddUpdateJobViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
-            var postResponse = _client.PostAsync("/api/job", requestContent).Result;
-            _jobId = RequestHelper.GetObjectFromResponseContent<JobViewModel>(postResponse).Id;
 
-            var getResponse = _client.GetAsync($"/api/job/{_jobId}").Result;
+            var response = _client.PostAsync("/api/job", requestContent).Result;
+            _jobId = RequestHelper.GetObjectFromResponseContent<JobViewModel>(response).Id;
 
-            Assert.AreEqual(HttpStatusCode.OK, getResponse.StatusCode);
+            Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
+        }
+
+        [TestMethod]
+        public void ReturnStatusCodeBadRequest_WhenGivenInvalidModel()
+        {
+            var model = TestObjectCreator.GetAddUpdateJobViewModel(null);
+            var requestContent = RequestHelper.GetRequestContentFromObject(model);
+
+            var response = _client.PostAsync("/api/job", requestContent).Result;
+
+            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
         }
 
         [TestMethod]
@@ -53,11 +56,10 @@ namespace Test.Integration.JobControllerTests
         {
             var model = TestObjectCreator.GetAddUpdateJobViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
-            var postResponse = _client.PostAsync("/api/job", requestContent).Result;
-            _jobId = RequestHelper.GetObjectFromResponseContent<JobViewModel>(postResponse).Id;
 
-            var getResponse = _client.GetAsync($"/api/job/{_jobId}").Result;
-            var serializedContent = RequestHelper.GetObjectFromResponseContent<JobViewModel>(getResponse);
+            var response = _client.PostAsync("/api/job", requestContent).Result;
+            var serializedContent = RequestHelper.GetObjectFromResponseContent<JobViewModel>(response);
+            _jobId = serializedContent.Id;
 
             Assert.AreEqual(model.Name, serializedContent.Name);
             Assert.AreEqual(model.City, serializedContent.City);

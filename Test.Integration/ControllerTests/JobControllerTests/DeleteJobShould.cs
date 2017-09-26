@@ -4,7 +4,7 @@ using System.Net;
 using System.Net.Http;
 using Test.Integration.Helpers;
 
-namespace Test.Integration.JobControllerTests
+namespace Test.Integration.ControllerTests.JobControllerTests
 {
     [TestClass]
     public class DeleteJobShould

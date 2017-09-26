@@ -6,7 +6,7 @@ using System.Net.Http;
 using Test.Integration.Helpers;
 using Web.Models.JobModels;
 
-namespace Test.Integration.JobControllerTests
+namespace Test.Integration.ControllerTests.JobControllerTests
 {
     [TestClass]
     public class GetAllJobsShould
