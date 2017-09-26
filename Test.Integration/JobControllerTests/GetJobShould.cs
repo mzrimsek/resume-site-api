@@ -1,12 +1,8 @@
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using Test.Integration.Helpers;
-using Web;
 using Web.Models.JobModels;
 
 namespace Test.Integration.JobControllerTests
@@ -21,8 +17,7 @@ namespace Test.Integration.JobControllerTests
         [TestInitialize]
         public void SetUp()
         {
-            _server = new TestServer(new WebHostBuilder().UseStartup<Startup>());
-            _client = _server.CreateClient();
+            (_server, _client) = new TestSetupHelper().GetTestServerAndClient();
         }
 
         [TestCleanup]
