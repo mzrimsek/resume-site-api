@@ -8,5 +8,6 @@ namespace Core.Interfaces
         IEnumerable<JobDomainModel> GetAll();
         JobDomainModel GetById(int id);
         JobDomainModel Save(JobDomainModel job);
+        JobDomainModel Delete(int id);
     }
 }

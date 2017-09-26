@@ -8,5 +8,6 @@ namespace Core.Interfaces
         IEnumerable<SchoolDomainModel> GetAll();
         SchoolDomainModel GetById(int id);
         SchoolDomainModel Save(SchoolDomainModel school);
+        SchoolDomainModel Delete(int id);
     }
 }
