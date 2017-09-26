@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.TestHost;
 using System.Net.Http;
 using Web;
 
-namespace Test.Integration.Helpers
+namespace Test.Integration.TestHelpers
 {
     public class TestSetupHelper
     {

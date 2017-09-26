@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
-using Test.Integration.Helpers;
+using Test.Integration.TestHelpers;
 using Web.Models.JobModels;
 
 namespace Test.Integration.ControllerTests.JobControllerTests

@@ -1,6 +1,6 @@
 using Web.Models.JobModels;
 
-namespace Test.Integration.Helpers
+namespace Test.Integration.TestHelpers
 {
     public static class TestObjectCreator
     {

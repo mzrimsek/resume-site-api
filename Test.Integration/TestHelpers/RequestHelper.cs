@@ -2,7 +2,7 @@ using System.Net.Http;
 using System.Text;
 using Newtonsoft.Json;
 
-namespace Test.Integration.Helpers
+namespace Test.Integration.TestHelpers
 {
     public static class RequestHelper
     {
