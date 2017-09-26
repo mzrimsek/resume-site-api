@@ -55,7 +55,7 @@ namespace Test.Integration.JobControllerTests
         }
 
         [TestMethod]
-        public void ReturnCorrespondingViewModel()
+        public void ReturnCorrectViewModel()
         {
             var model = TestObjectCreator.GetAddUpdateJobViewModel();
             var requestContent = RequestHelper.GetContentFromObject(model);
