@@ -27,5 +27,19 @@ namespace Web.Mappers.JobMappers
                 yield return MapFrom(domainModel);
             }
         }
+
+        public static JobViewModel MapFrom(int id, AddUpdateJobViewModel addUpdateJobViewModel)
+        {
+            return new JobViewModel()
+            {
+                Id = id,
+                Name = addUpdateJobViewModel.Name,
+                City = addUpdateJobViewModel.City,
+                State = addUpdateJobViewModel.State,
+                Title = addUpdateJobViewModel.Title,
+                StartDate = addUpdateJobViewModel.StartDate,
+                EndDate = addUpdateJobViewModel.EndDate
+            };
+        }
     }
 }
