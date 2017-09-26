@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Core.Interfaces;
 using Web.Mappers.JobMappers;
-using Web.Models;
+using Web.Models.JobModels;
 
 namespace Web.Controllers
 {

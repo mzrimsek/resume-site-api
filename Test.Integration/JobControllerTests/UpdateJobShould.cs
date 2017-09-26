@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http;
 using Test.Integration.Helpers;
 using Web;
-using Web.Models;
+using Web.Models.JobModels;
 
 namespace Test.Integration.JobControllerTests
 {
@@ -48,7 +48,7 @@ namespace Test.Integration.JobControllerTests
             var postRequestContent = RequestHelper.GetRequestContentFromObject(model);
             var postResponse = _client.PostAsync("/api/job", postRequestContent).Result;
             _jobId = RequestHelper.GetObjectFromResponseContent<JobViewModel>(postResponse).Id;
-            model.Name = null;
+            model = TestObjectCreator.GetAddUpdateJobViewModel(null);
             var putRequestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var putResponse = _client.PutAsync($"/api/job/{_jobId}", putRequestContent).Result;
@@ -77,7 +77,7 @@ namespace Test.Integration.JobControllerTests
             var postRequestContent = RequestHelper.GetRequestContentFromObject(model);
             var postResponse = _client.PostAsync("/api/job", postRequestContent).Result;
             _jobId = RequestHelper.GetObjectFromResponseContent<JobViewModel>(postResponse).Id;
-            model.Name = "A Different Company";
+            model = TestObjectCreator.GetAddUpdateJobViewModel("A Different Company");
             var putRequestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var putResponse = _client.PutAsync($"/api/job/{_jobId}", putRequestContent).Result;

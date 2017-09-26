@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Core.Models;
-using Web.Models;
+using Web.Models.JobModels;
 
 namespace Web.Mappers.JobMappers
 {

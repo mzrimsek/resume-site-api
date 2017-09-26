@@ -7,7 +7,7 @@ using System.Net;
 using System.Net.Http;
 using Test.Integration.Helpers;
 using Web;
-using Web.Models;
+using Web.Models.JobModels;
 
 namespace Test.Integration.JobControllerTests
 {

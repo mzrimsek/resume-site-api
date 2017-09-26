@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http;
 using Test.Integration.Helpers;
 using Web;
-using Web.Models;
+using Web.Models.JobModels;
 
 namespace Test.Integration.JobControllerTests
 {
@@ -44,8 +44,7 @@ namespace Test.Integration.JobControllerTests
         [TestMethod]
         public void ReturnStatusCodeBadRequest_WhenGivenInvalidModel()
         {
-            var model = TestObjectCreator.GetAddUpdateJobViewModel();
-            model.Name = null;
+            var model = TestObjectCreator.GetAddUpdateJobViewModel(null);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PostAsync("/api/job", requestContent).Result;

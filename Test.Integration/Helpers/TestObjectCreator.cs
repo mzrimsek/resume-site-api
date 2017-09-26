@@ -1,4 +1,4 @@
-using Web.Models;
+using Web.Models.JobModels;
 
 namespace Test.Integration.Helpers
 {
@@ -6,9 +6,14 @@ namespace Test.Integration.Helpers
     {
         public static AddUpdateJobViewModel GetAddUpdateJobViewModel()
         {
+            return GetAddUpdateJobViewModel("Some Company");
+        }
+
+        public static AddUpdateJobViewModel GetAddUpdateJobViewModel(string name)
+        {
             return new AddUpdateJobViewModel()
             {
-                Name = "Some Company",
+                Name = name,
                 City = "San Francisco",
                 State = "CA",
                 Title = "Developer",
