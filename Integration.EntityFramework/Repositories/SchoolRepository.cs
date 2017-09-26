@@ -51,7 +51,7 @@ namespace Integration.EntityFramework.Repositories
         public SchoolDomainModel Update(SchoolDomainModel school)
         {
             var databaseModel = SchoolDatabaseModelMapper.MapFrom(school);
-            var existingModel = _databaseContext.Schools.SingleOrDefault(x => x.Id == school.Id);
+            var existingModel = _databaseContext.Schools.SingleOrDefault(x => x.Id == databaseModel.Id);
             existingModel = databaseModel;
 
             _databaseContext.SaveChanges();

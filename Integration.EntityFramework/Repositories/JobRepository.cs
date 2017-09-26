@@ -51,7 +51,7 @@ namespace Integration.EntityFramework.Repositories
         public JobDomainModel Update(JobDomainModel job)
         {
             var databaseModel = JobDatabaseModelMapper.MapFrom(job);
-            var existingModel = _databaseContext.Jobs.SingleOrDefault(x => x.Id == job.Id);
+            var existingModel = _databaseContext.Jobs.SingleOrDefault(x => x.Id == databaseModel.Id);
             existingModel = databaseModel;
 
             _databaseContext.SaveChanges();
