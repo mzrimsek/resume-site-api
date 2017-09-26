@@ -33,7 +33,9 @@ namespace Web.Controllers
             {
                 return NotFound();
             }
-            return Ok(job);
+
+            var jobViewModel = JobViewModelMapper.MapFrom(job);
+            return Ok(jobViewModel);
         }
 
         [HttpPost]
@@ -45,8 +47,22 @@ namespace Web.Controllers
             }
             var domainModel = JobDomainModelMapper.MapFrom(job);
             var savedJob = _jobRepository.Save(domainModel);
+            var jobViewModel = JobViewModelMapper.MapFrom(savedJob);
 
-            return CreatedAtRoute("GetJob", new { id = savedJob.Id }, savedJob);
+            return CreatedAtRoute("GetJob", new { id = jobViewModel.Id }, jobViewModel);
+        }
+
+        [HttpDelete("${id}")]
+        public IActionResult DeleteJob(int id)
+        {
+            var job = _jobRepository.Delete(id);
+            if (job == null)
+            {
+                return NotFound();
+            }
+
+            var jobViewModel = JobViewModelMapper.MapFrom(job);
+            return Ok(jobViewModel);
         }
     }
 }
