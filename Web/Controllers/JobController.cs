@@ -64,5 +64,11 @@ namespace Web.Controllers
             var jobViewModel = JobViewModelMapper.MapFrom(job);
             return Ok(jobViewModel);
         }
+
+        [HttpPut("${id}")]
+        public IActionResult UpdateJob([FromBody] AddUpdateJobViewModel job)
+        {
+            return NotFound();
+        }
     }
 }
