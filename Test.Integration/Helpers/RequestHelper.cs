@@ -11,5 +11,11 @@ namespace Test.Integration.Helpers
             var valueJson = JsonConvert.SerializeObject(value);
             return new StringContent(valueJson, Encoding.UTF8, "application/json");
         }
+
+        public static T GetObjectFromResponseContent<T>(HttpResponseMessage response)
+        {
+            var jsonString = response.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<T>(jsonString);
+        }
     }
 }
