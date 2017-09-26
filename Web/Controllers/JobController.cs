@@ -1,8 +1,5 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Core.Interfaces;
 using Web.Mappers.JobMappers;
 using Web.Models;
 
@@ -66,9 +63,24 @@ namespace Web.Controllers
         }
 
         [HttpPut("${id}")]
-        public IActionResult UpdateJob([FromBody] AddUpdateJobViewModel job)
+        public IActionResult UpdateJob(int id, [FromBody] AddUpdateJobViewModel job)
         {
-            return NotFound();
+            var foundJob = _jobRepository.GetById(id);
+            if (foundJob == null)
+            {
+                return NotFound();
+            }
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var viewModel = JobViewModelMapper.MapFrom(id, job);
+            var domainModel = JobDomainModelMapper.MapFrom(viewModel);
+            var updatedDomainModel = _jobRepository.Save(domainModel);
+
+            var updatedViewModel = JobViewModelMapper.MapFrom(updatedDomainModel);
+            return Ok(updatedViewModel);
         }
     }
 }
