@@ -24,7 +24,7 @@ namespace Test.Integration.ControllerTests.JobControllerTests
         [TestCleanup]
         public void TearDown()
         {
-            var _ = _client.DeleteAsync($"/api/job/{_jobId}").Result;
+            var _ = _client.DeleteAsync($"{ControllerRouteEnum.JOB}/{_jobId}").Result;
             _client.Dispose();
             _server.Dispose();
         }
@@ -32,14 +32,14 @@ namespace Test.Integration.ControllerTests.JobControllerTests
         [TestMethod]
         public void ReturnStatusCodeOk()
         {
-            var response = _client.GetAsync("/api/job").Result;
+            var response = _client.GetAsync($"{ControllerRouteEnum.JOB}").Result;
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         }
 
         [TestMethod]
         public void ReturnEmptyList()
         {
-            var response = _client.GetAsync("/api/job").Result;
+            var response = _client.GetAsync($"{ControllerRouteEnum.JOB}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<JobViewModel>>(response);
             Assert.AreEqual(0, serializedContent.Count);
         }
@@ -50,9 +50,9 @@ namespace Test.Integration.ControllerTests.JobControllerTests
             var model = TestObjectCreator.GetAddUpdateJobViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var postResponse = _client.PostAsync("/api/job", requestContent).Result;
+            var postResponse = _client.PostAsync($"{ControllerRouteEnum.JOB}", requestContent).Result;
             _jobId = RequestHelper.GetObjectFromResponseContent<JobViewModel>(postResponse).Id;
-            var getResponse = _client.GetAsync("/api/job").Result;
+            var getResponse = _client.GetAsync($"{ControllerRouteEnum.JOB}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<JobViewModel>>(getResponse);
 
             Assert.AreEqual(1, serializedContent.Count);

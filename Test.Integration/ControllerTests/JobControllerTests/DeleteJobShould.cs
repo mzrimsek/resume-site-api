@@ -29,7 +29,7 @@ namespace Test.Integration.ControllerTests.JobControllerTests
         [TestMethod]
         public void ReturnStatusCodeNotFound_WhenGivenInvalidId()
         {
-            var response = _client.DeleteAsync("/api/job/1").Result;
+            var response = _client.DeleteAsync($"{ControllerRouteEnum.JOB}/1").Result;
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
         }
 
@@ -38,10 +38,10 @@ namespace Test.Integration.ControllerTests.JobControllerTests
         {
             var model = TestObjectCreator.GetAddUpdateJobViewModel();
             var postRequestContent = RequestHelper.GetRequestContentFromObject(model);
-            var postResponse = _client.PostAsync("/api/job", postRequestContent).Result;
+            var postResponse = _client.PostAsync($"{ControllerRouteEnum.JOB}", postRequestContent).Result;
             var jobId = RequestHelper.GetObjectFromResponseContent<JobViewModel>(postResponse).Id;
 
-            var deleteReponse = _client.DeleteAsync($"/api/job/{jobId}").Result;
+            var deleteReponse = _client.DeleteAsync($"{ControllerRouteEnum.JOB}/{jobId}").Result;
 
             Assert.AreEqual(HttpStatusCode.NoContent, deleteReponse.StatusCode);
         }
@@ -51,11 +51,11 @@ namespace Test.Integration.ControllerTests.JobControllerTests
         {
             var model = TestObjectCreator.GetAddUpdateJobViewModel();
             var postRequestContent = RequestHelper.GetRequestContentFromObject(model);
-            var postResponse = _client.PostAsync("/api/job", postRequestContent).Result;
+            var postResponse = _client.PostAsync($"{ControllerRouteEnum.JOB}", postRequestContent).Result;
             var jobId = RequestHelper.GetObjectFromResponseContent<JobViewModel>(postResponse).Id;
-            var _ = _client.DeleteAsync($"/api/job/{jobId}").Result;
+            var _ = _client.DeleteAsync($"{ControllerRouteEnum.JOB}/{jobId}").Result;
 
-            var getResponse = _client.GetAsync($"/api/job/${jobId}").Result;
+            var getResponse = _client.GetAsync($"{ControllerRouteEnum.JOB}/${jobId}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<JobViewModel>(getResponse);
 
             Assert.AreEqual(HttpStatusCode.NotFound, getResponse.StatusCode);

@@ -23,7 +23,7 @@ namespace Test.Integration.ControllerTests.JobControllerTests
         [TestCleanup]
         public void TearDown()
         {
-            var _ = _client.DeleteAsync($"/api/job/{_jobId}").Result;
+            var _ = _client.DeleteAsync($"{ControllerRouteEnum.JOB}/{_jobId}").Result;
             _client.Dispose();
             _server.Dispose();
         }
@@ -34,7 +34,7 @@ namespace Test.Integration.ControllerTests.JobControllerTests
             var model = TestObjectCreator.GetAddUpdateJobViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PutAsync("/api/job/1", requestContent).Result;
+            var response = _client.PutAsync($"{ControllerRouteEnum.JOB}/1", requestContent).Result;
 
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
         }
@@ -44,12 +44,12 @@ namespace Test.Integration.ControllerTests.JobControllerTests
         {
             var model = TestObjectCreator.GetAddUpdateJobViewModel();
             var postRequestContent = RequestHelper.GetRequestContentFromObject(model);
-            var postResponse = _client.PostAsync("/api/job", postRequestContent).Result;
+            var postResponse = _client.PostAsync($"{ControllerRouteEnum.JOB}", postRequestContent).Result;
             _jobId = RequestHelper.GetObjectFromResponseContent<JobViewModel>(postResponse).Id;
             model = TestObjectCreator.GetAddUpdateJobViewModel(null);
             var putRequestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var putResponse = _client.PutAsync($"/api/job/{_jobId}", putRequestContent).Result;
+            var putResponse = _client.PutAsync($"{ControllerRouteEnum.JOB}/{_jobId}", putRequestContent).Result;
 
             Assert.AreEqual(HttpStatusCode.BadRequest, putResponse.StatusCode);
         }
@@ -59,11 +59,11 @@ namespace Test.Integration.ControllerTests.JobControllerTests
         {
             var model = TestObjectCreator.GetAddUpdateJobViewModel();
             var postRequestContent = RequestHelper.GetRequestContentFromObject(model);
-            var postResponse = _client.PostAsync("/api/job", postRequestContent).Result;
+            var postResponse = _client.PostAsync($"{ControllerRouteEnum.JOB}", postRequestContent).Result;
             _jobId = RequestHelper.GetObjectFromResponseContent<JobViewModel>(postResponse).Id;
             var putRequestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var putResponse = _client.PutAsync($"/api/job/{_jobId}", putRequestContent).Result;
+            var putResponse = _client.PutAsync($"{ControllerRouteEnum.JOB}/{_jobId}", putRequestContent).Result;
 
             Assert.AreEqual(HttpStatusCode.OK, putResponse.StatusCode);
         }
@@ -73,12 +73,12 @@ namespace Test.Integration.ControllerTests.JobControllerTests
         {
             var model = TestObjectCreator.GetAddUpdateJobViewModel();
             var postRequestContent = RequestHelper.GetRequestContentFromObject(model);
-            var postResponse = _client.PostAsync("/api/job", postRequestContent).Result;
+            var postResponse = _client.PostAsync($"{ControllerRouteEnum.JOB}", postRequestContent).Result;
             _jobId = RequestHelper.GetObjectFromResponseContent<JobViewModel>(postResponse).Id;
             model = TestObjectCreator.GetAddUpdateJobViewModel("A Different Company");
             var putRequestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var putResponse = _client.PutAsync($"/api/job/{_jobId}", putRequestContent).Result;
+            var putResponse = _client.PutAsync($"{ControllerRouteEnum.JOB}/{_jobId}", putRequestContent).Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<JobViewModel>(putResponse);
 
             Assert.AreEqual(model.Name, serializedContent.Name);
