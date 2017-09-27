@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Http;
 using Test.Integration.TestHelpers;
 using Web.Models.JobModels;
+using Web.Models.JobProjectModels;
 
 namespace Test.Integration.ControllerTests.JobControllerTests
 {
@@ -63,7 +64,20 @@ namespace Test.Integration.ControllerTests.JobControllerTests
         [TestMethod]
         public void DeleteJobProjectsForJob()
         {
-            Assert.Fail();
+            var jobModel = TestObjectCreator.GetAddUpdateJobViewModel();
+            var requestContent = RequestHelper.GetRequestContentFromObject(jobModel);
+            var jobPostResponse = _client.PostAsync($"{ControllerRouteEnum.JOB}", requestContent).Result;
+            var jobId = RequestHelper.GetObjectFromResponseContent<JobViewModel>(jobPostResponse).Id;
+
+            var jobProjectModel = TestObjectCreator.GetAddUpdateJobProjectViewModel(jobId);
+            requestContent = RequestHelper.GetRequestContentFromObject(jobProjectModel);
+            var jobProjectPostResponse = _client.PostAsync($"{ControllerRouteEnum.JOB_PROJECT}", requestContent).Result;
+            var jobProjectId = RequestHelper.GetObjectFromResponseContent<JobProjectViewModel>(jobProjectPostResponse);
+
+            var getResponse = _client.GetAsync($"{ControllerRouteEnum.JOB_PROJECT}/{jobProjectId}").Result;
+            var serializedContent = RequestHelper.GetObjectFromResponseContent<JobProjectViewModel>(getResponse);
+
+            Assert.AreEqual(HttpStatusCode.NotFound, getResponse.StatusCode);
         }
     }
 }
