@@ -59,5 +59,11 @@ namespace Test.Integration.ControllerTests.JobControllerTests
 
             Assert.AreEqual(HttpStatusCode.NotFound, getResponse.StatusCode);
         }
+
+        [TestMethod]
+        public void DeleteJobProjectsForJob()
+        {
+            Assert.Fail();
+        }
     }
 }
