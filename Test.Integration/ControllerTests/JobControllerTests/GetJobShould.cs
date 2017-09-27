@@ -59,12 +59,8 @@ namespace Test.Integration.ControllerTests.JobControllerTests
             var getResponse = _client.GetAsync($"{ControllerRouteEnum.JOB}/{_jobId}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<JobViewModel>(getResponse);
 
-            Assert.AreEqual(model.Name, serializedContent.Name);
-            Assert.AreEqual(model.City, serializedContent.City);
-            Assert.AreEqual(model.State, serializedContent.State);
-            Assert.AreEqual(model.Title, serializedContent.Title);
-            Assert.AreEqual(model.StartDate, serializedContent.StartDate);
-            Assert.AreEqual(model.EndDate, serializedContent.EndDate);
+            var isCorrectViewModel = AssertHelper.AreJobViewModelsEqual(model, serializedContent);
+            Assert.IsTrue(isCorrectViewModel);
         }
     }
 }
