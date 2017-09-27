@@ -56,7 +56,6 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
 
             var _ = _client.DeleteAsync($"/api/school/{schoolId}").Result;
             var getResponse = _client.GetAsync($"/api/school/${schoolId}").Result;
-            var serializedContent = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(getResponse);
 
             Assert.AreEqual(HttpStatusCode.NotFound, getResponse.StatusCode);
         }

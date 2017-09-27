@@ -56,7 +56,6 @@ namespace Test.Integration.ControllerTests.JobControllerTests
 
             var _ = _client.DeleteAsync($"{ControllerRouteEnum.JOB}/{jobId}").Result;
             var getResponse = _client.GetAsync($"{ControllerRouteEnum.JOB}/${jobId}").Result;
-            var serializedContent = RequestHelper.GetObjectFromResponseContent<JobViewModel>(getResponse);
 
             Assert.AreEqual(HttpStatusCode.NotFound, getResponse.StatusCode);
         }
