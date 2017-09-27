@@ -1,4 +1,5 @@
 using Web.Models.JobModels;
+using Web.Models.JobProjectModels;
 using Web.Models.SchoolModels;
 
 namespace Test.Integration.TestHelpers
@@ -40,6 +41,21 @@ namespace Test.Integration.TestHelpers
         public static AddUpdateSchoolViewModel GetAddUpdateSchoolViewModel()
         {
             return GetAddUpdateSchoolViewModel("Kent State University");
+        }
+
+        public static AddUpdateJobProjectViewModel GetAddUpdateJobProjectViewModel(int jobId, string name)
+        {
+            return new AddUpdateJobProjectViewModel()
+            {
+                JobId = jobId,
+                Name = name,
+                Description = "Some project description"
+            };
+        }
+
+        public static AddUpdateJobProjectViewModel GetAddUpdateJobProjectViewModel(int jobId)
+        {
+            return GetAddUpdateJobProjectViewModel(jobId, "Some project name");
         }
     }
 }
