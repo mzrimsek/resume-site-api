@@ -41,7 +41,7 @@ namespace Integration.EntityFramework.Repositories
         public void Delete(int id)
         {
             var schoolToDelete = _databaseContext.Schools.SingleOrDefault(x => x.Id == id);
-            if (schoolToDelete == null)
+            if (schoolToDelete != null)
             {
                 _databaseContext.Remove(schoolToDelete);
                 _databaseContext.SaveChanges();
