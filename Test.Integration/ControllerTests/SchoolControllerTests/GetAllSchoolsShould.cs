@@ -49,9 +49,9 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
         {
             var model = TestObjectCreator.GetAddUpdateSchoolViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
-
             var postResponse = _client.PostAsync($"{ControllerRouteEnum.SCHOOL}", requestContent).Result;
             _schoolId = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(postResponse).Id;
+
             var getResponse = _client.GetAsync($"{ControllerRouteEnum.SCHOOL}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<SchoolViewModel>>(getResponse);
 

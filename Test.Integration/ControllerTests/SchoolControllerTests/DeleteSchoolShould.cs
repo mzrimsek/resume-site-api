@@ -53,8 +53,8 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
             var postRequestContent = RequestHelper.GetRequestContentFromObject(model);
             var postResponse = _client.PostAsync("/api/school", postRequestContent).Result;
             var schoolId = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(postResponse).Id;
-            var _ = _client.DeleteAsync($"/api/school/{schoolId}").Result;
 
+            var _ = _client.DeleteAsync($"/api/school/{schoolId}").Result;
             var getResponse = _client.GetAsync($"/api/school/${schoolId}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(getResponse);
 

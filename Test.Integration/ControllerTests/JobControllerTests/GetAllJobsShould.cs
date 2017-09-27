@@ -49,9 +49,9 @@ namespace Test.Integration.ControllerTests.JobControllerTests
         {
             var model = TestObjectCreator.GetAddUpdateJobViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
-
             var postResponse = _client.PostAsync($"{ControllerRouteEnum.JOB}", requestContent).Result;
             _jobId = RequestHelper.GetObjectFromResponseContent<JobViewModel>(postResponse).Id;
+
             var getResponse = _client.GetAsync($"{ControllerRouteEnum.JOB}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<JobViewModel>>(getResponse);
 
