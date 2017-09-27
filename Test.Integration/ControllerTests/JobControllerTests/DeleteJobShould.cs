@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Net;
 using System.Net.Http;
 using Test.Integration.TestHelpers;
+using Web.Models.JobModels;
 
 namespace Test.Integration.ControllerTests.JobControllerTests
 {
@@ -30,6 +31,34 @@ namespace Test.Integration.ControllerTests.JobControllerTests
         {
             var response = _client.DeleteAsync("/api/job/1").Result;
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+        }
+
+        [TestMethod]
+        public void ReturnStatusCodeNoContent_WhenGivenValidId()
+        {
+            var model = TestObjectCreator.GetAddUpdateJobViewModel();
+            var postRequestContent = RequestHelper.GetRequestContentFromObject(model);
+            var postResponse = _client.PostAsync("/api/job", postRequestContent).Result;
+            var jobId = RequestHelper.GetObjectFromResponseContent<JobViewModel>(postResponse).Id;
+
+            var deleteReponse = _client.DeleteAsync($"/api/job/{jobId}").Result;
+
+            Assert.AreEqual(HttpStatusCode.NoContent, deleteReponse.StatusCode);
+        }
+
+        [TestMethod]
+        public void DeleteJob()
+        {
+            var model = TestObjectCreator.GetAddUpdateJobViewModel();
+            var postRequestContent = RequestHelper.GetRequestContentFromObject(model);
+            var postResponse = _client.PostAsync("/api/job", postRequestContent).Result;
+            var jobId = RequestHelper.GetObjectFromResponseContent<JobViewModel>(postResponse).Id;
+            var _ = _client.DeleteAsync($"/api/job/{jobId}").Result;
+
+            var getResponse = _client.GetAsync($"/api/job/${jobId}").Result;
+            var serializedContent = RequestHelper.GetObjectFromResponseContent<JobViewModel>(getResponse);
+
+            Assert.AreEqual(HttpStatusCode.NotFound, getResponse.StatusCode);
         }
     }
 }
