@@ -23,7 +23,7 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
         [TestCleanup]
         public void TearDown()
         {
-            var _ = _client.DeleteAsync($"/api/school/{_schoolId}").Result;
+            var _ = _client.DeleteAsync($"{ControllerRouteEnum.SCHOOL}/{_schoolId}").Result;
             _client.Dispose();
             _server.Dispose();
         }
@@ -34,7 +34,7 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
             var model = TestObjectCreator.GetAddUpdateSchoolViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync("/api/school", requestContent).Result;
+            var response = _client.PostAsync($"{ControllerRouteEnum.SCHOOL}", requestContent).Result;
             _schoolId = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(response).Id;
 
             Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
@@ -46,7 +46,7 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
             var model = TestObjectCreator.GetAddUpdateSchoolViewModel(null);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync("/api/school", requestContent).Result;
+            var response = _client.PostAsync($"{ControllerRouteEnum.SCHOOL}", requestContent).Result;
 
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
         }
@@ -57,7 +57,7 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
             var model = TestObjectCreator.GetAddUpdateSchoolViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync("/api/school", requestContent).Result;
+            var response = _client.PostAsync($"{ControllerRouteEnum.SCHOOL}", requestContent).Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(response);
             _schoolId = serializedContent.Id;
 
