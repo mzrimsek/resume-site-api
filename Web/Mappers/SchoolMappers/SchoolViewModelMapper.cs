@@ -30,18 +30,18 @@ namespace Web.Mappers.SchoolMappers
             }
         }
 
-        public static SchoolViewModel MapFrom(int id, AddUpdateSchoolViewModel addUpdateSchoolViewModel)
+        public static SchoolViewModel MapFrom(int id, AddUpdateSchoolViewModel viewModel)
         {
             return new SchoolViewModel()
             {
                 Id = id,
-                Name = addUpdateSchoolViewModel.Name,
-                City = addUpdateSchoolViewModel.City,
-                State = addUpdateSchoolViewModel.State,
-                Major = addUpdateSchoolViewModel.Major,
-                Degree = addUpdateSchoolViewModel.Degree,
-                StartDate = addUpdateSchoolViewModel.StartDate,
-                EndDate = addUpdateSchoolViewModel.EndDate
+                Name = viewModel.Name,
+                City = viewModel.City,
+                State = viewModel.State,
+                Major = viewModel.Major,
+                Degree = viewModel.Degree,
+                StartDate = viewModel.StartDate,
+                EndDate = viewModel.EndDate
             };
         }
     }

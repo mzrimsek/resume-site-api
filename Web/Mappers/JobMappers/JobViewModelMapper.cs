@@ -29,17 +29,17 @@ namespace Web.Mappers.JobMappers
             }
         }
 
-        public static JobViewModel MapFrom(int id, AddUpdateJobViewModel addUpdateJobViewModel)
+        public static JobViewModel MapFrom(int id, AddUpdateJobViewModel viewModel)
         {
             return new JobViewModel()
             {
                 Id = id,
-                Name = addUpdateJobViewModel.Name,
-                City = addUpdateJobViewModel.City,
-                State = addUpdateJobViewModel.State,
-                Title = addUpdateJobViewModel.Title,
-                StartDate = addUpdateJobViewModel.StartDate,
-                EndDate = addUpdateJobViewModel.EndDate
+                Name = viewModel.Name,
+                City = viewModel.City,
+                State = viewModel.State,
+                Title = viewModel.Title,
+                StartDate = viewModel.StartDate,
+                EndDate = viewModel.EndDate
             };
         }
     }
