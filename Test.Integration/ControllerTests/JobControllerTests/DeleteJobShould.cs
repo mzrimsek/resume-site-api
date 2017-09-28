@@ -74,6 +74,7 @@ namespace Test.Integration.ControllerTests.JobControllerTests
             var jobProjectPostResponse = _client.PostAsync($"{ControllerRouteEnum.JOB_PROJECT}", requestContent).Result;
             var jobProjectId = RequestHelper.GetObjectFromResponseContent<JobProjectViewModel>(jobProjectPostResponse);
 
+            var _ = _client.DeleteAsync($"{ControllerRouteEnum.JOB}/{jobId}").Result;
             var getResponse = _client.GetAsync($"{ControllerRouteEnum.JOB_PROJECT}/{jobProjectId}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<JobProjectViewModel>(getResponse);
 
