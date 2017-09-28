@@ -75,6 +75,7 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
             var postRequestContent = RequestHelper.GetRequestContentFromObject(model);
             var postResponse = _client.PostAsync($"{ControllerRouteEnum.SCHOOL}", postRequestContent).Result;
             _schoolId = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(postResponse).Id;
+
             model = TestObjectCreator.GetAddUpdateSchoolViewModel("A Different School");
             var putRequestContent = RequestHelper.GetRequestContentFromObject(model);
 
