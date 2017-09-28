@@ -1,4 +1,5 @@
 using Web.Models.JobModels;
+using Web.Models.JobProjectModels;
 using Web.Models.SchoolModels;
 
 namespace Test.Integration.TestHelpers
@@ -24,6 +25,13 @@ namespace Test.Integration.TestHelpers
                 && expected.Degree == actual.Degree
                 && expected.StartDate == actual.StartDate
                 && expected.EndDate == actual.EndDate;
+        }
+
+        public static bool AreJobProjectViewModelsEqual(AddUpdateJobProjectViewModel expected, JobProjectViewModel actual)
+        {
+            return expected.JobId == actual.JobId
+                && expected.Name == actual.Name
+                && expected.Description == actual.Description;
         }
     }
 }
