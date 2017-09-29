@@ -42,12 +42,9 @@ namespace Test.Integration.ControllerTests.JobProjectControllerTests
         public void ReturnStatusCodeNoContent_WhenGivenValidId()
         {
             _jobId = _testObjectCreator.GetIdForNewJob();
-            var model = TestObjectGetter.GetAddUpdateJobProjectViewModel(_jobId);
-            var requestContent = RequestHelper.GetRequestContentFromObject(model);
-            var response = _client.PostAsync($"{ControllerRouteEnum.JOB_PROJECT}", requestContent).Result;
-            var jobProjectId = RequestHelper.GetObjectFromResponseContent<JobProjectViewModel>(response).Id;
+            var jobProjectId = _testObjectCreator.GetIdFromNewJobProject(_jobId);
 
-            response = _client.DeleteAsync($"{ControllerRouteEnum.JOB_PROJECT}/{jobProjectId}").Result;
+            var response = _client.DeleteAsync($"{ControllerRouteEnum.JOB_PROJECT}/{jobProjectId}").Result;
 
             Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
         }
@@ -56,13 +53,10 @@ namespace Test.Integration.ControllerTests.JobProjectControllerTests
         public void DeleteJobProject()
         {
             _jobId = _testObjectCreator.GetIdForNewJob();
-            var model = TestObjectGetter.GetAddUpdateJobProjectViewModel(_jobId);
-            var requestContent = RequestHelper.GetRequestContentFromObject(model);
-            var response = _client.PostAsync($"{ControllerRouteEnum.JOB_PROJECT}", requestContent).Result;
-            var jobProjectId = RequestHelper.GetObjectFromResponseContent<JobProjectViewModel>(response).Id;
+            var jobProjectId = _testObjectCreator.GetIdFromNewJobProject(_jobId);
 
             var _ = _client.DeleteAsync($"{ControllerRouteEnum.JOB_PROJECT}/{jobProjectId}").Result;
-            response = _client.GetAsync($"{ControllerRouteEnum.JOB_PROJECT}/{jobProjectId}").Result;
+            var response = _client.GetAsync($"{ControllerRouteEnum.JOB_PROJECT}/{jobProjectId}").Result;
 
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
         }

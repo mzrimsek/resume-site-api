@@ -51,14 +51,13 @@ namespace Test.Integration.ControllerTests.JobProjectControllerTests
         public void ReturnOneJobProject_WhenOneJobProjectIsCreated()
         {
             _jobId = _testObjectCreator.GetIdForNewJob();
-            var model = TestObjectGetter.GetAddUpdateJobProjectViewModel(_jobId);
-            var requestContent = RequestHelper.GetRequestContentFromObject(model);
-            var _ = _client.PostAsync($"{ControllerRouteEnum.JOB_PROJECT}", requestContent).Result;
+            var jobProjectId = _testObjectCreator.GetIdFromNewJobProject(_jobId);
 
             var response = _client.GetAsync($"{ControllerRouteEnum.JOB_PROJECT}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<JobProjectViewModel>>(response);
 
             Assert.AreEqual(1, serializedContent.Count);
+            Assert.AreEqual(jobProjectId, serializedContent[0].Id);
         }
     }
 }
