@@ -51,7 +51,6 @@ namespace Integration.EntityFramework.Repositories
                 _databaseContext.Update(existingModel);
             }
 
-            _databaseContext.Add(databaseModel);
             _databaseContext.SaveChanges();
 
             return JobProjectDomainModelMapper.MapFrom(databaseModel);
