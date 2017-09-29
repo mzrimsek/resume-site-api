@@ -1,6 +1,7 @@
 using System.Net.Http;
 using Web.Models.JobModels;
 using Web.Models.JobProjectModels;
+using Web.Models.SchoolModels;
 
 namespace Test.Integration.TestHelpers
 {
@@ -26,6 +27,14 @@ namespace Test.Integration.TestHelpers
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
             var response = _client.PostAsync($"{ControllerRouteEnum.JOB_PROJECT}", requestContent).Result;
             return RequestHelper.GetObjectFromResponseContent<JobProjectViewModel>(response).Id;
+        }
+
+        public int GetIdFromNewSchool()
+        {
+            var model = TestObjectGetter.GetAddUpdateSchoolViewModel();
+            var requestContent = RequestHelper.GetRequestContentFromObject(model);
+            var response = _client.PostAsync($"{ControllerRouteEnum.SCHOOL}", requestContent).Result;
+            return RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(response).Id;
         }
     }
 }
