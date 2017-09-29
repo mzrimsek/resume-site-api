@@ -80,7 +80,7 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
             var putRequestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var _ = _client.PutAsync($"{ControllerRouteEnum.SCHOOL}/{_schoolId}", putRequestContent).Result;
-            var getResponse = _client.GetAsync($"/api/school/${_schoolId}").Result;
+            var getResponse = _client.GetAsync($"{ControllerRouteEnum.SCHOOL}/{_schoolId}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(getResponse);
 
             var isCorrectViewModel = AssertHelper.AreSchoolViewModelsEqual(model, serializedContent);

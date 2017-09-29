@@ -56,7 +56,7 @@ namespace Test.Integration.ControllerTests.JobControllerTests
             var jobId = RequestHelper.GetObjectFromResponseContent<JobViewModel>(postResponse).Id;
 
             var _ = _client.DeleteAsync($"{ControllerRouteEnum.JOB}/{jobId}").Result;
-            var getResponse = _client.GetAsync($"{ControllerRouteEnum.JOB}/${jobId}").Result;
+            var getResponse = _client.GetAsync($"{ControllerRouteEnum.JOB}/{jobId}").Result;
 
             Assert.AreEqual(HttpStatusCode.NotFound, getResponse.StatusCode);
         }

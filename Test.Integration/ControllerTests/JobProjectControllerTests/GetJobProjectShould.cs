@@ -50,7 +50,7 @@ namespace Test.Integration.ControllerTests.JobProjectControllerTests
             var jobProjectPostReponse = _client.PostAsync($"{ControllerRouteEnum.JOB_PROJECT}", requestContent).Result;
             var jobProjectId = RequestHelper.GetObjectFromResponseContent<JobProjectViewModel>(jobProjectPostReponse).Id;
 
-            var getResponse = _client.GetAsync($"{ControllerRouteEnum.JOB_PROJECT}/${jobProjectId}").Result;
+            var getResponse = _client.GetAsync($"{ControllerRouteEnum.JOB_PROJECT}/{jobProjectId}").Result;
 
             Assert.AreEqual(HttpStatusCode.OK, getResponse.StatusCode);
         }
@@ -68,7 +68,7 @@ namespace Test.Integration.ControllerTests.JobProjectControllerTests
             var jobProjectPostReponse = _client.PostAsync($"{ControllerRouteEnum.JOB_PROJECT}", requestContent).Result;
             var jobProjectId = RequestHelper.GetObjectFromResponseContent<JobProjectViewModel>(jobProjectPostReponse).Id;
 
-            var getResponse = _client.GetAsync($"{ControllerRouteEnum.JOB_PROJECT}/${jobProjectId}").Result;
+            var getResponse = _client.GetAsync($"{ControllerRouteEnum.JOB_PROJECT}/{jobProjectId}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<JobProjectViewModel>(getResponse);
 
             var isCorrectViewModel = AssertHelper.AreJobProjectViewModelsEqual(jobProjectModel, serializedContent);
