@@ -73,7 +73,7 @@ namespace Test.Integration.ControllerTests.JobProjectControllerTests
         }
 
         [TestMethod]
-        public void ReturnStatusCodeNotFound_WhenGivenValidModel_WithNonExistentJobId()
+        public void ReturnStatusCodeNotFound_WhenGivenValidModel_WithInvalidJobId()
         {
             var model = TestObjectCreator.GetAddUpdateJobProjectViewModel(1);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
