@@ -64,5 +64,20 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
             var isCorrectViewModel = AssertHelper.AreSchoolViewModelsEqual(model, serializedContent);
             Assert.IsTrue(isCorrectViewModel);
         }
+
+        [TestMethod]
+        public void SaveCorrectViewModel()
+        {
+            var model = TestObjectCreator.GetAddUpdateSchoolViewModel();
+            var requestContent = RequestHelper.GetRequestContentFromObject(model);
+
+            var postResponse = _client.PostAsync($"{ControllerRouteEnum.SCHOOL}", requestContent).Result;
+            _schoolId = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(postResponse).Id;
+            var getResponse = _client.GetAsync($"{ControllerRouteEnum.SCHOOL}/{_schoolId}").Result;
+            var serializedContent = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(getResponse);
+
+            var isCorrectViewModel = AssertHelper.AreSchoolViewModelsEqual(model, serializedContent);
+            Assert.IsTrue(isCorrectViewModel);
+        }
     }
 }
