@@ -13,12 +13,14 @@ namespace Test.Integration.ControllerTests.JobControllerTests
     {
         private TestServer _server;
         private HttpClient _client;
+        private TestObjectCreator _testObjectCreator;
         private int _jobId;
 
         [TestInitialize]
         public void SetUp()
         {
             (_server, _client) = new TestSetupHelper().GetTestServerAndClient();
+            _testObjectCreator = new TestObjectCreator(_client);
         }
 
         [TestCleanup]
@@ -47,15 +49,13 @@ namespace Test.Integration.ControllerTests.JobControllerTests
         [TestMethod]
         public void ReturnOneJob_WhenOneJobIsCreated()
         {
-            var model = TestObjectGetter.GetAddUpdateJobViewModel();
-            var requestContent = RequestHelper.GetRequestContentFromObject(model);
-            var postResponse = _client.PostAsync($"{ControllerRouteEnum.JOB}", requestContent).Result;
-            _jobId = RequestHelper.GetObjectFromResponseContent<JobViewModel>(postResponse).Id;
+            _jobId = _testObjectCreator.GetIdForNewJob();
 
-            var getResponse = _client.GetAsync($"{ControllerRouteEnum.JOB}").Result;
-            var serializedContent = RequestHelper.GetObjectFromResponseContent<List<JobViewModel>>(getResponse);
+            var response = _client.GetAsync($"{ControllerRouteEnum.JOB}").Result;
+            var serializedContent = RequestHelper.GetObjectFromResponseContent<List<JobViewModel>>(response);
 
             Assert.AreEqual(1, serializedContent.Count);
+            Assert.AreEqual(_jobId, serializedContent[0].Id);
         }
     }
 }

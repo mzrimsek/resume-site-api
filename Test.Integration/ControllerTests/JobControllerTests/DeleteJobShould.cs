@@ -13,11 +13,13 @@ namespace Test.Integration.ControllerTests.JobControllerTests
     {
         private TestServer _server;
         private HttpClient _client;
+        private TestObjectCreator _testObjectCreator;
 
         [TestInitialize]
         public void SetUp()
         {
             (_server, _client) = new TestSetupHelper().GetTestServerAndClient();
+            _testObjectCreator = new TestObjectCreator(_client);
         }
 
         [TestCleanup]
@@ -37,48 +39,32 @@ namespace Test.Integration.ControllerTests.JobControllerTests
         [TestMethod]
         public void ReturnStatusCodeNoContent_WhenGivenValidId()
         {
-            var model = TestObjectGetter.GetAddUpdateJobViewModel();
-            var postRequestContent = RequestHelper.GetRequestContentFromObject(model);
-            var postResponse = _client.PostAsync($"{ControllerRouteEnum.JOB}", postRequestContent).Result;
-            var jobId = RequestHelper.GetObjectFromResponseContent<JobViewModel>(postResponse).Id;
-
+            var jobId = _testObjectCreator.GetIdForNewJob();
             var deleteReponse = _client.DeleteAsync($"{ControllerRouteEnum.JOB}/{jobId}").Result;
-
             Assert.AreEqual(HttpStatusCode.NoContent, deleteReponse.StatusCode);
         }
 
         [TestMethod]
         public void DeleteJob()
         {
-            var model = TestObjectGetter.GetAddUpdateJobViewModel();
-            var postRequestContent = RequestHelper.GetRequestContentFromObject(model);
-            var postResponse = _client.PostAsync($"{ControllerRouteEnum.JOB}", postRequestContent).Result;
-            var jobId = RequestHelper.GetObjectFromResponseContent<JobViewModel>(postResponse).Id;
+            var jobId = _testObjectCreator.GetIdForNewJob();
 
             var _ = _client.DeleteAsync($"{ControllerRouteEnum.JOB}/{jobId}").Result;
-            var getResponse = _client.GetAsync($"{ControllerRouteEnum.JOB}/{jobId}").Result;
+            var response = _client.GetAsync($"{ControllerRouteEnum.JOB}/{jobId}").Result;
 
-            Assert.AreEqual(HttpStatusCode.NotFound, getResponse.StatusCode);
+            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
         }
 
         [TestMethod]
         public void DeleteJobProjectsForJob()
         {
-            var jobModel = TestObjectGetter.GetAddUpdateJobViewModel();
-            var requestContent = RequestHelper.GetRequestContentFromObject(jobModel);
-            var jobPostResponse = _client.PostAsync($"{ControllerRouteEnum.JOB}", requestContent).Result;
-            var jobId = RequestHelper.GetObjectFromResponseContent<JobViewModel>(jobPostResponse).Id;
-
-            var jobProjectModel = TestObjectGetter.GetAddUpdateJobProjectViewModel(jobId);
-            requestContent = RequestHelper.GetRequestContentFromObject(jobProjectModel);
-            var jobProjectPostResponse = _client.PostAsync($"{ControllerRouteEnum.JOB_PROJECT}", requestContent).Result;
-            var jobProjectId = RequestHelper.GetObjectFromResponseContent<JobProjectViewModel>(jobProjectPostResponse).Id;
+            var jobId = _testObjectCreator.GetIdForNewJob();
+            var jobProjectId = _testObjectCreator.GetIdFromNewJobProject(jobId);
 
             var _ = _client.DeleteAsync($"{ControllerRouteEnum.JOB}/{jobId}").Result;
-            var getResponse = _client.GetAsync($"{ControllerRouteEnum.JOB_PROJECT}/{jobProjectId}").Result;
-            var serializedContent = RequestHelper.GetObjectFromResponseContent<JobProjectViewModel>(getResponse);
+            var response = _client.GetAsync($"{ControllerRouteEnum.JOB_PROJECT}/{jobProjectId}").Result;
 
-            Assert.AreEqual(HttpStatusCode.NotFound, getResponse.StatusCode);
+            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
         }
     }
 }

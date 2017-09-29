@@ -12,12 +12,14 @@ namespace Test.Integration.ControllerTests.JobControllerTests
     {
         private TestServer _server;
         private HttpClient _client;
+        private TestObjectCreator _testObjectCreator;
         private int _jobId;
 
         [TestInitialize]
         public void SetUp()
         {
             (_server, _client) = new TestSetupHelper().GetTestServerAndClient();
+            _testObjectCreator = new TestObjectCreator(_client);
         }
 
         [TestCleanup]
@@ -31,7 +33,7 @@ namespace Test.Integration.ControllerTests.JobControllerTests
         [TestMethod]
         public void ReturnStatusCodeNotFound_WhenGivenInvalidId()
         {
-            var model = TestObjectGetter.GetAddUpdateJobViewModel();
+            var model = TestObjectGetter.GetAddUpdateJobViewModel("A Different Company");
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PutAsync($"{ControllerRouteEnum.JOB}/1", requestContent).Result;
@@ -42,48 +44,36 @@ namespace Test.Integration.ControllerTests.JobControllerTests
         [TestMethod]
         public void ReturnStatusCodeBadRequest_WhenGivenInvalidModel()
         {
-            var model = TestObjectGetter.GetAddUpdateJobViewModel();
-            var postRequestContent = RequestHelper.GetRequestContentFromObject(model);
-            var postResponse = _client.PostAsync($"{ControllerRouteEnum.JOB}", postRequestContent).Result;
-            _jobId = RequestHelper.GetObjectFromResponseContent<JobViewModel>(postResponse).Id;
+            _jobId = _testObjectCreator.GetIdForNewJob();
+            var model = TestObjectGetter.GetAddUpdateJobViewModel(null);
+            var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            model = TestObjectGetter.GetAddUpdateJobViewModel(null);
-            var putRequestContent = RequestHelper.GetRequestContentFromObject(model);
+            var response = _client.PutAsync($"{ControllerRouteEnum.JOB}/{_jobId}", requestContent).Result;
 
-            var putResponse = _client.PutAsync($"{ControllerRouteEnum.JOB}/{_jobId}", putRequestContent).Result;
-
-            Assert.AreEqual(HttpStatusCode.BadRequest, putResponse.StatusCode);
+            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
         }
 
         [TestMethod]
         public void ReturnStatusCodeOk_WhenGivenValidIdAndValidModel()
         {
-            var model = TestObjectGetter.GetAddUpdateJobViewModel();
-            var postRequestContent = RequestHelper.GetRequestContentFromObject(model);
-            var postResponse = _client.PostAsync($"{ControllerRouteEnum.JOB}", postRequestContent).Result;
-            _jobId = RequestHelper.GetObjectFromResponseContent<JobViewModel>(postResponse).Id;
+            _jobId = _testObjectCreator.GetIdForNewJob();
+            var model = TestObjectGetter.GetAddUpdateJobViewModel("A Different Company");
+            var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            model = TestObjectGetter.GetAddUpdateJobViewModel("A Different Company");
-            var putRequestContent = RequestHelper.GetRequestContentFromObject(model);
+            var response = _client.PutAsync($"{ControllerRouteEnum.JOB}/{_jobId}", requestContent).Result;
 
-            var putResponse = _client.PutAsync($"{ControllerRouteEnum.JOB}/{_jobId}", putRequestContent).Result;
-
-            Assert.AreEqual(HttpStatusCode.OK, putResponse.StatusCode);
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         }
 
         [TestMethod]
         public void ReturnUpdatedViewModel()
         {
-            var model = TestObjectGetter.GetAddUpdateJobViewModel();
-            var postRequestContent = RequestHelper.GetRequestContentFromObject(model);
-            var postResponse = _client.PostAsync($"{ControllerRouteEnum.JOB}", postRequestContent).Result;
-            _jobId = RequestHelper.GetObjectFromResponseContent<JobViewModel>(postResponse).Id;
+            _jobId = _testObjectCreator.GetIdForNewJob();
+            var model = TestObjectGetter.GetAddUpdateJobViewModel("A Different Company");
+            var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            model = TestObjectGetter.GetAddUpdateJobViewModel("A Different Company");
-            var putRequestContent = RequestHelper.GetRequestContentFromObject(model);
-
-            var putResponse = _client.PutAsync($"{ControllerRouteEnum.JOB}/{_jobId}", putRequestContent).Result;
-            var serializedContent = RequestHelper.GetObjectFromResponseContent<JobViewModel>(putResponse);
+            var response = _client.PutAsync($"{ControllerRouteEnum.JOB}/{_jobId}", requestContent).Result;
+            var serializedContent = RequestHelper.GetObjectFromResponseContent<JobViewModel>(response);
 
             var isCorrectViewModel = AssertHelper.AreJobViewModelsEqual(model, serializedContent);
             Assert.IsTrue(isCorrectViewModel);
@@ -92,17 +82,13 @@ namespace Test.Integration.ControllerTests.JobControllerTests
         [TestMethod]
         public void SaveUpdatedViewModel()
         {
-            var model = TestObjectGetter.GetAddUpdateJobViewModel();
-            var postRequestContent = RequestHelper.GetRequestContentFromObject(model);
-            var postResponse = _client.PostAsync($"{ControllerRouteEnum.JOB}", postRequestContent).Result;
-            _jobId = RequestHelper.GetObjectFromResponseContent<JobViewModel>(postResponse).Id;
+            _jobId = _testObjectCreator.GetIdForNewJob();
+            var model = TestObjectGetter.GetAddUpdateJobViewModel("A Different Company");
+            var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            model = TestObjectGetter.GetAddUpdateJobViewModel("A Different Company");
-            var putRequestContent = RequestHelper.GetRequestContentFromObject(model);
-
-            var _ = _client.PutAsync($"{ControllerRouteEnum.JOB}/{_jobId}", putRequestContent).Result;
-            var getResponse = _client.GetAsync($"{ControllerRouteEnum.JOB}/{_jobId}").Result;
-            var serializedContent = RequestHelper.GetObjectFromResponseContent<JobViewModel>(getResponse);
+            var _ = _client.PutAsync($"{ControllerRouteEnum.JOB}/{_jobId}", requestContent).Result;
+            var response = _client.GetAsync($"{ControllerRouteEnum.JOB}/{_jobId}").Result;
+            var serializedContent = RequestHelper.GetObjectFromResponseContent<JobViewModel>(response);
 
             var isCorrectViewModel = AssertHelper.AreJobViewModelsEqual(model, serializedContent);
             Assert.IsTrue(isCorrectViewModel);
