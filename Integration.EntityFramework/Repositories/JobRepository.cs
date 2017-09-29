@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Interfaces;
@@ -56,6 +57,7 @@ namespace Integration.EntityFramework.Repositories
             var existingModel = _databaseContext.Jobs.SingleOrDefault(x => x.Id == databaseModel.Id);
             existingModel = databaseModel;
 
+            _databaseContext.Entry(existingModel).State = EntityState.Modified;
             _databaseContext.SaveChanges();
 
             return JobDomainModelMapper.MapFrom(existingModel);
