@@ -46,6 +46,7 @@ namespace Test.Integration.ControllerTests.JobControllerTests
             var postRequestContent = RequestHelper.GetRequestContentFromObject(model);
             var postResponse = _client.PostAsync($"{ControllerRouteEnum.JOB}", postRequestContent).Result;
             _jobId = RequestHelper.GetObjectFromResponseContent<JobViewModel>(postResponse).Id;
+
             model = TestObjectCreator.GetAddUpdateJobViewModel(null);
             var putRequestContent = RequestHelper.GetRequestContentFromObject(model);
 
@@ -61,6 +62,8 @@ namespace Test.Integration.ControllerTests.JobControllerTests
             var postRequestContent = RequestHelper.GetRequestContentFromObject(model);
             var postResponse = _client.PostAsync($"{ControllerRouteEnum.JOB}", postRequestContent).Result;
             _jobId = RequestHelper.GetObjectFromResponseContent<JobViewModel>(postResponse).Id;
+
+            model = TestObjectCreator.GetAddUpdateJobViewModel("A Different Company");
             var putRequestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var putResponse = _client.PutAsync($"{ControllerRouteEnum.JOB}/{_jobId}", putRequestContent).Result;
