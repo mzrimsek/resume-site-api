@@ -37,6 +37,19 @@ namespace Integration.EntityFramework.Repositories
         public JobProjectDomainModel Save(JobProjectDomainModel jobProject)
         {
             var databaseModel = JobProjectDatabaseModelMapper.MapFrom(jobProject);
+            var existingModel = _databaseContext.JobProjects.SingleOrDefault(x => x.Id == databaseModel.Id);
+            if (existingModel == null)
+            {
+                _databaseContext.Add(databaseModel);
+            }
+            else
+            {
+                existingModel.JobId = databaseModel.JobId;
+                existingModel.Name = databaseModel.Name;
+                existingModel.Description = databaseModel.Description;
+
+                _databaseContext.Update(existingModel);
+            }
 
             _databaseContext.Add(databaseModel);
             _databaseContext.SaveChanges();
@@ -52,21 +65,6 @@ namespace Integration.EntityFramework.Repositories
                 _databaseContext.Remove(jobProjectToDelete);
                 _databaseContext.SaveChanges();
             }
-        }
-
-        public JobProjectDomainModel Update(JobProjectDomainModel jobProject)
-        {
-            var databaseModel = JobProjectDatabaseModelMapper.MapFrom(jobProject);
-            var existingModel = _databaseContext.JobProjects.SingleOrDefault(x => x.Id == databaseModel.Id);
-
-            existingModel.JobId = databaseModel.JobId;
-            existingModel.Name = databaseModel.Name;
-            existingModel.Description = databaseModel.Description;
-
-            _databaseContext.Update(existingModel);
-            _databaseContext.SaveChanges();
-
-            return JobProjectDomainModelMapper.MapFrom(existingModel);
         }
     }
 }

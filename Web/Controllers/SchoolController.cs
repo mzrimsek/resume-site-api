@@ -77,7 +77,7 @@ namespace Web.Controllers
 
             var viewModel = SchoolViewModelMapper.MapFrom(id, school);
             var domainModel = SchoolDomainModelMapper.MapFrom(viewModel);
-            var updatedDomainModel = _schoolRepository.Update(domainModel);
+            var updatedDomainModel = _schoolRepository.Save(domainModel);
 
             var updatedViewModel = SchoolViewModelMapper.MapFrom(updatedDomainModel);
             return Ok(updatedViewModel);

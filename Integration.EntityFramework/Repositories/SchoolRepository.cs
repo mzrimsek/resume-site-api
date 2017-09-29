@@ -31,8 +31,24 @@ namespace Integration.EntityFramework.Repositories
         public SchoolDomainModel Save(SchoolDomainModel school)
         {
             var databaseModel = SchoolDatabaseModelMapper.MapFrom(school);
+            var existingModel = _databaseContext.Schools.SingleOrDefault(x => x.Id == databaseModel.Id);
+            if (existingModel == null)
+            {
+                _databaseContext.Add(databaseModel);
+            }
+            else
+            {
+                existingModel.Name = databaseModel.Name;
+                existingModel.City = databaseModel.City;
+                existingModel.State = databaseModel.State;
+                existingModel.Major = databaseModel.Major;
+                existingModel.Degree = databaseModel.Degree;
+                existingModel.StartDate = databaseModel.StartDate;
+                existingModel.EndDate = databaseModel.EndDate;
 
-            _databaseContext.Add(databaseModel);
+                _databaseContext.Update(existingModel);
+            }
+
             _databaseContext.SaveChanges();
 
             return SchoolDomainModelMapper.MapFrom(databaseModel);
@@ -46,25 +62,6 @@ namespace Integration.EntityFramework.Repositories
                 _databaseContext.Remove(schoolToDelete);
                 _databaseContext.SaveChanges();
             }
-        }
-
-        public SchoolDomainModel Update(SchoolDomainModel school)
-        {
-            var databaseModel = SchoolDatabaseModelMapper.MapFrom(school);
-            var existingModel = _databaseContext.Schools.SingleOrDefault(x => x.Id == databaseModel.Id);
-
-            existingModel.Name = databaseModel.Name;
-            existingModel.City = databaseModel.City;
-            existingModel.State = databaseModel.State;
-            existingModel.Major = databaseModel.Major;
-            existingModel.Degree = databaseModel.Degree;
-            existingModel.StartDate = databaseModel.StartDate;
-            existingModel.EndDate = databaseModel.EndDate;
-
-            _databaseContext.Update(existingModel);
-            _databaseContext.SaveChanges();
-
-            return SchoolDomainModelMapper.MapFrom(existingModel);
         }
     }
 }

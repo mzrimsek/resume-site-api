@@ -100,7 +100,7 @@ namespace Web.Controllers
 
             var viewModel = JobProjectViewModelMapper.MapFrom(id, jobProject);
             var domainModel = JobProjectDomainModelMapper.MapFrom(viewModel);
-            var updatedDomainModel = _jobProjectRepository.Update(domainModel);
+            var updatedDomainModel = _jobProjectRepository.Save(domainModel);
 
             var updatedViewModel = JobProjectViewModelMapper.MapFrom(updatedDomainModel);
             return Ok(updatedViewModel);

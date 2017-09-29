@@ -9,6 +9,5 @@ namespace Core.Interfaces
         JobDomainModel GetById(int id);
         JobDomainModel Save(JobDomainModel job);
         void Delete(int id);
-        JobDomainModel Update(JobDomainModel job);
     }
 }
