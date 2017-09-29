@@ -79,8 +79,9 @@ namespace Test.Integration.ControllerTests.JobControllerTests
             model = TestObjectCreator.GetAddUpdateJobViewModel("A Different Company");
             var putRequestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var putResponse = _client.PutAsync($"{ControllerRouteEnum.JOB}/{_jobId}", putRequestContent).Result;
-            var serializedContent = RequestHelper.GetObjectFromResponseContent<JobViewModel>(putResponse);
+            var _ = _client.PutAsync($"{ControllerRouteEnum.JOB}/{_jobId}", putRequestContent).Result;
+            var getResponse = _client.GetAsync($"{ControllerRouteEnum.JOB}/{_jobId}").Result;
+            var serializedContent = RequestHelper.GetObjectFromResponseContent<JobViewModel>(getResponse);
 
             var isCorrectViewModel = AssertHelper.AreJobViewModelsEqual(model, serializedContent);
             Assert.IsTrue(isCorrectViewModel);
