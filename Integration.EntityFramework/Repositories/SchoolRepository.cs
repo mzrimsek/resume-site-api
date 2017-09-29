@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Interfaces;
@@ -53,9 +52,16 @@ namespace Integration.EntityFramework.Repositories
         {
             var databaseModel = SchoolDatabaseModelMapper.MapFrom(school);
             var existingModel = _databaseContext.Schools.SingleOrDefault(x => x.Id == databaseModel.Id);
-            existingModel = databaseModel;
 
-            _databaseContext.Entry(existingModel).State = EntityState.Modified;
+            existingModel.Name = databaseModel.Name;
+            existingModel.City = databaseModel.City;
+            existingModel.State = databaseModel.State;
+            existingModel.Major = databaseModel.Major;
+            existingModel.Degree = databaseModel.Degree;
+            existingModel.StartDate = databaseModel.StartDate;
+            existingModel.EndDate = databaseModel.EndDate;
+
+            _databaseContext.Update(existingModel);
             _databaseContext.SaveChanges();
 
             return SchoolDomainModelMapper.MapFrom(existingModel);
