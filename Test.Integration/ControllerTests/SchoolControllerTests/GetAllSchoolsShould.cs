@@ -13,12 +13,14 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
     {
         private TestServer _server;
         private HttpClient _client;
+        private TestObjectCreator _testObjectCreator;
         private int _schoolId;
 
         [TestInitialize]
         public void SetUp()
         {
             (_server, _client) = new TestSetupHelper().GetTestServerAndClient();
+            _testObjectCreator = new TestObjectCreator(_client);
         }
 
         [TestCleanup]
@@ -47,15 +49,13 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
         [TestMethod]
         public void ReturnOneSchool_WhenOneSchoolIsCreated()
         {
-            var model = TestObjectGetter.GetAddUpdateSchoolViewModel();
-            var requestContent = RequestHelper.GetRequestContentFromObject(model);
-            var postResponse = _client.PostAsync($"{ControllerRouteEnum.SCHOOL}", requestContent).Result;
-            _schoolId = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(postResponse).Id;
+            _schoolId = _testObjectCreator.GetIdFromNewSchool();
 
             var getResponse = _client.GetAsync($"{ControllerRouteEnum.SCHOOL}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<SchoolViewModel>>(getResponse);
 
             Assert.AreEqual(1, serializedContent.Count);
+            Assert.AreEqual(_schoolId, serializedContent[0].Id);
         }
     }
 }

@@ -12,11 +12,13 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
     {
         private TestServer _server;
         private HttpClient _client;
+        private TestObjectCreator _testObjectCreator;
 
         [TestInitialize]
         public void SetUp()
         {
             (_server, _client) = new TestSetupHelper().GetTestServerAndClient();
+            _testObjectCreator = new TestObjectCreator(_client);
         }
 
         [TestCleanup]
@@ -36,23 +38,15 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
         [TestMethod]
         public void ReturnStatusCodeNoContent_WhenGivenValidId()
         {
-            var model = TestObjectGetter.GetAddUpdateSchoolViewModel();
-            var postRequestContent = RequestHelper.GetRequestContentFromObject(model);
-            var postResponse = _client.PostAsync($"{ControllerRouteEnum.SCHOOL}", postRequestContent).Result;
-            var schoolId = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(postResponse).Id;
-
+            var schoolId = _testObjectCreator.GetIdFromNewSchool();
             var deleteReponse = _client.DeleteAsync($"{ControllerRouteEnum.SCHOOL}/{schoolId}").Result;
-
             Assert.AreEqual(HttpStatusCode.NoContent, deleteReponse.StatusCode);
         }
 
         [TestMethod]
         public void DeleteSchool()
         {
-            var model = TestObjectGetter.GetAddUpdateSchoolViewModel();
-            var postRequestContent = RequestHelper.GetRequestContentFromObject(model);
-            var postResponse = _client.PostAsync($"{ControllerRouteEnum.SCHOOL}", postRequestContent).Result;
-            var schoolId = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(postResponse).Id;
+            var schoolId = _testObjectCreator.GetIdFromNewSchool();
 
             var _ = _client.DeleteAsync($"{ControllerRouteEnum.SCHOOL}/{schoolId}").Result;
             var getResponse = _client.GetAsync($"{ControllerRouteEnum.SCHOOL}/{schoolId}").Result;
