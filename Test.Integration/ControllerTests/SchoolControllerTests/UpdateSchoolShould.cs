@@ -31,7 +31,7 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
         [TestMethod]
         public void ReturnStatusCodeNotFound_WhenGivenInvalidId()
         {
-            var model = TestObjectGetter.GetAddUpdateSchoolViewModel();
+            var model = TestObjectGetter.GetAddUpdateSchoolViewModel("A Different School");
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PutAsync($"{ControllerRouteEnum.SCHOOL}/1", requestContent).Result;
