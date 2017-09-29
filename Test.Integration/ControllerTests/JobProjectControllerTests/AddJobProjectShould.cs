@@ -13,12 +13,14 @@ namespace Test.Integration.ControllerTests.JobProjectControllerTests
     {
         private TestServer _server;
         private HttpClient _client;
+        private TestObjectCreator _testObjectCreator;
         private int _jobId;
 
         [TestInitialize]
         public void SetUp()
         {
             (_server, _client) = new TestSetupHelper().GetTestServerAndClient();
+            _testObjectCreator = new TestObjectCreator(_client);
         }
 
         [TestCleanup]
@@ -32,7 +34,7 @@ namespace Test.Integration.ControllerTests.JobProjectControllerTests
         [TestMethod]
         public void ReturnStatusCodeCreated_WhenGivenValidModel()
         {
-            _jobId = GetIdForNewJob();
+            _jobId = _testObjectCreator.GetIdForNewJob();
 
             var jobProjectModel = TestObjectGetter.GetAddUpdateJobProjectViewModel(_jobId);
             var requestContent = RequestHelper.GetRequestContentFromObject(jobProjectModel);
@@ -45,7 +47,7 @@ namespace Test.Integration.ControllerTests.JobProjectControllerTests
         [TestMethod]
         public void ReturnStatusCodeBadRequest_WhenGivenInvalidModel_WithInvalidName()
         {
-            _jobId = GetIdForNewJob();
+            _jobId = _testObjectCreator.GetIdForNewJob();
 
             var jobProjectModel = TestObjectGetter.GetAddUpdateJobProjectViewModel(_jobId, null);
             var requestContent = RequestHelper.GetRequestContentFromObject(jobProjectModel);
@@ -80,7 +82,7 @@ namespace Test.Integration.ControllerTests.JobProjectControllerTests
         [TestMethod]
         public void ReturnCorrectViewModel()
         {
-            _jobId = GetIdForNewJob();
+            _jobId = _testObjectCreator.GetIdForNewJob();
 
             var jobProjectModel = TestObjectGetter.GetAddUpdateJobProjectViewModel(_jobId);
             var requestContent = RequestHelper.GetRequestContentFromObject(jobProjectModel);
@@ -95,7 +97,7 @@ namespace Test.Integration.ControllerTests.JobProjectControllerTests
         [TestMethod]
         public void SaveCorrectViewModel()
         {
-            _jobId = GetIdForNewJob();
+            _jobId = _testObjectCreator.GetIdForNewJob();
 
             var jobProjectModel = TestObjectGetter.GetAddUpdateJobProjectViewModel(_jobId);
             var requestContent = RequestHelper.GetRequestContentFromObject(jobProjectModel);
@@ -107,14 +109,6 @@ namespace Test.Integration.ControllerTests.JobProjectControllerTests
 
             var isCorrectViewModel = AssertHelper.AreJobProjectViewModelsEqual(jobProjectModel, serializedContent);
             Assert.IsTrue(isCorrectViewModel);
-        }
-
-        private int GetIdForNewJob()
-        {
-            var jobModel = TestObjectGetter.GetAddUpdateJobViewModel();
-            var requestContent = RequestHelper.GetRequestContentFromObject(jobModel);
-            var jobPostResponse = _client.PostAsync($"{ControllerRouteEnum.JOB}", requestContent).Result;
-            return RequestHelper.GetObjectFromResponseContent<JobViewModel>(jobPostResponse).Id;
         }
     }
 }
