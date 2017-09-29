@@ -65,14 +65,14 @@ namespace Web.Controllers
         [HttpPut("{id}")]
         public IActionResult UpdateSchool(int id, [FromBody] AddUpdateSchoolViewModel school)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var foundSchool = _schoolRepository.GetById(id);
             if (foundSchool == null)
             {
                 return NotFound();
-            }
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
             }
 
             var viewModel = SchoolViewModelMapper.MapFrom(id, school);

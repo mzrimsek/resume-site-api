@@ -65,14 +65,14 @@ namespace Web.Controllers
         [HttpPut("{id}")]
         public IActionResult UpdateJob(int id, [FromBody] AddUpdateJobViewModel job)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var foundJob = _jobRepository.GetById(id);
             if (foundJob == null)
             {
                 return NotFound();
-            }
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
             }
 
             var viewModel = JobViewModelMapper.MapFrom(id, job);
