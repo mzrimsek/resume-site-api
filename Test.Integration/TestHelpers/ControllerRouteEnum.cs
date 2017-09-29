@@ -1,4 +1,4 @@
-namespace Test.Integration.ControllerTests
+namespace Test.Integration.TestHelpers
 {
     public class ControllerRouteEnum
     {
