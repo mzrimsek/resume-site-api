@@ -36,7 +36,7 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
         [TestMethod]
         public void ReturnStatusCodeNoContent_WhenGivenValidId()
         {
-            var model = TestObjectCreator.GetAddUpdateSchoolViewModel();
+            var model = TestObjectGetter.GetAddUpdateSchoolViewModel();
             var postRequestContent = RequestHelper.GetRequestContentFromObject(model);
             var postResponse = _client.PostAsync($"{ControllerRouteEnum.SCHOOL}", postRequestContent).Result;
             var schoolId = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(postResponse).Id;
@@ -49,7 +49,7 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
         [TestMethod]
         public void DeleteSchool()
         {
-            var model = TestObjectCreator.GetAddUpdateSchoolViewModel();
+            var model = TestObjectGetter.GetAddUpdateSchoolViewModel();
             var postRequestContent = RequestHelper.GetRequestContentFromObject(model);
             var postResponse = _client.PostAsync($"{ControllerRouteEnum.SCHOOL}", postRequestContent).Result;
             var schoolId = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(postResponse).Id;

@@ -31,7 +31,7 @@ namespace Test.Integration.ControllerTests.JobControllerTests
         [TestMethod]
         public void ReturnStatusCodeCreated_WhenGivenValidModel()
         {
-            var model = TestObjectCreator.GetAddUpdateJobViewModel();
+            var model = TestObjectGetter.GetAddUpdateJobViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PostAsync($"{ControllerRouteEnum.JOB}", requestContent).Result;
@@ -43,7 +43,7 @@ namespace Test.Integration.ControllerTests.JobControllerTests
         [TestMethod]
         public void ReturnStatusCodeBadRequest_WhenGivenInvalidModel()
         {
-            var model = TestObjectCreator.GetAddUpdateJobViewModel(null);
+            var model = TestObjectGetter.GetAddUpdateJobViewModel(null);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PostAsync($"{ControllerRouteEnum.JOB}", requestContent).Result;
@@ -54,7 +54,7 @@ namespace Test.Integration.ControllerTests.JobControllerTests
         [TestMethod]
         public void ReturnCorrectViewModel()
         {
-            var model = TestObjectCreator.GetAddUpdateJobViewModel();
+            var model = TestObjectGetter.GetAddUpdateJobViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PostAsync($"{ControllerRouteEnum.JOB}", requestContent).Result;
@@ -68,7 +68,7 @@ namespace Test.Integration.ControllerTests.JobControllerTests
         [TestMethod]
         public void SaveCorrectViewModel()
         {
-            var model = TestObjectCreator.GetAddUpdateJobViewModel();
+            var model = TestObjectGetter.GetAddUpdateJobViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var postResponse = _client.PostAsync($"{ControllerRouteEnum.JOB}", requestContent).Result;

@@ -4,7 +4,7 @@ using Web.Models.SchoolModels;
 
 namespace Test.Integration.TestHelpers
 {
-    public static class TestObjectCreator
+    public static class TestObjectGetter
     {
         public static AddUpdateJobViewModel GetAddUpdateJobViewModel(string name)
         {

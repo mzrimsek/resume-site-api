@@ -38,7 +38,7 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
         [TestMethod]
         public void ReturnStatusCodeOk_WhenGivenValidId()
         {
-            var model = TestObjectCreator.GetAddUpdateSchoolViewModel();
+            var model = TestObjectGetter.GetAddUpdateSchoolViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
             var postResponse = _client.PostAsync($"{ControllerRouteEnum.SCHOOL}", requestContent).Result;
             _schoolId = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(postResponse).Id;
@@ -51,7 +51,7 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
         [TestMethod]
         public void ReturnCorrectViewModel()
         {
-            var model = TestObjectCreator.GetAddUpdateSchoolViewModel();
+            var model = TestObjectGetter.GetAddUpdateSchoolViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
             var postResponse = _client.PostAsync($"{ControllerRouteEnum.SCHOOL}", requestContent).Result;
             _schoolId = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(postResponse).Id;

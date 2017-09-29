@@ -31,7 +31,7 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
         [TestMethod]
         public void ReturnStatusCodeNotFound_WhenGivenInvalidId()
         {
-            var model = TestObjectCreator.GetAddUpdateSchoolViewModel();
+            var model = TestObjectGetter.GetAddUpdateSchoolViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PutAsync($"{ControllerRouteEnum.SCHOOL}/1", requestContent).Result;
@@ -42,12 +42,12 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
         [TestMethod]
         public void ReturnStatusCodeBadRequest_WhenGivenInvalidModel()
         {
-            var model = TestObjectCreator.GetAddUpdateSchoolViewModel();
+            var model = TestObjectGetter.GetAddUpdateSchoolViewModel();
             var postRequestContent = RequestHelper.GetRequestContentFromObject(model);
             var postResponse = _client.PostAsync($"{ControllerRouteEnum.SCHOOL}", postRequestContent).Result;
             _schoolId = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(postResponse).Id;
 
-            model = TestObjectCreator.GetAddUpdateSchoolViewModel(null);
+            model = TestObjectGetter.GetAddUpdateSchoolViewModel(null);
             var putRequestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var putResponse = _client.PutAsync($"{ControllerRouteEnum.SCHOOL}/{_schoolId}", putRequestContent).Result;
@@ -58,12 +58,12 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
         [TestMethod]
         public void ReturnStatusCodeOk_WhenGivenValidIdAndValidModel()
         {
-            var model = TestObjectCreator.GetAddUpdateSchoolViewModel();
+            var model = TestObjectGetter.GetAddUpdateSchoolViewModel();
             var postRequestContent = RequestHelper.GetRequestContentFromObject(model);
             var postResponse = _client.PostAsync($"{ControllerRouteEnum.SCHOOL}", postRequestContent).Result;
             _schoolId = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(postResponse).Id;
 
-            model = TestObjectCreator.GetAddUpdateSchoolViewModel("A Different School");
+            model = TestObjectGetter.GetAddUpdateSchoolViewModel("A Different School");
             var putRequestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var putResponse = _client.PutAsync($"{ControllerRouteEnum.SCHOOL}/{_schoolId}", putRequestContent).Result;
@@ -74,12 +74,12 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
         [TestMethod]
         public void ReturnUpdatedViewModel()
         {
-            var model = TestObjectCreator.GetAddUpdateSchoolViewModel();
+            var model = TestObjectGetter.GetAddUpdateSchoolViewModel();
             var postRequestContent = RequestHelper.GetRequestContentFromObject(model);
             var postResponse = _client.PostAsync($"{ControllerRouteEnum.SCHOOL}", postRequestContent).Result;
             _schoolId = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(postResponse).Id;
 
-            model = TestObjectCreator.GetAddUpdateSchoolViewModel("A Different School");
+            model = TestObjectGetter.GetAddUpdateSchoolViewModel("A Different School");
             var putRequestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var putResponse = _client.PutAsync($"{ControllerRouteEnum.SCHOOL}/{_schoolId}", putRequestContent).Result;
@@ -92,12 +92,12 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
         [TestMethod]
         public void SaveUpdatedViewModel()
         {
-            var model = TestObjectCreator.GetAddUpdateSchoolViewModel();
+            var model = TestObjectGetter.GetAddUpdateSchoolViewModel();
             var postRequestContent = RequestHelper.GetRequestContentFromObject(model);
             var postResponse = _client.PostAsync($"{ControllerRouteEnum.SCHOOL}", postRequestContent).Result;
             _schoolId = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(postResponse).Id;
 
-            model = TestObjectCreator.GetAddUpdateSchoolViewModel("A Different School");
+            model = TestObjectGetter.GetAddUpdateSchoolViewModel("A Different School");
             var putRequestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var _ = _client.PutAsync($"{ControllerRouteEnum.SCHOOL}/{_schoolId}", putRequestContent).Result;

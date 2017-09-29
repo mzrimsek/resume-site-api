@@ -40,7 +40,7 @@ namespace Test.Integration.ControllerTests.JobProjectControllerTests
         [TestMethod]
         public void ReturnStatusCodeOk_WhenGivenValidJobId()
         {
-            var model = TestObjectCreator.GetAddUpdateJobViewModel();
+            var model = TestObjectGetter.GetAddUpdateJobViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
             var jobPostResponse = _client.PostAsync($"{ControllerRouteEnum.JOB}", requestContent).Result;
             _jobId = RequestHelper.GetObjectFromResponseContent<JobViewModel>(jobPostResponse).Id;
@@ -53,7 +53,7 @@ namespace Test.Integration.ControllerTests.JobProjectControllerTests
         [TestMethod]
         public void ReturnEmptyList_WhenJobHasNoJobProjects()
         {
-            var model = TestObjectCreator.GetAddUpdateJobViewModel();
+            var model = TestObjectGetter.GetAddUpdateJobViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
             var jobPostResponse = _client.PostAsync($"{ControllerRouteEnum.JOB}", requestContent).Result;
             _jobId = RequestHelper.GetObjectFromResponseContent<JobViewModel>(jobPostResponse).Id;
@@ -67,12 +67,12 @@ namespace Test.Integration.ControllerTests.JobProjectControllerTests
         [TestMethod]
         public void ReturnOneJobProject_WhenOneJobProjectIsCreatedForJob()
         {
-            var jobModel = TestObjectCreator.GetAddUpdateJobViewModel();
+            var jobModel = TestObjectGetter.GetAddUpdateJobViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(jobModel);
             var jobPostResponse = _client.PostAsync($"{ControllerRouteEnum.JOB}", requestContent).Result;
             _jobId = RequestHelper.GetObjectFromResponseContent<JobViewModel>(jobPostResponse).Id;
 
-            var jobProjectModel = TestObjectCreator.GetAddUpdateJobProjectViewModel(_jobId);
+            var jobProjectModel = TestObjectGetter.GetAddUpdateJobProjectViewModel(_jobId);
             requestContent = RequestHelper.GetRequestContentFromObject(jobProjectModel);
             var _ = _client.PostAsync($"{ControllerRouteEnum.JOB_PROJECT}", requestContent).Result;
 

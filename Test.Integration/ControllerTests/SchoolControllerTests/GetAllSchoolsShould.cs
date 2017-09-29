@@ -47,7 +47,7 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
         [TestMethod]
         public void ReturnOneSchool_WhenOneSchoolIsCreated()
         {
-            var model = TestObjectCreator.GetAddUpdateSchoolViewModel();
+            var model = TestObjectGetter.GetAddUpdateSchoolViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
             var postResponse = _client.PostAsync($"{ControllerRouteEnum.SCHOOL}", requestContent).Result;
             _schoolId = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(postResponse).Id;
