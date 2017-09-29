@@ -35,7 +35,6 @@ namespace Test.Integration.ControllerTests.JobProjectControllerTests
         public void ReturnStatusCodeCreated_WhenGivenValidModel()
         {
             _jobId = _testObjectCreator.GetIdForNewJob();
-
             var jobProjectModel = TestObjectGetter.GetAddUpdateJobProjectViewModel(_jobId);
             var requestContent = RequestHelper.GetRequestContentFromObject(jobProjectModel);
 
@@ -48,7 +47,6 @@ namespace Test.Integration.ControllerTests.JobProjectControllerTests
         public void ReturnStatusCodeBadRequest_WhenGivenInvalidModel_WithInvalidName()
         {
             _jobId = _testObjectCreator.GetIdForNewJob();
-
             var jobProjectModel = TestObjectGetter.GetAddUpdateJobProjectViewModel(_jobId, null);
             var requestContent = RequestHelper.GetRequestContentFromObject(jobProjectModel);
 
@@ -83,7 +81,6 @@ namespace Test.Integration.ControllerTests.JobProjectControllerTests
         public void ReturnCorrectViewModel()
         {
             _jobId = _testObjectCreator.GetIdForNewJob();
-
             var jobProjectModel = TestObjectGetter.GetAddUpdateJobProjectViewModel(_jobId);
             var requestContent = RequestHelper.GetRequestContentFromObject(jobProjectModel);
 
@@ -98,7 +95,6 @@ namespace Test.Integration.ControllerTests.JobProjectControllerTests
         public void SaveCorrectViewModel()
         {
             _jobId = _testObjectCreator.GetIdForNewJob();
-
             var jobProjectModel = TestObjectGetter.GetAddUpdateJobProjectViewModel(_jobId);
             var requestContent = RequestHelper.GetRequestContentFromObject(jobProjectModel);
 
