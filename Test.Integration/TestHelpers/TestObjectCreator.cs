@@ -13,10 +13,10 @@ namespace Test.Integration.TestHelpers
 
         public int GetIdForNewJob()
         {
-            var jobModel = TestObjectGetter.GetAddUpdateJobViewModel();
-            var requestContent = RequestHelper.GetRequestContentFromObject(jobModel);
-            var jobPostResponse = _client.PostAsync($"{ControllerRouteEnum.JOB}", requestContent).Result;
-            return RequestHelper.GetObjectFromResponseContent<JobViewModel>(jobPostResponse).Id;
+            var model = TestObjectGetter.GetAddUpdateJobViewModel();
+            var requestContent = RequestHelper.GetRequestContentFromObject(model);
+            var response = _client.PostAsync($"{ControllerRouteEnum.JOB}", requestContent).Result;
+            return RequestHelper.GetObjectFromResponseContent<JobViewModel>(response).Id;
         }
     }
 }
