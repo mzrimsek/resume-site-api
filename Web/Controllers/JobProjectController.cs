@@ -58,6 +58,11 @@ namespace Web.Controllers
             {
                 return BadRequest(ModelState);
             }
+            var job = _jobRepository.GetById(jobProject.JobId);
+            if (job == null)
+            {
+                return NotFound();
+            }
 
             var domainModel = JobProjectDomainModelMapper.MapFrom(jobProject);
             var savedJobProject = _jobProjectRepository.Save(domainModel);
@@ -82,14 +87,15 @@ namespace Web.Controllers
         [HttpPut("{id}")]
         public IActionResult UpdateJobProject(int id, [FromBody] AddUpdateJobProjectViewModel jobProject)
         {
-            var foundJobProject = _jobProjectRepository.GetById(id);
-            if (foundJobProject == null)
-            {
-                return NotFound();
-            }
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
+            }
+            var job = _jobRepository.GetById(jobProject.JobId);
+            var foundJobProject = _jobProjectRepository.GetById(id);
+            if (job == null || foundJobProject == null)
+            {
+                return NotFound();
             }
 
             var viewModel = JobProjectViewModelMapper.MapFrom(id, jobProject);
