@@ -17,5 +17,5 @@ The backend for my impending updated resume website. Additions to come soon.
 
 ### Run Tests (Run from Root)
 
-* `export VSTEST_HOST_DEBUG=1` - allows for debugging tests
+* Enable test debugging - `export VSTEST_HOST_DEBUG=1`
 * `dotnet test Test.Unit/ && dotnet test Test.Integration/`
