@@ -51,11 +51,11 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
         {
             var model = TestObjectCreator.GetAddUpdateSchoolViewModel();
             var postRequestContent = RequestHelper.GetRequestContentFromObject(model);
-            var postResponse = _client.PostAsync("/api/school", postRequestContent).Result;
+            var postResponse = _client.PostAsync($"{ControllerRouteEnum.SCHOOL}", postRequestContent).Result;
             var schoolId = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(postResponse).Id;
 
-            var _ = _client.DeleteAsync($"/api/school/{schoolId}").Result;
-            var getResponse = _client.GetAsync($"/api/school/${schoolId}").Result;
+            var _ = _client.DeleteAsync($"{ControllerRouteEnum.SCHOOL}/{schoolId}").Result;
+            var getResponse = _client.GetAsync($"{ControllerRouteEnum.SCHOOL}/{schoolId}").Result;
 
             Assert.AreEqual(HttpStatusCode.NotFound, getResponse.StatusCode);
         }
