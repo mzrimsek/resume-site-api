@@ -37,7 +37,7 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
         }
 
         [TestMethod]
-        public void ReturnEmptyList()
+        public void ReturnEmptyList_WhenNoSchoolsAreCreated()
         {
             var response = _client.GetAsync($"{ControllerRouteEnum.SCHOOL}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<SchoolViewModel>>(response);

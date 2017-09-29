@@ -37,7 +37,7 @@ namespace Test.Integration.ControllerTests.JobControllerTests
         }
 
         [TestMethod]
-        public void ReturnEmptyList()
+        public void ReturnEmptyList_WhenNoJobsAreCreated()
         {
             var response = _client.GetAsync($"{ControllerRouteEnum.JOB}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<JobViewModel>>(response);
