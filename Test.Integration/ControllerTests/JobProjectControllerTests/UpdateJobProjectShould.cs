@@ -34,7 +34,12 @@ namespace Test.Integration.ControllerTests.JobProjectControllerTests
         [TestMethod]
         public void ReturnStatusCodeNotFound_WhenGivenInvalidId()
         {
-            var response = _client.GetAsync($"{ControllerRouteEnum.JOB_PROJECT}/1").Result;
+            _jobId = _testObjectCreator.GetIdForNewJob();
+            var model = TestObjectGetter.GetAddUpdateJobProjectViewModel(_jobId);
+            var requestContent = RequestHelper.GetRequestContentFromObject(model);
+
+            var response = _client.PutAsync($"{ControllerRouteEnum.JOB_PROJECT}/1", requestContent).Result;
+
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
         }
 
