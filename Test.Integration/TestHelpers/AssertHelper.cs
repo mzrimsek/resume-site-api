@@ -1,5 +1,6 @@
 using Web.Models.JobModels;
 using Web.Models.JobProjectModels;
+using Web.Models.LanguageModels;
 using Web.Models.SchoolModels;
 
 namespace Test.Integration.TestHelpers
@@ -32,6 +33,12 @@ namespace Test.Integration.TestHelpers
             return expected.JobId == actual.JobId
                 && expected.Name == actual.Name
                 && expected.Description == actual.Description;
+        }
+
+        public static bool AreLanguageViewModelsEqual(AddUpdateLanguageViewModel expected, LanguageViewModel actual)
+        {
+            return expected.Name == actual.Name
+                && expected.Rating == actual.Rating;
         }
     }
 }

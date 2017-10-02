@@ -1,5 +1,6 @@
 using Web.Models.JobModels;
 using Web.Models.JobProjectModels;
+using Web.Models.LanguageModels;
 using Web.Models.SchoolModels;
 
 namespace Test.Integration.TestHelpers
@@ -56,6 +57,20 @@ namespace Test.Integration.TestHelpers
         public static AddUpdateJobProjectViewModel GetAddUpdateJobProjectViewModel(int jobId)
         {
             return GetAddUpdateJobProjectViewModel(jobId, "Some project name");
+        }
+
+        public static AddUpdateLanguageViewModel GetAddUpdateLanguageViewModel(string name, int rating)
+        {
+            return new AddUpdateLanguageViewModel()
+            {
+                Name = name,
+                Rating = rating
+            };
+        }
+
+        public static AddUpdateLanguageViewModel GetAddUpdateLanguageViewModel()
+        {
+            return GetAddUpdateLanguageViewModel("C#", 3);
         }
     }
 }
