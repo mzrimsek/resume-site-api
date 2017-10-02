@@ -39,8 +39,8 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
         public void ReturnStatusCodeNoContent_WhenGivenValidId()
         {
             var schoolId = _testObjectCreator.GetIdFromNewSchool();
-            var deleteReponse = _client.DeleteAsync($"{ControllerRouteEnum.SCHOOL}/{schoolId}").Result;
-            Assert.AreEqual(HttpStatusCode.NoContent, deleteReponse.StatusCode);
+            var response = _client.DeleteAsync($"{ControllerRouteEnum.SCHOOL}/{schoolId}").Result;
+            Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
         }
 
         [TestMethod]
@@ -49,9 +49,9 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
             var schoolId = _testObjectCreator.GetIdFromNewSchool();
 
             var _ = _client.DeleteAsync($"{ControllerRouteEnum.SCHOOL}/{schoolId}").Result;
-            var getResponse = _client.GetAsync($"{ControllerRouteEnum.SCHOOL}/{schoolId}").Result;
+            var response = _client.GetAsync($"{ControllerRouteEnum.SCHOOL}/{schoolId}").Result;
 
-            Assert.AreEqual(HttpStatusCode.NotFound, getResponse.StatusCode);
+            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
         }
     }
 }

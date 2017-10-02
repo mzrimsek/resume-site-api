@@ -40,8 +40,8 @@ namespace Test.Integration.ControllerTests.JobControllerTests
         public void ReturnStatusCodeNoContent_WhenGivenValidId()
         {
             var jobId = _testObjectCreator.GetIdForNewJob();
-            var deleteReponse = _client.DeleteAsync($"{ControllerRouteEnum.JOB}/{jobId}").Result;
-            Assert.AreEqual(HttpStatusCode.NoContent, deleteReponse.StatusCode);
+            var response = _client.DeleteAsync($"{ControllerRouteEnum.JOB}/{jobId}").Result;
+            Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
         }
 
         [TestMethod]
