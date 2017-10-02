@@ -12,7 +12,7 @@
         },
         {
             "taskName": "test",
-            "command": "dotnet test",
+            "command": "dotnet test Test.Unit/ && dotnet test Test.Integration/",
             "type": "shell",
             "group": "test",
             "presentation": {
