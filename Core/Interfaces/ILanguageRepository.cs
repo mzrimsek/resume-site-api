@@ -7,7 +7,7 @@ namespace Core.Interfaces
     {
         IEnumerable<LanguageDomainModel> GetAll();
         LanguageDomainModel GetById(int id);
-        LanguageDomainModel Save(LanguageDomainModel job);
+        LanguageDomainModel Save(LanguageDomainModel language);
         void Delete(int id);
     }
 }
