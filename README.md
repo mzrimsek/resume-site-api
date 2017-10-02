@@ -1,6 +1,6 @@
 # resume-site-api
 
-The backend for my impending updated resume website. Additions to come soon.
+The backend for my impending updated resume website. Additions to come soon (including API documentation).
 
 ## Technologies
 
