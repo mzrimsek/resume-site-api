@@ -49,19 +49,6 @@ namespace Web.Controllers
             return CreatedAtRoute("GetSchool", new { id = schoolViewModel.Id }, schoolViewModel);
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult DeleteSchool(int id)
-        {
-            var school = _schoolRepository.GetById(id);
-            if (school == null)
-            {
-                return NotFound();
-            }
-
-            _schoolRepository.Delete(id);
-            return NoContent();
-        }
-
         [HttpPut("{id}")]
         public IActionResult UpdateSchool(int id, [FromBody] AddUpdateSchoolViewModel school)
         {
@@ -81,6 +68,19 @@ namespace Web.Controllers
 
             var updatedViewModel = SchoolViewModelMapper.MapFrom(updatedDomainModel);
             return Ok(updatedViewModel);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteSchool(int id)
+        {
+            var school = _schoolRepository.GetById(id);
+            if (school == null)
+            {
+                return NotFound();
+            }
+
+            _schoolRepository.Delete(id);
+            return NoContent();
         }
     }
 }

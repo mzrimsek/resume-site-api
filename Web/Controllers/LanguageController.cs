@@ -33,14 +33,14 @@ namespace Web.Controllers
             return new EmptyResult();
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult DeleteLanguage(int id)
+        [HttpPut("{id}")]
+        public IActionResult UpdateLanguage(int id, [FromBody] AddUpdateLanguageViewModel languageViewModel)
         {
             return new EmptyResult();
         }
 
-        [HttpPut("{id}")]
-        public IActionResult UpdateLanguage(int id, [FromBody] AddUpdateLanguageViewModel languageViewModel)
+        [HttpDelete("{id}")]
+        public IActionResult DeleteLanguage(int id)
         {
             return new EmptyResult();
         }

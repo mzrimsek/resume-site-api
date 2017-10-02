@@ -49,19 +49,6 @@ namespace Web.Controllers
             return CreatedAtRoute("GetJob", new { id = jobViewModel.Id }, jobViewModel);
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult DeleteJob(int id)
-        {
-            var job = _jobRepository.GetById(id);
-            if (job == null)
-            {
-                return NotFound();
-            }
-
-            _jobRepository.Delete(id);
-            return NoContent();
-        }
-
         [HttpPut("{id}")]
         public IActionResult UpdateJob(int id, [FromBody] AddUpdateJobViewModel job)
         {
@@ -81,6 +68,19 @@ namespace Web.Controllers
 
             var updatedViewModel = JobViewModelMapper.MapFrom(updatedDomainModel);
             return Ok(updatedViewModel);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteJob(int id)
+        {
+            var job = _jobRepository.GetById(id);
+            if (job == null)
+            {
+                return NotFound();
+            }
+
+            _jobRepository.Delete(id);
+            return NoContent();
         }
     }
 }
