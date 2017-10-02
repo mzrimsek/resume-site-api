@@ -1,6 +1,7 @@
 using System.Net.Http;
 using Web.Models.JobModels;
 using Web.Models.JobProjectModels;
+using Web.Models.LanguageModels;
 using Web.Models.SchoolModels;
 
 namespace Test.Integration.TestHelpers
@@ -35,6 +36,14 @@ namespace Test.Integration.TestHelpers
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
             var response = _client.PostAsync($"{ControllerRouteEnum.SCHOOL}", requestContent).Result;
             return RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(response).Id;
+        }
+
+        public int GetIdFromNewLanguage()
+        {
+            var model = TestObjectGetter.GetAddUpdateLanguageViewModel();
+            var requestContent = RequestHelper.GetRequestContentFromObject(model);
+            var response = _client.PostAsync($"{ControllerRouteEnum.LANGUAGE}", requestContent).Result;
+            return RequestHelper.GetObjectFromResponseContent<LanguageViewModel>(response).Id;
         }
     }
 }
