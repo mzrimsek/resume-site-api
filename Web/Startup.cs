@@ -37,6 +37,7 @@ namespace Web
             services.AddScoped<IJobRepository, JobRepository>();
             services.AddScoped<IJobProjectRepository, JobProjectRepository>();
             services.AddScoped<ISchoolRepository, SchoolRepository>();
+            services.AddScoped<ILanguageRepository, LanguageRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
