@@ -4,7 +4,10 @@
             "taskName": "build",
             "command": "dotnet build",
             "type": "shell",
-            "group": "build",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
             "presentation": {
                 "reveal": "silent"
             },
@@ -14,11 +17,32 @@
             "taskName": "test",
             "command": "dotnet test Test.Unit/ && dotnet test Test.Integration/",
             "type": "shell",
-            "group": "test",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
             "presentation": {
                 "reveal": "silent"
             },
             "problemMatcher": "$msCompile"
+        },
+        {
+            "taskName": "enable test debug",
+            "command": "export VSTEST_HOST_DEBUG=1",
+            "type": "shell",
+            "group": "test",
+            "presentation": {
+                "reveal": "silent"
+            }
+        },
+        {
+            "taskName": "disable test debug",
+            "command": "export VSTEST_HOST_DEBUG=0",
+            "type": "shell",
+            "group": "test",
+            "presentation": {
+                "reveal": "silent"
+            }
         }
     ]
 }
