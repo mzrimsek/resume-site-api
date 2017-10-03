@@ -7,7 +7,17 @@ namespace Test.Integration.TestHelpers
 {
     public static class AssertHelper
     {
-        public static bool AreJobViewModelsEqual(AddUpdateJobViewModel expected, JobViewModel actual)
+        public static bool AreJobViewModelsEqual(AddJobViewModel expected, JobViewModel actual)
+        {
+            return expected.Name == actual.Name
+                && expected.City == actual.City
+                && expected.State == actual.State
+                && expected.Title == actual.Title
+                && expected.StartDate == actual.StartDate
+                && expected.EndDate == actual.EndDate;
+        }
+
+        public static bool AreJobViewModelsEqual(JobViewModel expected, JobViewModel actual)
         {
             return expected.Name == actual.Name
                 && expected.City == actual.City
