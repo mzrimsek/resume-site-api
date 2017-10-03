@@ -19,7 +19,8 @@ namespace Test.Integration.TestHelpers
 
         public static bool AreJobViewModelsEqual(JobViewModel expected, JobViewModel actual)
         {
-            return expected.Name == actual.Name
+            return expected.Id == actual.Id
+                && expected.Name == actual.Name
                 && expected.City == actual.City
                 && expected.State == actual.State
                 && expected.Title == actual.Title
