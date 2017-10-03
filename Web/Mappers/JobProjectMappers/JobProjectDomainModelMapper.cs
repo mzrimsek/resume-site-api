@@ -26,7 +26,7 @@ namespace Web.Mappers.JobProjectMappers
             }
         }
 
-        public static JobProjectDomainModel MapFrom(AddUpdateJobProjectViewModel viewModel)
+        public static JobProjectDomainModel MapFrom(AddJobProjectViewModel viewModel)
         {
             return new JobProjectDomainModel()
             {

@@ -52,7 +52,7 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddJobProject([FromBody] AddUpdateJobProjectViewModel jobProject)
+        public IActionResult AddJobProject([FromBody] AddJobProjectViewModel jobProject)
         {
             if (!ModelState.IsValid)
             {
@@ -72,9 +72,9 @@ namespace Web.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateJobProject(int id, [FromBody] AddUpdateJobProjectViewModel jobProject)
+        public IActionResult UpdateJobProject(int id, [FromBody] JobProjectViewModel jobProject)
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid || id != jobProject.Id)
             {
                 return BadRequest(ModelState);
             }
@@ -85,8 +85,7 @@ namespace Web.Controllers
                 return NotFound();
             }
 
-            var viewModel = JobProjectViewModelMapper.MapFrom(id, jobProject);
-            var domainModel = JobProjectDomainModelMapper.MapFrom(viewModel);
+            var domainModel = JobProjectDomainModelMapper.MapFrom(jobProject);
             var updatedDomainModel = _jobProjectRepository.Save(domainModel);
 
             var updatedViewModel = JobProjectViewModelMapper.MapFrom(updatedDomainModel);

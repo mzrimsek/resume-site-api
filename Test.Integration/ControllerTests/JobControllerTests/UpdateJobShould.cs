@@ -61,7 +61,7 @@ namespace Test.Integration.ControllerTests.JobControllerTests
         {
             _jobId = _testObjectCreator.GetIdForNewJob();
             var addViewModel = TestObjectGetter.GetAddJobViewModel("A Different Company");
-            var model = JobViewModelMapper.MapFrom(1, addViewModel);
+            var model = JobViewModelMapper.MapFrom(_jobId + 1, addViewModel);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PutAsync($"{ControllerRouteEnum.JOB}/{_jobId}", requestContent).Result;

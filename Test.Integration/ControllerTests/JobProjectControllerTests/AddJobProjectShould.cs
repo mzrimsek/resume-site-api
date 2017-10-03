@@ -47,7 +47,7 @@ namespace Test.Integration.ControllerTests.JobProjectControllerTests
         public void ReturnStatusCodeBadRequest_WhenGivenInvalidModel_WithInvalidName()
         {
             _jobId = _testObjectCreator.GetIdForNewJob();
-            var model = TestObjectGetter.GetAddUpdateJobProjectViewModel(_jobId, null);
+            var model = TestObjectGetter.GetAddJobProjectViewModel(_jobId, null);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PostAsync($"{ControllerRouteEnum.JOB_PROJECT}", requestContent).Result;

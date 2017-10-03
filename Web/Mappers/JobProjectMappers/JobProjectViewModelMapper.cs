@@ -25,7 +25,7 @@ namespace Web.Mappers.JobProjectMappers
             }
         }
 
-        public static JobProjectViewModel MapFrom(int id, AddUpdateJobProjectViewModel viewModel)
+        public static JobProjectViewModel MapFrom(int id, AddJobProjectViewModel viewModel)
         {
             return new JobProjectViewModel()
             {

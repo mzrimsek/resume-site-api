@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Web.Models.JobProjectModels
 {
-    public class AddUpdateJobProjectViewModel
+    public class AddJobProjectViewModel
     {
         [Required]
         [Range(1, double.PositiveInfinity, ErrorMessage = "Invalid Job ID")]

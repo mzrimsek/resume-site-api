@@ -44,9 +44,9 @@ namespace Test.Integration.TestHelpers
             return GetAddUpdateSchoolViewModel("Kent State University");
         }
 
-        public static AddUpdateJobProjectViewModel GetAddUpdateJobProjectViewModel(int jobId, string name)
+        public static AddJobProjectViewModel GetAddJobProjectViewModel(int jobId, string name)
         {
-            return new AddUpdateJobProjectViewModel()
+            return new AddJobProjectViewModel()
             {
                 JobId = jobId,
                 Name = name,
@@ -54,9 +54,9 @@ namespace Test.Integration.TestHelpers
             };
         }
 
-        public static AddUpdateJobProjectViewModel GetAddUpdateJobProjectViewModel(int jobId)
+        public static AddJobProjectViewModel GetAddUpdateJobProjectViewModel(int jobId)
         {
-            return GetAddUpdateJobProjectViewModel(jobId, "Some project name");
+            return GetAddJobProjectViewModel(jobId, "Some project name");
         }
 
         public static AddUpdateLanguageViewModel GetAddUpdateLanguageViewModel(string name, int rating)
