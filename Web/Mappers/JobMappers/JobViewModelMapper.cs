@@ -29,7 +29,7 @@ namespace Web.Mappers.JobMappers
             }
         }
 
-        public static JobViewModel MapFrom(int id, AddUpdateJobViewModel viewModel)
+        public static JobViewModel MapFrom(int id, AddJobViewModel viewModel)
         {
             return new JobViewModel()
             {

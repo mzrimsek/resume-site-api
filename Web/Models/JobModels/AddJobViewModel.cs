@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Web.Models.JobModels
 {
-    public class AddUpdateJobViewModel
+    public class AddJobViewModel
     {
         [Required]
         public string Name { get; set; }

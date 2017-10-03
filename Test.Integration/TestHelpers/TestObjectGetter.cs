@@ -7,9 +7,9 @@ namespace Test.Integration.TestHelpers
 {
     public static class TestObjectGetter
     {
-        public static AddUpdateJobViewModel GetAddUpdateJobViewModel(string name)
+        public static AddJobViewModel GetAddJobViewModel(string name)
         {
-            return new AddUpdateJobViewModel()
+            return new AddJobViewModel()
             {
                 Name = name,
                 City = "San Francisco",
@@ -20,9 +20,9 @@ namespace Test.Integration.TestHelpers
             };
         }
 
-        public static AddUpdateJobViewModel GetAddUpdateJobViewModel()
+        public static AddJobViewModel GetAddJobViewModel()
         {
-            return GetAddUpdateJobViewModel("Some Company");
+            return GetAddJobViewModel("Some Company");
         }
 
         public static AddUpdateSchoolViewModel GetAddUpdateSchoolViewModel(string name)
