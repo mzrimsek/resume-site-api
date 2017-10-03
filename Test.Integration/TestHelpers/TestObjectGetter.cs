@@ -69,9 +69,21 @@ namespace Test.Integration.TestHelpers
             };
         }
 
-        public static AddJobProjectViewModel GetAddUpdateJobProjectViewModel(int jobId)
+        public static AddJobProjectViewModel GetAddJobProjectViewModel(int jobId)
         {
             return GetAddJobProjectViewModel(jobId, "Some project name");
+        }
+
+        public static UpdateJobProjectViewModel GetUpdateJobProjectViewModel(int id, int jobId, string name)
+        {
+            var viewModel = GetAddJobProjectViewModel(jobId, name);
+            return new UpdateJobProjectViewModel()
+            {
+                Id = id,
+                JobId = viewModel.JobId,
+                Name = viewModel.Name,
+                Description = viewModel.Description
+            };
         }
 
         public static AddUpdateLanguageViewModel GetAddUpdateLanguageViewModel(string name, int rating)

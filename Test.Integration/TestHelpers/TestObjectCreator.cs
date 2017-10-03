@@ -24,7 +24,7 @@ namespace Test.Integration.TestHelpers
 
         public int GetIdFromNewJobProject(int jobId)
         {
-            var model = TestObjectGetter.GetAddUpdateJobProjectViewModel(jobId);
+            var model = TestObjectGetter.GetAddJobProjectViewModel(jobId);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
             var response = _client.PostAsync($"{ControllerRouteEnum.JOB_PROJECT}", requestContent).Result;
             return RequestHelper.GetObjectFromResponseContent<JobProjectViewModel>(response).Id;
