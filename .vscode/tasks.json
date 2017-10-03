@@ -1,48 +1,16 @@
 {
     "version": "2.0.0",
     "tasks": [{
-            "taskName": "build",
-            "command": "dotnet build",
-            "type": "shell",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "presentation": {
-                "reveal": "silent"
-            },
-            "problemMatcher": "$msCompile"
+        "taskName": "build",
+        "command": "dotnet build",
+        "type": "shell",
+        "group": {
+            "kind": "build",
+            "isDefault": true
         },
-        {
-            "taskName": "test",
-            "command": "dotnet test Test.Unit/ && dotnet test Test.Integration/",
-            "type": "shell",
-            "group": {
-                "kind": "test",
-                "isDefault": true
-            },
-            "presentation": {
-                "reveal": "silent"
-            },
-            "problemMatcher": "$msCompile"
+        "presentation": {
+            "reveal": "silent"
         },
-        {
-            "taskName": "enable test debug",
-            "command": "export VSTEST_HOST_DEBUG=1",
-            "type": "shell",
-            "group": "test",
-            "presentation": {
-                "reveal": "silent"
-            }
-        },
-        {
-            "taskName": "disable test debug",
-            "command": "export VSTEST_HOST_DEBUG=0",
-            "type": "shell",
-            "group": "test",
-            "presentation": {
-                "reveal": "silent"
-            }
-        }
-    ]
+        "problemMatcher": "$msCompile"
+    }]
 }
