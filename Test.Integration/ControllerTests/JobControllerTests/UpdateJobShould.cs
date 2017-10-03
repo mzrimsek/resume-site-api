@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Http;
 using Test.Integration.TestHelpers;
 using Web.Models.JobModels;
+using Web.Mappers.JobMappers;
 
 namespace Test.Integration.ControllerTests.JobControllerTests
 {
@@ -33,7 +34,8 @@ namespace Test.Integration.ControllerTests.JobControllerTests
         [TestMethod]
         public void ReturnStatusCodeNotFound_WhenGivenInvalidId()
         {
-            var model = TestObjectGetter.GetAddUpdateJobViewModel("A Different Company");
+            var addViewModel = TestObjectGetter.GetAddJobViewModel("A Different Company");
+            var model = JobViewModelMapper.MapFrom(1, addViewModel);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PutAsync($"{ControllerRouteEnum.JOB}/1", requestContent).Result;
@@ -45,7 +47,21 @@ namespace Test.Integration.ControllerTests.JobControllerTests
         public void ReturnStatusCodeBadRequest_WhenGivenInvalidModel()
         {
             _jobId = _testObjectCreator.GetIdForNewJob();
-            var model = TestObjectGetter.GetAddUpdateJobViewModel(null);
+            var addViewModel = TestObjectGetter.GetAddJobViewModel(null);
+            var model = JobViewModelMapper.MapFrom(_jobId, addViewModel);
+            var requestContent = RequestHelper.GetRequestContentFromObject(model);
+
+            var response = _client.PutAsync($"{ControllerRouteEnum.JOB}/{_jobId}", requestContent).Result;
+
+            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+        }
+
+        [TestMethod]
+        public void ReturnStatusCodeBadRequest_WhenGivenValidIdAndValidModel_WithNonMatchingId()
+        {
+            _jobId = _testObjectCreator.GetIdForNewJob();
+            var addViewModel = TestObjectGetter.GetAddJobViewModel("A Different Company");
+            var model = JobViewModelMapper.MapFrom(1, addViewModel);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PutAsync($"{ControllerRouteEnum.JOB}/{_jobId}", requestContent).Result;
@@ -57,7 +73,8 @@ namespace Test.Integration.ControllerTests.JobControllerTests
         public void ReturnStatusCodeOk_WhenGivenValidIdAndValidModel()
         {
             _jobId = _testObjectCreator.GetIdForNewJob();
-            var model = TestObjectGetter.GetAddUpdateJobViewModel("A Different Company");
+            var addViewModel = TestObjectGetter.GetAddJobViewModel("A Different Company");
+            var model = JobViewModelMapper.MapFrom(_jobId, addViewModel);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PutAsync($"{ControllerRouteEnum.JOB}/{_jobId}", requestContent).Result;
@@ -69,7 +86,8 @@ namespace Test.Integration.ControllerTests.JobControllerTests
         public void ReturnUpdatedViewModel()
         {
             _jobId = _testObjectCreator.GetIdForNewJob();
-            var model = TestObjectGetter.GetAddUpdateJobViewModel("A Different Company");
+            var addViewModel = TestObjectGetter.GetAddJobViewModel("A Different Company");
+            var model = JobViewModelMapper.MapFrom(_jobId, addViewModel);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PutAsync($"{ControllerRouteEnum.JOB}/{_jobId}", requestContent).Result;
@@ -83,7 +101,8 @@ namespace Test.Integration.ControllerTests.JobControllerTests
         public void SaveUpdatedViewModel()
         {
             _jobId = _testObjectCreator.GetIdForNewJob();
-            var model = TestObjectGetter.GetAddUpdateJobViewModel("A Different Company");
+            var addViewModel = TestObjectGetter.GetAddJobViewModel("A Different Company");
+            var model = JobViewModelMapper.MapFrom(_jobId, addViewModel);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var _ = _client.PutAsync($"{ControllerRouteEnum.JOB}/{_jobId}", requestContent).Result;
