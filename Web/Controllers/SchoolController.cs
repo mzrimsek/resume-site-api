@@ -36,7 +36,7 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddSchool([FromBody] AddUpdateSchoolViewModel school)
+        public IActionResult AddSchool([FromBody] AddSchoolViewModel school)
         {
             if (!ModelState.IsValid)
             {
@@ -50,9 +50,9 @@ namespace Web.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateSchool(int id, [FromBody] AddUpdateSchoolViewModel school)
+        public IActionResult UpdateSchool(int id, [FromBody] UpdateSchoolViewModel school)
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid || id != school.Id)
             {
                 return BadRequest(ModelState);
             }

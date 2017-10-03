@@ -40,9 +40,9 @@ namespace Test.Integration.TestHelpers
             };
         }
 
-        public static AddUpdateSchoolViewModel GetAddUpdateSchoolViewModel(string name)
+        public static AddSchoolViewModel GetAddSchoolViewModel(string name)
         {
-            return new AddUpdateSchoolViewModel()
+            return new AddSchoolViewModel()
             {
                 Name = name,
                 City = "Kent",
@@ -54,9 +54,25 @@ namespace Test.Integration.TestHelpers
             };
         }
 
-        public static AddUpdateSchoolViewModel GetAddUpdateSchoolViewModel()
+        public static AddSchoolViewModel GetAddSchoolViewModel()
         {
-            return GetAddUpdateSchoolViewModel("Kent State University");
+            return GetAddSchoolViewModel("Kent State University");
+        }
+
+        public static UpdateSchoolViewModel GetUpdateSchoolViewModel(int id, string name)
+        {
+            var viewModel = GetAddSchoolViewModel(name);
+            return new UpdateSchoolViewModel()
+            {
+                Id = id,
+                Name = name,
+                City = viewModel.City,
+                State = viewModel.State,
+                Major = viewModel.Major,
+                Degree = viewModel.Degree,
+                StartDate = viewModel.StartDate,
+                EndDate = viewModel.EndDate
+            };
         }
 
         public static AddJobProjectViewModel GetAddJobProjectViewModel(int jobId, string name)

@@ -48,7 +48,7 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
         [TestMethod]
         public void ReturnCorrectViewModel()
         {
-            var model = TestObjectGetter.GetAddUpdateSchoolViewModel();
+            var model = TestObjectGetter.GetAddSchoolViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
             var response = _client.PostAsync($"{ControllerRouteEnum.SCHOOL}", requestContent).Result;
             _schoolId = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(response).Id;

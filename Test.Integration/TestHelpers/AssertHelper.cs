@@ -17,7 +17,7 @@ namespace Test.Integration.TestHelpers
                 && expected.EndDate == actual.EndDate;
         }
 
-        public static bool AreSchoolViewModelsEqual(AddUpdateSchoolViewModel expected, SchoolViewModel actual)
+        public static bool AreSchoolViewModelsEqual(AddSchoolViewModel expected, SchoolViewModel actual)
         {
             return expected.Name == actual.Name
                 && expected.City == actual.City

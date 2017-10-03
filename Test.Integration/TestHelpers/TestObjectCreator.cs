@@ -32,7 +32,7 @@ namespace Test.Integration.TestHelpers
 
         public int GetIdFromNewSchool()
         {
-            var model = TestObjectGetter.GetAddUpdateSchoolViewModel();
+            var model = TestObjectGetter.GetAddSchoolViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
             var response = _client.PostAsync($"{ControllerRouteEnum.SCHOOL}", requestContent).Result;
             return RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(response).Id;

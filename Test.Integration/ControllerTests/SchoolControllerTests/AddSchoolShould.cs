@@ -31,7 +31,7 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
         [TestMethod]
         public void ReturnStatusCodeCreated_WhenGivenValidModel()
         {
-            var model = TestObjectGetter.GetAddUpdateSchoolViewModel();
+            var model = TestObjectGetter.GetAddSchoolViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PostAsync($"{ControllerRouteEnum.SCHOOL}", requestContent).Result;
@@ -43,7 +43,7 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
         [TestMethod]
         public void ReturnStatusCodeBadRequest_WhenGivenInvalidModel()
         {
-            var model = TestObjectGetter.GetAddUpdateSchoolViewModel(null);
+            var model = TestObjectGetter.GetAddSchoolViewModel(null);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PostAsync($"{ControllerRouteEnum.SCHOOL}", requestContent).Result;
@@ -54,7 +54,7 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
         [TestMethod]
         public void ReturnCorrectViewModel()
         {
-            var model = TestObjectGetter.GetAddUpdateSchoolViewModel();
+            var model = TestObjectGetter.GetAddSchoolViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PostAsync($"{ControllerRouteEnum.SCHOOL}", requestContent).Result;
@@ -68,7 +68,7 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
         [TestMethod]
         public void SaveCorrectViewModel()
         {
-            var model = TestObjectGetter.GetAddUpdateSchoolViewModel();
+            var model = TestObjectGetter.GetAddSchoolViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PostAsync($"{ControllerRouteEnum.SCHOOL}", requestContent).Result;

@@ -30,7 +30,7 @@ namespace Web.Mappers.SchoolMappers
             }
         }
 
-        public static SchoolDomainModel MapFrom(AddUpdateSchoolViewModel viewModel)
+        public static SchoolDomainModel MapFrom(AddSchoolViewModel viewModel)
         {
             return new SchoolDomainModel()
             {

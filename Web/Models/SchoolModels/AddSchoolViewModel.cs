@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Web.Models.SchoolModels
 {
-    public class AddUpdateSchoolViewModel
+    public class AddSchoolViewModel
     {
         [Required]
         public string Name { get; set; }
