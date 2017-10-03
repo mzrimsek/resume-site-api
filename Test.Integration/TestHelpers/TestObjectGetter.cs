@@ -25,6 +25,21 @@ namespace Test.Integration.TestHelpers
             return GetAddJobViewModel("Some Company");
         }
 
+        public static UpdateJobViewModel GetUpdateJobViewModel(int id, string name)
+        {
+            var viewModel = GetAddJobViewModel(name);
+            return new UpdateJobViewModel()
+            {
+                Id = id,
+                Name = viewModel.Name,
+                City = viewModel.City,
+                State = viewModel.State,
+                Title = viewModel.Title,
+                StartDate = viewModel.StartDate,
+                EndDate = viewModel.EndDate
+            };
+        }
+
         public static AddUpdateSchoolViewModel GetAddUpdateSchoolViewModel(string name)
         {
             return new AddUpdateSchoolViewModel()

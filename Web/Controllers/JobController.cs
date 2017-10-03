@@ -50,7 +50,7 @@ namespace Web.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateJob(int id, [FromBody] JobViewModel job)
+        public IActionResult UpdateJob(int id, [FromBody] UpdateJobViewModel job)
         {
             if (!ModelState.IsValid || id != job.Id)
             {
@@ -62,7 +62,8 @@ namespace Web.Controllers
                 return NotFound();
             }
 
-            var domainModel = JobDomainModelMapper.MapFrom(job);
+            var viewModel = JobViewModelMapper.MapFrom(id, job);
+            var domainModel = JobDomainModelMapper.MapFrom(viewModel);
             var updatedDomainModel = _jobRepository.Save(domainModel);
 
             var updatedViewModel = JobViewModelMapper.MapFrom(updatedDomainModel);

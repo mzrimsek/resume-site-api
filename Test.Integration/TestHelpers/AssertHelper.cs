@@ -17,17 +17,6 @@ namespace Test.Integration.TestHelpers
                 && expected.EndDate == actual.EndDate;
         }
 
-        public static bool AreJobViewModelsEqual(JobViewModel expected, JobViewModel actual)
-        {
-            return expected.Id == actual.Id
-                && expected.Name == actual.Name
-                && expected.City == actual.City
-                && expected.State == actual.State
-                && expected.Title == actual.Title
-                && expected.StartDate == actual.StartDate
-                && expected.EndDate == actual.EndDate;
-        }
-
         public static bool AreSchoolViewModelsEqual(AddUpdateSchoolViewModel expected, SchoolViewModel actual)
         {
             return expected.Name == actual.Name
