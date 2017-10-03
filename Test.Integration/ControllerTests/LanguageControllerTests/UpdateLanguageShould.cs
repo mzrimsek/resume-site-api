@@ -33,7 +33,7 @@ namespace Test.Integration.ControllerTests.LanguageControllerTests
         [TestMethod]
         public void ReturnStatusCodeNotFound_WhenGivenInvalidId()
         {
-            var model = TestObjectGetter.GetAddUpdateLanguageViewModel("A different language", 1);
+            var model = TestObjectGetter.GetUpdateLanguageViewModel(1, "A different language", 1);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PutAsync($"{ControllerRouteEnum.LANGUAGE}/1", requestContent).Result;
@@ -45,7 +45,7 @@ namespace Test.Integration.ControllerTests.LanguageControllerTests
         public void ReturnStatusCodeBadRequest_WhenGivenInvalidModel_WithInvalidName()
         {
             _languageId = _testObjectCreator.GetIdFromNewLanguage();
-            var model = TestObjectGetter.GetAddUpdateLanguageViewModel(null, 1);
+            var model = TestObjectGetter.GetUpdateLanguageViewModel(_languageId, null, 1);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PutAsync($"{ControllerRouteEnum.LANGUAGE}/{_languageId}", requestContent).Result;
@@ -57,7 +57,19 @@ namespace Test.Integration.ControllerTests.LanguageControllerTests
         public void ReturnStatusCodeBadRequest_WhenGivenInvalidModel_WithInvalidRating()
         {
             _languageId = _testObjectCreator.GetIdFromNewLanguage();
-            var model = TestObjectGetter.GetAddUpdateLanguageViewModel("A different language", 4);
+            var model = TestObjectGetter.GetUpdateLanguageViewModel(_languageId, "A different language", 4);
+            var requestContent = RequestHelper.GetRequestContentFromObject(model);
+
+            var response = _client.PutAsync($"{ControllerRouteEnum.LANGUAGE}/{_languageId}", requestContent).Result;
+
+            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+        }
+
+        [TestMethod]
+        public void ReturnStatusCodeBadRequest_WhenGivenValidIdAndValidModel_WithNonMatchingId()
+        {
+            _languageId = _testObjectCreator.GetIdFromNewLanguage();
+            var model = TestObjectGetter.GetUpdateLanguageViewModel(_languageId + 1, "A different language", 2);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PutAsync($"{ControllerRouteEnum.LANGUAGE}/{_languageId}", requestContent).Result;
@@ -69,7 +81,7 @@ namespace Test.Integration.ControllerTests.LanguageControllerTests
         public void ReturnStatusCodeOk_WhenGivenValidIdAndValidModel()
         {
             _languageId = _testObjectCreator.GetIdFromNewLanguage();
-            var model = TestObjectGetter.GetAddUpdateLanguageViewModel("A different language", 2);
+            var model = TestObjectGetter.GetUpdateLanguageViewModel(_languageId, "A different language", 2);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PutAsync($"{ControllerRouteEnum.LANGUAGE}/{_languageId}", requestContent).Result;
@@ -81,7 +93,7 @@ namespace Test.Integration.ControllerTests.LanguageControllerTests
         public void ReturnUpdatedViewModel()
         {
             _languageId = _testObjectCreator.GetIdFromNewLanguage();
-            var model = TestObjectGetter.GetAddUpdateLanguageViewModel("A different language", 2);
+            var model = TestObjectGetter.GetUpdateLanguageViewModel(_languageId, "A different language", 2);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PutAsync($"{ControllerRouteEnum.LANGUAGE}/{_languageId}", requestContent).Result;
@@ -95,7 +107,7 @@ namespace Test.Integration.ControllerTests.LanguageControllerTests
         public void SaveUpdatedViewModel()
         {
             _languageId = _testObjectCreator.GetIdFromNewLanguage();
-            var model = TestObjectGetter.GetAddUpdateLanguageViewModel("A different language", 2);
+            var model = TestObjectGetter.GetUpdateLanguageViewModel(_languageId, "A different language", 2);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var _ = _client.PutAsync($"{ControllerRouteEnum.LANGUAGE}/{_languageId}", requestContent).Result;

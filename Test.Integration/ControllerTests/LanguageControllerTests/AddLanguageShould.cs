@@ -33,7 +33,7 @@ namespace Test.Integration.ControllerTests.LanguageControllerTests
         [TestMethod]
         public void ReturnStatusCodeCreated_WhenGivenValidModel()
         {
-            var model = TestObjectGetter.GetAddUpdateLanguageViewModel();
+            var model = TestObjectGetter.GetAddLanguageViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PostAsync($"{ControllerRouteEnum.LANGUAGE}", requestContent).Result;
@@ -45,7 +45,7 @@ namespace Test.Integration.ControllerTests.LanguageControllerTests
         [TestMethod]
         public void ReturnStatusCodeBadRequest_WhenGivenInvalidModel_WithInvalidName()
         {
-            var model = TestObjectGetter.GetAddUpdateLanguageViewModel(null, 1);
+            var model = TestObjectGetter.GetAddLanguageViewModel(null, 1);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PostAsync($"{ControllerRouteEnum.LANGUAGE}", requestContent).Result;
@@ -56,7 +56,7 @@ namespace Test.Integration.ControllerTests.LanguageControllerTests
         [TestMethod]
         public void ReturnStatusCodeBadRequest_WhenGivenInvalidModel_WithInvalidRating()
         {
-            var model = TestObjectGetter.GetAddUpdateLanguageViewModel("Java", 0);
+            var model = TestObjectGetter.GetAddLanguageViewModel("Java", 0);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PostAsync($"{ControllerRouteEnum.LANGUAGE}", requestContent).Result;
@@ -67,7 +67,7 @@ namespace Test.Integration.ControllerTests.LanguageControllerTests
         [TestMethod]
         public void ReturnCorrectViewModel()
         {
-            var model = TestObjectGetter.GetAddUpdateLanguageViewModel();
+            var model = TestObjectGetter.GetAddLanguageViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PostAsync($"{ControllerRouteEnum.LANGUAGE}", requestContent).Result;
@@ -81,7 +81,7 @@ namespace Test.Integration.ControllerTests.LanguageControllerTests
         [TestMethod]
         public void SaveCorrectViewModel()
         {
-            var model = TestObjectGetter.GetAddUpdateLanguageViewModel();
+            var model = TestObjectGetter.GetAddLanguageViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PostAsync($"{ControllerRouteEnum.LANGUAGE}", requestContent).Result;

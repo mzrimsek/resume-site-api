@@ -35,15 +35,7 @@ namespace Test.Integration.TestHelpers
                 && expected.Description == actual.Description;
         }
 
-        public static bool AreJobProjectViewModelsEqual(JobProjectViewModel expected, JobProjectViewModel actual)
-        {
-            return expected.Id == actual.Id
-                && expected.JobId == actual.JobId
-                && expected.Name == actual.Name
-                && expected.Description == actual.Description;
-        }
-
-        public static bool AreLanguageViewModelsEqual(AddUpdateLanguageViewModel expected, LanguageViewModel actual)
+        public static bool AreLanguageViewModelsEqual(AddLanguageViewModel expected, LanguageViewModel actual)
         {
             return expected.Name == actual.Name
                 && expected.Rating == actual.Rating;

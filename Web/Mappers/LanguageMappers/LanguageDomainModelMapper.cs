@@ -24,7 +24,7 @@ namespace Web.Mappers.LanguageMappers
             }
         }
 
-        public static LanguageDomainModel MapFrom(AddUpdateLanguageViewModel viewModel)
+        public static LanguageDomainModel MapFrom(AddLanguageViewModel viewModel)
         {
             return new LanguageDomainModel()
             {

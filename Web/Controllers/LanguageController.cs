@@ -36,7 +36,7 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddLanguage([FromBody] AddUpdateLanguageViewModel language)
+        public IActionResult AddLanguage([FromBody] AddLanguageViewModel language)
         {
             if (!ModelState.IsValid)
             {
@@ -50,9 +50,9 @@ namespace Web.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateLanguage(int id, [FromBody] AddUpdateLanguageViewModel language)
+        public IActionResult UpdateLanguage(int id, [FromBody] UpdateLanguageViewModel language)
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid || id != language.Id)
             {
                 return BadRequest(ModelState);
             }

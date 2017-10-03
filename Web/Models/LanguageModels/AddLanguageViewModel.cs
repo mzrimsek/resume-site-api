@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Web.Models.LanguageModels
 {
-    public class AddUpdateLanguageViewModel
+    public class AddLanguageViewModel
     {
         [Required]
         public string Name { get; set; }

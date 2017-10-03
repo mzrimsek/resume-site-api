@@ -28,7 +28,7 @@ namespace Web.Mappers.LanguageMappers
             }
         }
 
-        public static LanguageViewModel MapFrom(int id, AddUpdateLanguageViewModel viewModel)
+        public static LanguageViewModel MapFrom(int id, AddLanguageViewModel viewModel)
         {
             var ratingName = RatingEnum.GetAll().SingleOrDefault(x => x.Key == viewModel.Rating).Display;
             return new LanguageViewModel()

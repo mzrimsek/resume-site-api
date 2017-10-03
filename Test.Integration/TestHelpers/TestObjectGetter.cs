@@ -31,7 +31,7 @@ namespace Test.Integration.TestHelpers
             return new UpdateJobViewModel()
             {
                 Id = id,
-                Name = viewModel.Name,
+                Name = name,
                 City = viewModel.City,
                 State = viewModel.State,
                 Title = viewModel.Title,
@@ -86,18 +86,28 @@ namespace Test.Integration.TestHelpers
             };
         }
 
-        public static AddUpdateLanguageViewModel GetAddUpdateLanguageViewModel(string name, int rating)
+        public static AddLanguageViewModel GetAddLanguageViewModel(string name, int rating)
         {
-            return new AddUpdateLanguageViewModel()
+            return new AddLanguageViewModel()
             {
                 Name = name,
                 Rating = rating
             };
         }
 
-        public static AddUpdateLanguageViewModel GetAddUpdateLanguageViewModel()
+        public static AddLanguageViewModel GetAddLanguageViewModel()
         {
-            return GetAddUpdateLanguageViewModel("C#", 3);
+            return GetAddLanguageViewModel("C#", 3);
+        }
+
+        public static UpdateLanguageViewModel GetUpdateLanguageViewModel(int id, string name, int rating)
+        {
+            return new UpdateLanguageViewModel()
+            {
+                Id = id,
+                Name = name,
+                Rating = rating
+            };
         }
     }
 }

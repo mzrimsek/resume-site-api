@@ -40,7 +40,7 @@ namespace Test.Integration.TestHelpers
 
         public int GetIdFromNewLanguage()
         {
-            var model = TestObjectGetter.GetAddUpdateLanguageViewModel();
+            var model = TestObjectGetter.GetAddLanguageViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
             var response = _client.PostAsync($"{ControllerRouteEnum.LANGUAGE}", requestContent).Result;
             return RequestHelper.GetObjectFromResponseContent<LanguageViewModel>(response).Id;
