@@ -1,5 +1,5 @@
 using Test.Integration.TestModels.JobModels;
-using Web.Models.JobProjectModels;
+using Test.Integration.TestModels.JobProjectModels;
 using Web.Models.LanguageModels;
 using Web.Models.SchoolModels;
 
@@ -28,7 +28,7 @@ namespace Test.Integration.TestHelpers
                 && expected.EndDate == actual.EndDate;
         }
 
-        public static bool AreJobProjectViewModelsEqual(AddJobProjectViewModel expected, JobProjectViewModel actual)
+        public static bool AreJobProjectViewModelsEqual(TestAddJobProjectViewModel expected, TestJobProjectViewModel actual)
         {
             return expected.JobId == actual.JobId
                 && expected.Name == actual.Name

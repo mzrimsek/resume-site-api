@@ -1,6 +1,5 @@
 using Test.Integration.TestModels.JobModels;
-using Web.Models.JobModels;
-using Web.Models.JobProjectModels;
+using Test.Integration.TestModels.JobProjectModels;
 using Web.Models.LanguageModels;
 using Web.Models.SchoolModels;
 
@@ -76,9 +75,9 @@ namespace Test.Integration.TestHelpers
             };
         }
 
-        public static AddJobProjectViewModel GetAddJobProjectViewModel(int jobId, string name)
+        public static TestAddJobProjectViewModel GetAddJobProjectViewModel(int jobId, string name)
         {
-            return new AddJobProjectViewModel()
+            return new TestAddJobProjectViewModel()
             {
                 JobId = jobId,
                 Name = name,
@@ -86,15 +85,15 @@ namespace Test.Integration.TestHelpers
             };
         }
 
-        public static AddJobProjectViewModel GetAddJobProjectViewModel(int jobId)
+        public static TestAddJobProjectViewModel GetAddJobProjectViewModel(int jobId)
         {
             return GetAddJobProjectViewModel(jobId, "Some project name");
         }
 
-        public static UpdateJobProjectViewModel GetUpdateJobProjectViewModel(int id, int jobId, string name)
+        public static TestUpdateJobProjectViewModel GetUpdateJobProjectViewModel(int id, int jobId, string name)
         {
             var viewModel = GetAddJobProjectViewModel(jobId, name);
-            return new UpdateJobProjectViewModel()
+            return new TestUpdateJobProjectViewModel()
             {
                 Id = id,
                 JobId = viewModel.JobId,

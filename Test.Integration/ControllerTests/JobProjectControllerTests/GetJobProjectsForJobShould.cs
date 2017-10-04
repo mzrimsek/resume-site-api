@@ -4,8 +4,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using Test.Integration.TestHelpers;
-using Web.Models.JobModels;
-using Web.Models.JobProjectModels;
+using Test.Integration.TestModels.JobProjectModels;
 
 namespace Test.Integration.ControllerTests.JobProjectControllerTests
 {
@@ -53,7 +52,7 @@ namespace Test.Integration.ControllerTests.JobProjectControllerTests
             _jobId = _testObjectCreator.GetIdForNewJob();
 
             var response = _client.GetAsync($"{ControllerRouteEnum.JOB_PROJECT}/job/{_jobId}").Result;
-            var serializedContent = RequestHelper.GetObjectFromResponseContent<List<JobProjectViewModel>>(response);
+            var serializedContent = RequestHelper.GetObjectFromResponseContent<List<TestJobProjectViewModel>>(response);
 
             Assert.AreEqual(0, serializedContent.Count);
         }
@@ -65,7 +64,7 @@ namespace Test.Integration.ControllerTests.JobProjectControllerTests
             var jobProjectId = _testObjectCreator.GetIdFromNewJobProject(_jobId);
 
             var response = _client.GetAsync($"{ControllerRouteEnum.JOB_PROJECT}/job/{_jobId}").Result;
-            var serializedContent = RequestHelper.GetObjectFromResponseContent<List<JobProjectViewModel>>(response);
+            var serializedContent = RequestHelper.GetObjectFromResponseContent<List<TestJobProjectViewModel>>(response);
 
             Assert.AreEqual(1, serializedContent.Count);
             Assert.AreEqual(jobProjectId, serializedContent[0].Id);

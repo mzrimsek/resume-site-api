@@ -1,6 +1,6 @@
 using System.Net.Http;
 using Test.Integration.TestModels.JobModels;
-using Web.Models.JobProjectModels;
+using Test.Integration.TestModels.JobProjectModels;
 using Web.Models.LanguageModels;
 using Web.Models.SchoolModels;
 
@@ -27,7 +27,7 @@ namespace Test.Integration.TestHelpers
             var model = TestObjectGetter.GetAddJobProjectViewModel(jobId);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
             var response = _client.PostAsync($"{ControllerRouteEnum.JOB_PROJECT}", requestContent).Result;
-            return RequestHelper.GetObjectFromResponseContent<JobProjectViewModel>(response).Id;
+            return RequestHelper.GetObjectFromResponseContent<TestJobProjectViewModel>(response).Id;
         }
 
         public int GetIdFromNewSchool()
