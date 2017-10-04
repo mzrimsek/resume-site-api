@@ -54,7 +54,6 @@ namespace Integration.EntityFramework.Repositories
             }
 
             await _databaseContext.SaveChangesAsync();
-
             return JobProjectDomainModelMapper.MapFrom(databaseModel);
         }
 
