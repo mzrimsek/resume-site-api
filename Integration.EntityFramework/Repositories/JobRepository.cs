@@ -1,5 +1,7 @@
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Core.Interfaces;
 using Core.Models;
 using Integration.EntityFramework.Mappers.JobMappers;
@@ -16,25 +18,25 @@ namespace Integration.EntityFramework.Repositories
             _databaseContext = databaseContext;
         }
 
-        public IEnumerable<JobDomainModel> GetAll()
+        public async Task<IEnumerable<JobDomainModel>> GetAll()
         {
-            var jobs = _databaseContext.Jobs.ToList();
+            var jobs = await _databaseContext.Jobs.ToListAsync();
             return JobDomainModelMapper.MapFrom(jobs);
         }
 
-        public JobDomainModel GetById(int id)
+        public async Task<JobDomainModel> GetById(int id)
         {
-            var job = _databaseContext.Jobs.SingleOrDefault(x => x.Id == id);
+            var job = await _databaseContext.Jobs.SingleOrDefaultAsync(x => x.Id == id);
             return job == null ? null : JobDomainModelMapper.MapFrom(job);
         }
 
-        public JobDomainModel Save(JobDomainModel job)
+        public async Task<JobDomainModel> Save(JobDomainModel job)
         {
             var databaseModel = JobDatabaseModelMapper.MapFrom(job);
-            var existingModel = _databaseContext.Jobs.SingleOrDefault(x => x.Id == databaseModel.Id);
+            var existingModel = await _databaseContext.Jobs.SingleOrDefaultAsync(x => x.Id == databaseModel.Id);
             if (existingModel == null)
             {
-                _databaseContext.Add(databaseModel);
+                await _databaseContext.AddAsync(databaseModel);
             }
             else
             {
@@ -48,20 +50,20 @@ namespace Integration.EntityFramework.Repositories
                 _databaseContext.Update(existingModel);
             }
 
-            _databaseContext.SaveChanges();
+            await _databaseContext.SaveChangesAsync();
 
             return JobDomainModelMapper.MapFrom(databaseModel);
         }
 
-        public void Delete(int id)
+        public async void Delete(int id)
         {
-            var jobToDelete = _databaseContext.Jobs.SingleOrDefault(x => x.Id == id);
+            var jobToDelete = await _databaseContext.Jobs.SingleOrDefaultAsync(x => x.Id == id);
             if (jobToDelete != null)
             {
-                var jobProjectsForJob = _databaseContext.JobProjects.Where(x => x.JobId == jobToDelete.Id);
+                var jobProjectsForJob = await _databaseContext.JobProjects.Where(x => x.JobId == jobToDelete.Id).ToListAsync();
                 _databaseContext.RemoveRange(jobProjectsForJob);
                 _databaseContext.Remove(jobToDelete);
-                _databaseContext.SaveChanges();
+                await _databaseContext.SaveChangesAsync();
             }
         }
     }
