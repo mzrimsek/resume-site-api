@@ -57,13 +57,13 @@ namespace Integration.EntityFramework.Repositories
             return JobProjectDomainModelMapper.MapFrom(databaseModel);
         }
 
-        public async void Delete(int id)
+        public void Delete(int id)
         {
-            var jobProjectToDelete = await _databaseContext.JobProjects.SingleOrDefaultAsync(x => x.Id == id);
+            var jobProjectToDelete = _databaseContext.JobProjects.SingleOrDefault(x => x.Id == id);
             if (jobProjectToDelete != null)
             {
                 _databaseContext.Remove(jobProjectToDelete);
-                await _databaseContext.SaveChangesAsync();
+                _databaseContext.SaveChanges();
             }
         }
     }

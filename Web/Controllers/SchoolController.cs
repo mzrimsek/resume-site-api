@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using Core.Interfaces;
 using Web.Mappers.SchoolMappers;
 using Web.Models.SchoolModels;
@@ -15,17 +16,17 @@ namespace Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllSchools()
+        public async Task<IActionResult> GetAllSchools()
         {
-            var schools = _schoolRepository.GetAll();
+            var schools = await _schoolRepository.GetAll();
             var schoolViews = SchoolViewModelMapper.MapFrom(schools); ;
             return Ok(schoolViews);
         }
 
         [HttpGet("{id}", Name = "GetSchool")]
-        public IActionResult GetSchool(int id)
+        public async Task<IActionResult> GetSchool(int id)
         {
-            var school = _schoolRepository.GetById(id);
+            var school = await _schoolRepository.GetById(id);
             if (school == null)
             {
                 return NotFound();
@@ -36,27 +37,27 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddSchool([FromBody] AddSchoolViewModel school)
+        public async Task<IActionResult> AddSchool([FromBody] AddSchoolViewModel school)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
             var domainModel = SchoolDomainModelMapper.MapFrom(school);
-            var savedSchool = _schoolRepository.Save(domainModel);
+            var savedSchool = await _schoolRepository.Save(domainModel);
             var schoolViewModel = SchoolViewModelMapper.MapFrom(savedSchool);
 
             return CreatedAtRoute("GetSchool", new { id = schoolViewModel.Id }, schoolViewModel);
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateSchool(int id, [FromBody] UpdateSchoolViewModel school)
+        public async Task<IActionResult> UpdateSchool(int id, [FromBody] UpdateSchoolViewModel school)
         {
             if (!ModelState.IsValid || id != school.Id)
             {
                 return BadRequest(ModelState);
             }
-            var foundSchool = _schoolRepository.GetById(id);
+            var foundSchool = await _schoolRepository.GetById(id);
             if (foundSchool == null)
             {
                 return NotFound();
@@ -64,16 +65,16 @@ namespace Web.Controllers
 
             var viewModel = SchoolViewModelMapper.MapFrom(id, school);
             var domainModel = SchoolDomainModelMapper.MapFrom(viewModel);
-            var updatedDomainModel = _schoolRepository.Save(domainModel);
+            var updatedDomainModel = await _schoolRepository.Save(domainModel);
 
             var updatedViewModel = SchoolViewModelMapper.MapFrom(updatedDomainModel);
             return Ok(updatedViewModel);
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteSchool(int id)
+        public async Task<IActionResult> DeleteSchool(int id)
         {
-            var school = _schoolRepository.GetById(id);
+            var school = await _schoolRepository.GetById(id);
             if (school == null)
             {
                 return NotFound();

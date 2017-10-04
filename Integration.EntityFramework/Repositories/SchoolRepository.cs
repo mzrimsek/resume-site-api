@@ -55,13 +55,13 @@ namespace Integration.EntityFramework.Repositories
             return SchoolDomainModelMapper.MapFrom(databaseModel);
         }
 
-        public async void Delete(int id)
+        public void Delete(int id)
         {
-            var schoolToDelete = await _databaseContext.Schools.SingleOrDefaultAsync(x => x.Id == id);
+            var schoolToDelete = _databaseContext.Schools.SingleOrDefault(x => x.Id == id);
             if (schoolToDelete != null)
             {
                 _databaseContext.Remove(schoolToDelete);
-                await _databaseContext.SaveChangesAsync();
+                _databaseContext.SaveChanges();
             }
         }
     }

@@ -54,15 +54,15 @@ namespace Integration.EntityFramework.Repositories
             return JobDomainModelMapper.MapFrom(databaseModel);
         }
 
-        public async void Delete(int id)
+        public void Delete(int id)
         {
-            var jobToDelete = await _databaseContext.Jobs.SingleOrDefaultAsync(x => x.Id == id);
+            var jobToDelete = _databaseContext.Jobs.SingleOrDefault(x => x.Id == id);
             if (jobToDelete != null)
             {
-                var jobProjectsForJob = await _databaseContext.JobProjects.Where(x => x.JobId == jobToDelete.Id).ToListAsync();
+                var jobProjectsForJob = _databaseContext.JobProjects.Where(x => x.JobId == jobToDelete.Id);
                 _databaseContext.RemoveRange(jobProjectsForJob);
                 _databaseContext.Remove(jobToDelete);
-                await _databaseContext.SaveChangesAsync();
+                _databaseContext.SaveChanges();
             }
         }
     }

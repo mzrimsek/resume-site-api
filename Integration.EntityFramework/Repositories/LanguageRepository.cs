@@ -49,13 +49,13 @@ namespace Integration.EntityFramework.Repositories
             return LanguageDomainModelMapper.MapFrom(databaseModel);
         }
 
-        public async void Delete(int id)
+        public void Delete(int id)
         {
-            var languageToDelete = await _databaseContext.Languages.SingleOrDefaultAsync(x => x.Id == id);
+            var languageToDelete = _databaseContext.Languages.SingleOrDefault(x => x.Id == id);
             if (languageToDelete != null)
             {
                 _databaseContext.Remove(languageToDelete);
-                await _databaseContext.SaveChangesAsync();
+                _databaseContext.SaveChanges();
             }
         }
     }

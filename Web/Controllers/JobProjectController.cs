@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using Core.Interfaces;
 using Web.Mappers.JobProjectMappers;
 using Web.Models.JobProjectModels;
@@ -17,17 +18,17 @@ namespace Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllJobProjects()
+        public async Task<IActionResult> GetAllJobProjects()
         {
-            var jobProjects = _jobProjectRepository.GetAll();
+            var jobProjects = await _jobProjectRepository.GetAll();
             var jobProjectViews = JobProjectViewModelMapper.MapFrom(jobProjects);
             return Ok(jobProjectViews);
         }
 
         [HttpGet("{id}", Name = "GetJobProject")]
-        public IActionResult GetJobProject(int id)
+        public async Task<IActionResult> GetJobProject(int id)
         {
-            var jobProject = _jobProjectRepository.GetById(id);
+            var jobProject = await _jobProjectRepository.GetById(id);
             if (jobProject == null)
             {
                 return NotFound();
@@ -38,48 +39,48 @@ namespace Web.Controllers
         }
 
         [HttpGet("job/{jobId}")]
-        public IActionResult GetJobProjectsForJob(int jobId)
+        public async Task<IActionResult> GetJobProjectsForJob(int jobId)
         {
-            var job = _jobRepository.GetById(jobId);
+            var job = await _jobRepository.GetById(jobId);
             if (job == null)
             {
                 return NotFound();
             }
 
-            var jobProjects = _jobProjectRepository.GetByJobId(jobId);
+            var jobProjects = await _jobProjectRepository.GetByJobId(jobId);
             var jobProjectViews = JobProjectViewModelMapper.MapFrom(jobProjects);
             return Ok(jobProjectViews);
         }
 
         [HttpPost]
-        public IActionResult AddJobProject([FromBody] AddJobProjectViewModel jobProject)
+        public async Task<IActionResult> AddJobProject([FromBody] AddJobProjectViewModel jobProject)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var job = _jobRepository.GetById(jobProject.JobId);
+            var job = await _jobRepository.GetById(jobProject.JobId);
             if (job == null)
             {
                 return NotFound();
             }
 
             var domainModel = JobProjectDomainModelMapper.MapFrom(jobProject);
-            var savedJobProject = _jobProjectRepository.Save(domainModel);
+            var savedJobProject = await _jobProjectRepository.Save(domainModel);
             var jobProjectViewModel = JobProjectViewModelMapper.MapFrom(savedJobProject);
 
             return CreatedAtRoute("GetJobProject", new { id = jobProjectViewModel.Id }, jobProjectViewModel);
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateJobProject(int id, [FromBody] UpdateJobProjectViewModel jobProject)
+        public async Task<IActionResult> UpdateJobProject(int id, [FromBody] UpdateJobProjectViewModel jobProject)
         {
             if (!ModelState.IsValid || id != jobProject.Id)
             {
                 return BadRequest(ModelState);
             }
-            var job = _jobRepository.GetById(jobProject.JobId);
-            var foundJobProject = _jobProjectRepository.GetById(id);
+            var job = await _jobRepository.GetById(jobProject.JobId);
+            var foundJobProject = await _jobProjectRepository.GetById(id);
             if (job == null || foundJobProject == null)
             {
                 return NotFound();
@@ -87,16 +88,16 @@ namespace Web.Controllers
 
             var viewModel = JobProjectViewModelMapper.MapFrom(id, jobProject);
             var domainModel = JobProjectDomainModelMapper.MapFrom(viewModel);
-            var updatedDomainModel = _jobProjectRepository.Save(domainModel);
+            var updatedDomainModel = await _jobProjectRepository.Save(domainModel);
 
             var updatedViewModel = JobProjectViewModelMapper.MapFrom(updatedDomainModel);
             return Ok(updatedViewModel);
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteJobProject(int id)
+        public async Task<IActionResult> DeleteJobProject(int id)
         {
-            var jobProject = _jobProjectRepository.GetById(id);
+            var jobProject = await _jobProjectRepository.GetById(id);
             if (jobProject == null)
             {
                 return NotFound();

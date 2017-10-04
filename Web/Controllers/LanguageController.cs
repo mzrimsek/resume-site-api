@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using Core.Interfaces;
 using Web.Mappers.LanguageMappers;
 using Web.Models.LanguageModels;
@@ -16,17 +17,17 @@ namespace Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllLanguages()
+        public async Task<IActionResult> GetAllLanguages()
         {
-            var languages = _languageRepository.GetAll();
+            var languages = await _languageRepository.GetAll();
             var languageViews = LanguageViewModelMapper.MapFrom(languages);
             return Ok(languageViews);
         }
 
         [HttpGet("{id}", Name = "GetLanguage")]
-        public IActionResult GetLanguage(int id)
+        public async Task<IActionResult> GetLanguage(int id)
         {
-            var language = _languageRepository.GetById(id);
+            var language = await _languageRepository.GetById(id);
             if (language == null)
             {
                 return NotFound();
@@ -36,27 +37,27 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddLanguage([FromBody] AddLanguageViewModel language)
+        public async Task<IActionResult> AddLanguage([FromBody] AddLanguageViewModel language)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
             var domainModel = LanguageDomainModelMapper.MapFrom(language);
-            var savedLanguage = _languageRepository.Save(domainModel);
+            var savedLanguage = await _languageRepository.Save(domainModel);
             var languageViewModel = LanguageViewModelMapper.MapFrom(savedLanguage);
 
             return CreatedAtRoute("GetLanguage", new { id = languageViewModel.Id }, languageViewModel);
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateLanguage(int id, [FromBody] UpdateLanguageViewModel language)
+        public async Task<IActionResult> UpdateLanguage(int id, [FromBody] UpdateLanguageViewModel language)
         {
             if (!ModelState.IsValid || id != language.Id)
             {
                 return BadRequest(ModelState);
             }
-            var foundLanguage = _languageRepository.GetById(id);
+            var foundLanguage = await _languageRepository.GetById(id);
             if (foundLanguage == null)
             {
                 return NotFound();
@@ -64,16 +65,16 @@ namespace Web.Controllers
 
             var viewModel = LanguageViewModelMapper.MapFrom(id, language);
             var domainModel = LanguageDomainModelMapper.MapFrom(viewModel);
-            var updatedDomainModel = _languageRepository.Save(domainModel);
+            var updatedDomainModel = await _languageRepository.Save(domainModel);
 
             var updatedViewModel = LanguageViewModelMapper.MapFrom(updatedDomainModel);
             return Ok(updatedViewModel);
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteLanguage(int id)
+        public async Task<IActionResult> DeleteLanguage(int id)
         {
-            var language = _languageRepository.GetById(id);
+            var language = await _languageRepository.GetById(id);
             if (language == null)
             {
                 return NotFound();
