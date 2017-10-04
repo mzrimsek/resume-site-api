@@ -16,8 +16,8 @@ namespace Web.Mappers.JobMappers
                 City = domainModel.City,
                 State = domainModel.State,
                 Title = domainModel.Title,
-                StartDate = DateHelper.FormatDate(domainModel.StartDate),
-                EndDate = DateHelper.FormatDate(domainModel.EndDate)
+                StartDate = domainModel.StartDate.Format(),
+                EndDate = domainModel.EndDate.Format()
             };
         }
 

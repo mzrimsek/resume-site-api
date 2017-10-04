@@ -17,8 +17,8 @@ namespace Web.Mappers.SchoolMappers
                 State = domainModel.State,
                 Major = domainModel.Major,
                 Degree = domainModel.Degree,
-                StartDate = DateHelper.FormatDate(domainModel.StartDate),
-                EndDate = DateHelper.FormatDate(domainModel.EndDate)
+                StartDate = domainModel.StartDate.Format(),
+                EndDate = domainModel.EndDate.Format()
             };
         }
 
