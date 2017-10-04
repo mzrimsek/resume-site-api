@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Test.Integration.TestModels.JobProjectModels
 {
-    public class TestAddJobProjectViewModel
+    public class AddJobProjectViewModel
     {
         [Required]
         [Range(1, double.PositiveInfinity, ErrorMessage = "Invalid Job ID")]

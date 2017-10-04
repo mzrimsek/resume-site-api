@@ -19,7 +19,7 @@ namespace Test.Integration.TestHelpers
             var model = TestObjectGetter.GetAddJobViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
             var response = _client.PostAsync($"{ControllerRouteEnum.JOB}", requestContent).Result;
-            return RequestHelper.GetObjectFromResponseContent<TestJobViewModel>(response).Id;
+            return RequestHelper.GetObjectFromResponseContent<JobViewModel>(response).Id;
         }
 
         public int GetIdFromNewJobProject(int jobId)
@@ -27,7 +27,7 @@ namespace Test.Integration.TestHelpers
             var model = TestObjectGetter.GetAddJobProjectViewModel(jobId);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
             var response = _client.PostAsync($"{ControllerRouteEnum.JOB_PROJECT}", requestContent).Result;
-            return RequestHelper.GetObjectFromResponseContent<TestJobProjectViewModel>(response).Id;
+            return RequestHelper.GetObjectFromResponseContent<JobProjectViewModel>(response).Id;
         }
 
         public int GetIdFromNewSchool()

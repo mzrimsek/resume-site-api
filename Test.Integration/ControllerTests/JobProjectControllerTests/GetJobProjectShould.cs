@@ -55,10 +55,10 @@ namespace Test.Integration.ControllerTests.JobProjectControllerTests
             var model = TestObjectGetter.GetAddJobProjectViewModel(_jobId);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
             var response = _client.PostAsync($"{ControllerRouteEnum.JOB_PROJECT}", requestContent).Result;
-            var jobProjectId = RequestHelper.GetObjectFromResponseContent<TestJobProjectViewModel>(response).Id;
+            var jobProjectId = RequestHelper.GetObjectFromResponseContent<JobProjectViewModel>(response).Id;
 
             response = _client.GetAsync($"{ControllerRouteEnum.JOB_PROJECT}/{jobProjectId}").Result;
-            var serializedContent = RequestHelper.GetObjectFromResponseContent<TestJobProjectViewModel>(response);
+            var serializedContent = RequestHelper.GetObjectFromResponseContent<JobProjectViewModel>(response);
 
             var isCorrectViewModel = AssertHelper.AreJobProjectViewModelsEqual(model, serializedContent);
             Assert.IsTrue(isCorrectViewModel);

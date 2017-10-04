@@ -7,9 +7,9 @@ namespace Test.Integration.TestHelpers
 {
     public static class TestObjectGetter
     {
-        public static TestAddJobViewModel GetAddJobViewModel(string name)
+        public static AddJobViewModel GetAddJobViewModel(string name)
         {
-            return new TestAddJobViewModel()
+            return new AddJobViewModel()
             {
                 Name = name,
                 City = "San Francisco",
@@ -20,15 +20,15 @@ namespace Test.Integration.TestHelpers
             };
         }
 
-        public static TestAddJobViewModel GetAddJobViewModel()
+        public static AddJobViewModel GetAddJobViewModel()
         {
             return GetAddJobViewModel("Some Company");
         }
 
-        public static TestUpdateJobViewModel GetUpdateJobViewModel(int id, string name)
+        public static UpdateJobViewModel GetUpdateJobViewModel(int id, string name)
         {
             var viewModel = GetAddJobViewModel(name);
-            return new TestUpdateJobViewModel()
+            return new UpdateJobViewModel()
             {
                 Id = id,
                 Name = name,
@@ -75,9 +75,9 @@ namespace Test.Integration.TestHelpers
             };
         }
 
-        public static TestAddJobProjectViewModel GetAddJobProjectViewModel(int jobId, string name)
+        public static AddJobProjectViewModel GetAddJobProjectViewModel(int jobId, string name)
         {
-            return new TestAddJobProjectViewModel()
+            return new AddJobProjectViewModel()
             {
                 JobId = jobId,
                 Name = name,
@@ -85,15 +85,15 @@ namespace Test.Integration.TestHelpers
             };
         }
 
-        public static TestAddJobProjectViewModel GetAddJobProjectViewModel(int jobId)
+        public static AddJobProjectViewModel GetAddJobProjectViewModel(int jobId)
         {
             return GetAddJobProjectViewModel(jobId, "Some project name");
         }
 
-        public static TestUpdateJobProjectViewModel GetUpdateJobProjectViewModel(int id, int jobId, string name)
+        public static UpdateJobProjectViewModel GetUpdateJobProjectViewModel(int id, int jobId, string name)
         {
             var viewModel = GetAddJobProjectViewModel(jobId, name);
-            return new TestUpdateJobProjectViewModel()
+            return new UpdateJobProjectViewModel()
             {
                 Id = id,
                 JobId = viewModel.JobId,

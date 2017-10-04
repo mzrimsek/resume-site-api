@@ -1,6 +1,6 @@
 namespace Test.Integration.TestModels.JobProjectModels
 {
-    public class TestJobProjectViewModel
+    public class JobProjectViewModel
     {
         public int Id { get; set; }
         public int JobId { get; set; }

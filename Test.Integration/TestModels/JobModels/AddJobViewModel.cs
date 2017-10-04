@@ -1,12 +1,18 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace Test.Integration.TestModels.JobModels
 {
-    public class TestJobViewModel
+    public class AddJobViewModel
     {
-        public int Id { get; set; }
+        [Required]
         public string Name { get; set; }
+        [Required]
         public string City { get; set; }
+        [Required]
         public string State { get; set; }
+        [Required]
         public string Title { get; set; }
+        [Required]
         public string StartDate { get; set; }
         public string EndDate { get; set; }
     }
