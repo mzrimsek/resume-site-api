@@ -1,5 +1,7 @@
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Core.Interfaces;
 using Core.Models;
 using Integration.EntityFramework.Mappers.LanguageMappers;
@@ -15,25 +17,25 @@ namespace Integration.EntityFramework.Repositories
             _databaseContext = databaseContext;
         }
 
-        public IEnumerable<LanguageDomainModel> GetAll()
+        public async Task<IEnumerable<LanguageDomainModel>> GetAll()
         {
-            var languages = _databaseContext.Languages.ToList();
+            var languages = await _databaseContext.Languages.ToListAsync();
             return LanguageDomainModelMapper.MapFrom(languages);
         }
 
-        public LanguageDomainModel GetById(int id)
+        public async Task<LanguageDomainModel> GetById(int id)
         {
-            var language = _databaseContext.Languages.SingleOrDefault(x => x.Id == id);
+            var language = await _databaseContext.Languages.SingleOrDefaultAsync(x => x.Id == id);
             return language == null ? null : LanguageDomainModelMapper.MapFrom(language);
         }
 
-        public LanguageDomainModel Save(LanguageDomainModel language)
+        public async Task<LanguageDomainModel> Save(LanguageDomainModel language)
         {
             var databaseModel = LanguageDatabaseModelMapper.MapFrom(language);
-            var existingModel = _databaseContext.Languages.SingleOrDefault(x => x.Id == databaseModel.Id);
+            var existingModel = await _databaseContext.Languages.SingleOrDefaultAsync(x => x.Id == databaseModel.Id);
             if (existingModel == null)
             {
-                _databaseContext.Add(databaseModel);
+                await _databaseContext.AddAsync(databaseModel);
             }
             else
             {
@@ -43,18 +45,17 @@ namespace Integration.EntityFramework.Repositories
                 _databaseContext.Update(existingModel);
             }
 
-            _databaseContext.SaveChanges();
-
+            await _databaseContext.SaveChangesAsync();
             return LanguageDomainModelMapper.MapFrom(databaseModel);
         }
 
-        public void Delete(int id)
+        public async void Delete(int id)
         {
-            var languageToDelete = _databaseContext.Languages.SingleOrDefault(x => x.Id == id);
+            var languageToDelete = await _databaseContext.Languages.SingleOrDefaultAsync(x => x.Id == id);
             if (languageToDelete != null)
             {
                 _databaseContext.Remove(languageToDelete);
-                _databaseContext.SaveChanges();
+                await _databaseContext.SaveChangesAsync();
             }
         }
     }

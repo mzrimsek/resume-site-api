@@ -1,13 +1,14 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Core.Models;
 
 namespace Core.Interfaces
 {
     public interface ILanguageRepository
     {
-        IEnumerable<LanguageDomainModel> GetAll();
-        LanguageDomainModel GetById(int id);
-        LanguageDomainModel Save(LanguageDomainModel language);
+        Task<IEnumerable<LanguageDomainModel>> GetAll();
+        Task<LanguageDomainModel> GetById(int id);
+        Task<LanguageDomainModel> Save(LanguageDomainModel language);
         void Delete(int id);
     }
 }
