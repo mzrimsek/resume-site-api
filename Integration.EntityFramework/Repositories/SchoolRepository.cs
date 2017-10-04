@@ -1,5 +1,7 @@
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Core.Interfaces;
 using Core.Models;
 using Integration.EntityFramework.Mappers.SchoolMappers;
@@ -16,25 +18,25 @@ namespace Integration.EntityFramework.Repositories
             _databaseContext = databaseContext;
         }
 
-        public IEnumerable<SchoolDomainModel> GetAll()
+        public async Task<IEnumerable<SchoolDomainModel>> GetAll()
         {
-            var schools = _databaseContext.Schools.ToList();
+            var schools = await _databaseContext.Schools.ToListAsync();
             return SchoolDomainModelMapper.MapFrom(schools);
         }
 
-        public SchoolDomainModel GetById(int id)
+        public async Task<SchoolDomainModel> GetById(int id)
         {
-            var school = _databaseContext.Schools.SingleOrDefault(x => x.Id == id);
+            var school = await _databaseContext.Schools.SingleOrDefaultAsync(x => x.Id == id);
             return school == null ? null : SchoolDomainModelMapper.MapFrom(school);
         }
 
-        public SchoolDomainModel Save(SchoolDomainModel school)
+        public async Task<SchoolDomainModel> Save(SchoolDomainModel school)
         {
             var databaseModel = SchoolDatabaseModelMapper.MapFrom(school);
-            var existingModel = _databaseContext.Schools.SingleOrDefault(x => x.Id == databaseModel.Id);
+            var existingModel = await _databaseContext.Schools.SingleOrDefaultAsync(x => x.Id == databaseModel.Id);
             if (existingModel == null)
             {
-                _databaseContext.Add(databaseModel);
+                await _databaseContext.AddAsync(databaseModel);
             }
             else
             {
@@ -49,18 +51,17 @@ namespace Integration.EntityFramework.Repositories
                 _databaseContext.Update(existingModel);
             }
 
-            _databaseContext.SaveChanges();
-
+            await _databaseContext.SaveChangesAsync();
             return SchoolDomainModelMapper.MapFrom(databaseModel);
         }
 
-        public void Delete(int id)
+        public async void Delete(int id)
         {
-            var schoolToDelete = _databaseContext.Schools.SingleOrDefault(x => x.Id == id);
+            var schoolToDelete = await _databaseContext.Schools.SingleOrDefaultAsync(x => x.Id == id);
             if (schoolToDelete != null)
             {
                 _databaseContext.Remove(schoolToDelete);
-                _databaseContext.SaveChanges();
+                await _databaseContext.SaveChangesAsync();
             }
         }
     }
