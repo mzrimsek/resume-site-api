@@ -1,5 +1,7 @@
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Core.Interfaces;
 using Core.Models;
 using Integration.EntityFramework.Mappers.JobProjectMappers;
@@ -16,31 +18,31 @@ namespace Integration.EntityFramework.Repositories
             _databaseContext = databaseContext;
         }
 
-        public IEnumerable<JobProjectDomainModel> GetAll()
+        public async Task<IEnumerable<JobProjectDomainModel>> GetAll()
         {
-            var jobProjects = _databaseContext.JobProjects.ToList();
+            var jobProjects = await _databaseContext.JobProjects.ToListAsync();
             return JobProjectDomainModelMapper.MapFrom(jobProjects);
         }
 
-        public JobProjectDomainModel GetById(int id)
+        public async Task<JobProjectDomainModel> GetById(int id)
         {
-            var jobProject = _databaseContext.JobProjects.SingleOrDefault(x => x.Id == id);
+            var jobProject = await _databaseContext.JobProjects.SingleOrDefaultAsync(x => x.Id == id);
             return jobProject == null ? null : JobProjectDomainModelMapper.MapFrom(jobProject);
         }
 
-        public IEnumerable<JobProjectDomainModel> GetByJobId(int jobId)
+        public async Task<IEnumerable<JobProjectDomainModel>> GetByJobId(int jobId)
         {
-            var jobProjects = _databaseContext.JobProjects.Where(x => x.JobId == jobId);
+            var jobProjects = await _databaseContext.JobProjects.Where(x => x.JobId == jobId).ToListAsync();
             return JobProjectDomainModelMapper.MapFrom(jobProjects);
         }
 
-        public JobProjectDomainModel Save(JobProjectDomainModel jobProject)
+        public async Task<JobProjectDomainModel> Save(JobProjectDomainModel jobProject)
         {
             var databaseModel = JobProjectDatabaseModelMapper.MapFrom(jobProject);
-            var existingModel = _databaseContext.JobProjects.SingleOrDefault(x => x.Id == databaseModel.Id);
+            var existingModel = await _databaseContext.JobProjects.SingleOrDefaultAsync(x => x.Id == databaseModel.Id);
             if (existingModel == null)
             {
-                _databaseContext.Add(databaseModel);
+                await _databaseContext.AddAsync(databaseModel);
             }
             else
             {
@@ -51,18 +53,18 @@ namespace Integration.EntityFramework.Repositories
                 _databaseContext.Update(existingModel);
             }
 
-            _databaseContext.SaveChanges();
+            await _databaseContext.SaveChangesAsync();
 
             return JobProjectDomainModelMapper.MapFrom(databaseModel);
         }
 
-        public void Delete(int id)
+        public async void Delete(int id)
         {
-            var jobProjectToDelete = _databaseContext.JobProjects.SingleOrDefault(x => x.Id == id);
+            var jobProjectToDelete = await _databaseContext.JobProjects.SingleOrDefaultAsync(x => x.Id == id);
             if (jobProjectToDelete != null)
             {
                 _databaseContext.Remove(jobProjectToDelete);
-                _databaseContext.SaveChanges();
+                await _databaseContext.SaveChangesAsync();
             }
         }
     }
