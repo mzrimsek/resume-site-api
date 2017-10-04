@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace Web.Models.JobModels
 {
     public class JobViewModel
