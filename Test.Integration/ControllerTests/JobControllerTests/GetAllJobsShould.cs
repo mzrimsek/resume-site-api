@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using Test.Integration.TestHelpers;
-using Web.Models.JobModels;
+using Test.Integration.TestModels.JobModels;
 
 namespace Test.Integration.ControllerTests.JobControllerTests
 {
@@ -42,7 +42,7 @@ namespace Test.Integration.ControllerTests.JobControllerTests
         public void ReturnEmptyList_WhenNoJobsAreCreated()
         {
             var response = _client.GetAsync($"{ControllerRouteEnum.JOB}").Result;
-            var serializedContent = RequestHelper.GetObjectFromResponseContent<List<JobViewModel>>(response);
+            var serializedContent = RequestHelper.GetObjectFromResponseContent<List<TestJobViewModel>>(response);
             Assert.AreEqual(0, serializedContent.Count);
         }
 
@@ -52,7 +52,7 @@ namespace Test.Integration.ControllerTests.JobControllerTests
             _jobId = _testObjectCreator.GetIdForNewJob();
 
             var response = _client.GetAsync($"{ControllerRouteEnum.JOB}").Result;
-            var serializedContent = RequestHelper.GetObjectFromResponseContent<List<JobViewModel>>(response);
+            var serializedContent = RequestHelper.GetObjectFromResponseContent<List<TestJobViewModel>>(response);
 
             Assert.AreEqual(1, serializedContent.Count);
             Assert.AreEqual(_jobId, serializedContent[0].Id);

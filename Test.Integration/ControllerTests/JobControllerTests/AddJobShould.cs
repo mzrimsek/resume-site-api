@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Net;
 using System.Net.Http;
 using Test.Integration.TestHelpers;
-using Web.Models.JobModels;
+using Test.Integration.TestModels.JobModels;
 
 namespace Test.Integration.ControllerTests.JobControllerTests
 {
@@ -35,7 +35,7 @@ namespace Test.Integration.ControllerTests.JobControllerTests
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PostAsync($"{ControllerRouteEnum.JOB}", requestContent).Result;
-            _jobId = RequestHelper.GetObjectFromResponseContent<JobViewModel>(response).Id;
+            _jobId = RequestHelper.GetObjectFromResponseContent<TestJobViewModel>(response).Id;
 
             Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
         }
@@ -58,10 +58,10 @@ namespace Test.Integration.ControllerTests.JobControllerTests
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PostAsync($"{ControllerRouteEnum.JOB}", requestContent).Result;
-            var serializedContent = RequestHelper.GetObjectFromResponseContent<JobViewModel>(response);
+            var serializedContent = RequestHelper.GetObjectFromResponseContent<TestJobViewModel>(response);
             _jobId = serializedContent.Id;
 
-            var isCorrectViewModel = AssertHelper.AreJobViewModelsEqual(model, serializedContent);
+            var isCorrectViewModel = AssertHelper.AreTestJobViewModelsEqual(model, serializedContent);
             Assert.IsTrue(isCorrectViewModel);
         }
 
@@ -72,11 +72,11 @@ namespace Test.Integration.ControllerTests.JobControllerTests
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PostAsync($"{ControllerRouteEnum.JOB}", requestContent).Result;
-            _jobId = RequestHelper.GetObjectFromResponseContent<JobViewModel>(response).Id;
+            _jobId = RequestHelper.GetObjectFromResponseContent<TestJobViewModel>(response).Id;
             response = _client.GetAsync($"{ControllerRouteEnum.JOB}/{_jobId}").Result;
-            var serializedContent = RequestHelper.GetObjectFromResponseContent<JobViewModel>(response);
+            var serializedContent = RequestHelper.GetObjectFromResponseContent<TestJobViewModel>(response);
 
-            var isCorrectViewModel = AssertHelper.AreJobViewModelsEqual(model, serializedContent);
+            var isCorrectViewModel = AssertHelper.AreTestJobViewModelsEqual(model, serializedContent);
             Assert.IsTrue(isCorrectViewModel);
         }
     }

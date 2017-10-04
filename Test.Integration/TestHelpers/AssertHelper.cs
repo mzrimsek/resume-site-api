@@ -1,4 +1,4 @@
-using Web.Models.JobModels;
+using Test.Integration.TestModels.JobModels;
 using Web.Models.JobProjectModels;
 using Web.Models.LanguageModels;
 using Web.Models.SchoolModels;
@@ -7,7 +7,7 @@ namespace Test.Integration.TestHelpers
 {
     public static class AssertHelper
     {
-        public static bool AreJobViewModelsEqual(AddJobViewModel expected, JobViewModel actual)
+        public static bool AreTestJobViewModelsEqual(TestAddJobViewModel expected, TestJobViewModel actual)
         {
             return expected.Name == actual.Name
                 && expected.City == actual.City

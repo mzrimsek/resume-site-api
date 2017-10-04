@@ -1,3 +1,4 @@
+using Test.Integration.TestModels.JobModels;
 using Web.Models.JobModels;
 using Web.Models.JobProjectModels;
 using Web.Models.LanguageModels;
@@ -7,9 +8,9 @@ namespace Test.Integration.TestHelpers
 {
     public static class TestObjectGetter
     {
-        public static AddJobViewModel GetAddJobViewModel(string name)
+        public static TestAddJobViewModel GetAddJobViewModel(string name)
         {
-            return new AddJobViewModel()
+            return new TestAddJobViewModel()
             {
                 Name = name,
                 City = "San Francisco",
@@ -20,15 +21,15 @@ namespace Test.Integration.TestHelpers
             };
         }
 
-        public static AddJobViewModel GetAddJobViewModel()
+        public static TestAddJobViewModel GetAddJobViewModel()
         {
             return GetAddJobViewModel("Some Company");
         }
 
-        public static UpdateJobViewModel GetUpdateJobViewModel(int id, string name)
+        public static TestUpdateJobViewModel GetUpdateJobViewModel(int id, string name)
         {
             var viewModel = GetAddJobViewModel(name);
-            return new UpdateJobViewModel()
+            return new TestUpdateJobViewModel()
             {
                 Id = id,
                 Name = name,
