@@ -3,7 +3,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Net;
 using System.Net.Http;
 using Test.Integration.TestHelpers;
-using Web.Models.SchoolModels;
 
 namespace Test.Integration.ControllerTests.SchoolControllerTests
 {

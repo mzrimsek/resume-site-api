@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using Test.Integration.TestHelpers;
-using Web.Models.SchoolModels;
+using Test.Integration.TestModels.SchoolModels;
 
 namespace Test.Integration.ControllerTests.SchoolControllerTests
 {

@@ -2,7 +2,7 @@ using System.Net.Http;
 using Test.Integration.TestModels.JobModels;
 using Test.Integration.TestModels.JobProjectModels;
 using Test.Integration.TestModels.LanguageModels;
-using Web.Models.SchoolModels;
+using Test.Integration.TestModels.SchoolModels;
 
 namespace Test.Integration.TestHelpers
 {
