@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Core.Interfaces;
+using Web.ActionFilters;
 using Web.Mappers.LanguageMappers;
 using Web.Models.LanguageModels;
 
@@ -37,12 +38,9 @@ namespace Web.Controllers
         }
 
         [HttpPost]
+        [ModelStateValidation]
         public async Task<IActionResult> AddLanguage([FromBody] AddLanguageViewModel language)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
             var domainModel = LanguageDomainModelMapper.MapFrom(language);
             var savedLanguage = await _languageRepository.Save(domainModel);
             var languageViewModel = LanguageViewModelMapper.MapFrom(savedLanguage);
@@ -51,11 +49,12 @@ namespace Web.Controllers
         }
 
         [HttpPut("{id}")]
+        [ModelStateValidation]
         public async Task<IActionResult> UpdateLanguage(int id, [FromBody] UpdateLanguageViewModel language)
         {
-            if (!ModelState.IsValid || id != language.Id)
+            if (id != language.Id)
             {
-                return BadRequest(ModelState);
+                return BadRequest("Entity Id does not match.");
             }
             var foundLanguage = await _languageRepository.GetById(id);
             if (foundLanguage == null)

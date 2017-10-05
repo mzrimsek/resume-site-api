@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Core.Interfaces;
+using Web.ActionFilters;
 using Web.Mappers.SchoolMappers;
 using Web.Models.SchoolModels;
 
@@ -37,12 +38,9 @@ namespace Web.Controllers
         }
 
         [HttpPost]
+        [ModelStateValidation]
         public async Task<IActionResult> AddSchool([FromBody] AddSchoolViewModel school)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
             var domainModel = SchoolDomainModelMapper.MapFrom(school);
             var savedSchool = await _schoolRepository.Save(domainModel);
             var schoolViewModel = SchoolViewModelMapper.MapFrom(savedSchool);
@@ -51,11 +49,12 @@ namespace Web.Controllers
         }
 
         [HttpPut("{id}")]
+        [ModelStateValidation]
         public async Task<IActionResult> UpdateSchool(int id, [FromBody] UpdateSchoolViewModel school)
         {
-            if (!ModelState.IsValid || id != school.Id)
+            if (id != school.Id)
             {
-                return BadRequest(ModelState);
+                return BadRequest("Entity Id does not match.");
             }
             var foundSchool = await _schoolRepository.GetById(id);
             if (foundSchool == null)

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Core.Interfaces;
+using Web.ActionFilters;
 using Web.Mappers.JobProjectMappers;
 using Web.Models.JobProjectModels;
 
@@ -53,12 +54,9 @@ namespace Web.Controllers
         }
 
         [HttpPost]
+        [ModelStateValidation]
         public async Task<IActionResult> AddJobProject([FromBody] AddJobProjectViewModel jobProject)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
             var job = await _jobRepository.GetById(jobProject.JobId);
             if (job == null)
             {
@@ -73,11 +71,12 @@ namespace Web.Controllers
         }
 
         [HttpPut("{id}")]
+        [ModelStateValidation]
         public async Task<IActionResult> UpdateJobProject(int id, [FromBody] UpdateJobProjectViewModel jobProject)
         {
-            if (!ModelState.IsValid || id != jobProject.Id)
+            if (id != jobProject.Id)
             {
-                return BadRequest(ModelState);
+                return BadRequest("Entity Id does not match.");
             }
             var job = await _jobRepository.GetById(jobProject.JobId);
             var foundJobProject = await _jobProjectRepository.GetById(id);

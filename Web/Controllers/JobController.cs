@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Core.Interfaces;
+using Web.ActionFilters;
 using Web.Mappers.JobMappers;
 using Web.Models.JobModels;
 
@@ -37,12 +38,9 @@ namespace Web.Controllers
         }
 
         [HttpPost]
+        [ModelStateValidation]
         public async Task<IActionResult> AddJob([FromBody] AddJobViewModel job)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
             var domainModel = JobDomainModelMapper.MapFrom(job);
             var savedJob = await _jobRepository.Save(domainModel);
             var jobViewModel = JobViewModelMapper.MapFrom(savedJob);
@@ -51,11 +49,12 @@ namespace Web.Controllers
         }
 
         [HttpPut("{id}")]
+        [ModelStateValidation]
         public async Task<IActionResult> UpdateJob(int id, [FromBody] UpdateJobViewModel job)
         {
-            if (!ModelState.IsValid || id != job.Id)
+            if (id != job.Id)
             {
-                return BadRequest(ModelState);
+                return BadRequest("Entity Id does not match.");
             }
             var foundJob = await _jobRepository.GetById(id);
             if (foundJob == null)
