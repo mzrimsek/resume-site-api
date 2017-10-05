@@ -35,9 +35,9 @@ namespace Integration.EntityFramework.Repositories
             return JobProjectDomainModelMapper.MapFrom(jobProjects);
         }
 
-        public async Task<JobProjectDomainModel> Save(JobProjectDomainModel jobProject)
+        public async Task<JobProjectDomainModel> Save(JobProjectDomainModel entity)
         {
-            var databaseModel = JobProjectDatabaseModelMapper.MapFrom(jobProject);
+            var databaseModel = JobProjectDatabaseModelMapper.MapFrom(entity);
             var existingModel = await _databaseContext.JobProjects.SingleOrDefaultAsync(x => x.Id == databaseModel.Id);
             if (existingModel == null)
             {

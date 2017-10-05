@@ -4,11 +4,5 @@ using Core.Models;
 
 namespace Core.Interfaces.RepositoryInterfaces
 {
-    public interface IJobRepository
-    {
-        Task<IEnumerable<JobDomainModel>> GetAll();
-        Task<JobDomainModel> GetById(int id);
-        Task<JobDomainModel> Save(JobDomainModel job);
-        void Delete(int id);
-    }
+    public interface IJobRepository : IRepository<JobDomainModel> { }
 }

@@ -29,9 +29,9 @@ namespace Integration.EntityFramework.Repositories
             return job == null ? null : JobDomainModelMapper.MapFrom(job);
         }
 
-        public async Task<JobDomainModel> Save(JobDomainModel job)
+        public async Task<JobDomainModel> Save(JobDomainModel entity)
         {
-            var databaseModel = JobDatabaseModelMapper.MapFrom(job);
+            var databaseModel = JobDatabaseModelMapper.MapFrom(entity);
             var existingModel = await _databaseContext.Jobs.SingleOrDefaultAsync(x => x.Id == databaseModel.Id);
             if (existingModel == null)
             {

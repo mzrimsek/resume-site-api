@@ -29,9 +29,9 @@ namespace Integration.EntityFramework.Repositories
             return language == null ? null : LanguageDomainModelMapper.MapFrom(language);
         }
 
-        public async Task<LanguageDomainModel> Save(LanguageDomainModel language)
+        public async Task<LanguageDomainModel> Save(LanguageDomainModel entity)
         {
-            var databaseModel = LanguageDatabaseModelMapper.MapFrom(language);
+            var databaseModel = LanguageDatabaseModelMapper.MapFrom(entity);
             var existingModel = await _databaseContext.Languages.SingleOrDefaultAsync(x => x.Id == databaseModel.Id);
             if (existingModel == null)
             {

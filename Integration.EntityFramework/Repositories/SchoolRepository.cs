@@ -29,9 +29,9 @@ namespace Integration.EntityFramework.Repositories
             return school == null ? null : SchoolDomainModelMapper.MapFrom(school);
         }
 
-        public async Task<SchoolDomainModel> Save(SchoolDomainModel school)
+        public async Task<SchoolDomainModel> Save(SchoolDomainModel entity)
         {
-            var databaseModel = SchoolDatabaseModelMapper.MapFrom(school);
+            var databaseModel = SchoolDatabaseModelMapper.MapFrom(entity);
             var existingModel = await _databaseContext.Schools.SingleOrDefaultAsync(x => x.Id == databaseModel.Id);
             if (existingModel == null)
             {
