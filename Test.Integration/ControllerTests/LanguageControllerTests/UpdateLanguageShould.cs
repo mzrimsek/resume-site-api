@@ -78,14 +78,6 @@ namespace Test.Integration.ControllerTests.LanguageControllerTests
         }
 
         [TestMethod]
-        public void ReturnStatusCodeBadRequest_WhenGivenNoModel()
-        {
-            _languageId = _testObjectCreator.GetIdFromNewLanguage();
-            var response = _client.PutAsync($"{ControllerRouteEnum.LANGUAGE}/{_languageId}", null).Result;
-            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
-        }
-
-        [TestMethod]
         public void ReturnStatusCodeOk_WhenGivenValidIdAndValidModel()
         {
             _languageId = _testObjectCreator.GetIdFromNewLanguage();

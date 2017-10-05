@@ -95,16 +95,6 @@ namespace Test.Integration.ControllerTests.JobProjectControllerTests
         }
 
         [TestMethod]
-        public void ReturnStatusCodeBadRequest_WhenGivenNoModel()
-        {
-            _jobId = _testObjectCreator.GetIdForNewJob();
-            var jobProjectId = _testObjectCreator.GetIdFromNewJobProject(_jobId);
-
-            var response = _client.PutAsync($"{ControllerRouteEnum.JOB_PROJECT}/{jobProjectId}", null).Result;
-            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
-        }
-
-        [TestMethod]
         public void ReturnStatusCodeOk_WhenGivenValidIdAndValidModel()
         {
             _jobId = _testObjectCreator.GetIdForNewJob();

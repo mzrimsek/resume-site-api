@@ -52,13 +52,6 @@ namespace Test.Integration.ControllerTests.JobControllerTests
         }
 
         [TestMethod]
-        public void ReturnStatusCodeBadRequest_WhenGivenNoModel()
-        {
-            var response = _client.PostAsync($"{ControllerRouteEnum.JOB}", null).Result;
-            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
-        }
-
-        [TestMethod]
         public void ReturnCorrectViewModel()
         {
             var model = TestObjectGetter.GetAddJobViewModel();
