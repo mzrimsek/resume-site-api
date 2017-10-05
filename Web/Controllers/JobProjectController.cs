@@ -94,12 +94,10 @@ namespace Web.Controllers
         public async Task<IActionResult> DeleteJobProject(int id)
         {
             var jobProject = await _jobProjectRepository.GetById(id);
-            if (jobProject == null)
+            if (jobProject != null)
             {
-                return NotFound();
+                _jobProjectRepository.Delete(id);
             }
-
-            _jobProjectRepository.Delete(id);
             return NoContent();
         }
     }

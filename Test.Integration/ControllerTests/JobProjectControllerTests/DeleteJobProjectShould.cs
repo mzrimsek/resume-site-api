@@ -30,10 +30,10 @@ namespace Test.Integration.ControllerTests.JobProjectControllerTests
         }
 
         [TestMethod]
-        public void ReturnStatusCodeNotFound_WhenGivenInvalidId()
+        public void ReturnStatusCodeNoContent_WhenGivenInvalidId()
         {
             var response = _client.DeleteAsync($"{ControllerRouteEnum.JOB_PROJECT}/1").Result;
-            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+            Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
         }
 
         [TestMethod]

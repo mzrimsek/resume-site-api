@@ -71,12 +71,10 @@ namespace Web.Controllers
         public async Task<IActionResult> DeleteSchool(int id)
         {
             var school = await _schoolRepository.GetById(id);
-            if (school == null)
+            if (school != null)
             {
-                return NotFound();
+                _schoolRepository.Delete(id);
             }
-
-            _schoolRepository.Delete(id);
             return NoContent();
         }
     }

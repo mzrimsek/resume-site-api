@@ -71,12 +71,10 @@ namespace Web.Controllers
         public async Task<IActionResult> DeleteJob(int id)
         {
             var job = await _jobRepository.GetById(id);
-            if (job == null)
+            if (job != null)
             {
-                return NotFound();
+                _jobRepository.Delete(id);
             }
-
-            _jobRepository.Delete(id);
             return NoContent();
         }
     }

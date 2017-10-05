@@ -70,12 +70,10 @@ namespace Web.Controllers
         public async Task<IActionResult> DeleteLanguage(int id)
         {
             var language = await _languageRepository.GetById(id);
-            if (language == null)
+            if (language != null)
             {
-                return NotFound();
+                _languageRepository.Delete(id);
             }
-
-            _languageRepository.Delete(id);
             return NoContent();
         }
     }
