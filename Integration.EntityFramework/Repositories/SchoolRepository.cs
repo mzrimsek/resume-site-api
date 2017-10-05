@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Core.Interfaces;
+using Core.Interfaces.RepositoryInterfaces;
 using Core.Models;
 using Integration.EntityFramework.Mappers.SchoolMappers;
 using Integration.EntityFramework.Models;

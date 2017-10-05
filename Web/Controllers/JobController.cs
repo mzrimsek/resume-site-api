@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using Core.Interfaces;
+using Core.Interfaces.RepositoryInterfaces;
 using Web.ActionFilters;
 using Web.Mappers.JobMappers;
 using Web.Models.JobModels;
