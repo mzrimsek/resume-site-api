@@ -66,6 +66,14 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
         }
 
         [TestMethod]
+        public void ReturnStatusCodeBadRequest_WhenGivenNoModel()
+        {
+            _schoolId = _testObjectCreator.GetIdFromNewSchool();
+            var response = _client.PutAsync($"{ControllerRouteEnum.SCHOOL}/{_schoolId}", null).Result;
+            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+        }
+
+        [TestMethod]
         public void ReturnStatusCodeOk_WhenGivenValidIdAndValidModel()
         {
             _schoolId = _testObjectCreator.GetIdFromNewSchool();

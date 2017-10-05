@@ -66,6 +66,14 @@ namespace Test.Integration.ControllerTests.JobControllerTests
         }
 
         [TestMethod]
+        public void ReturnStatusCodeBadRequest_WhenGivenNoModel()
+        {
+            _jobId = _testObjectCreator.GetIdForNewJob();
+            var response = _client.PutAsync($"{ControllerRouteEnum.JOB}/{_jobId}", null).Result;
+            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+        }
+
+        [TestMethod]
         public void ReturnStatusCodeOk_WhenGivenValidIdAndValidModel()
         {
             _jobId = _testObjectCreator.GetIdForNewJob();

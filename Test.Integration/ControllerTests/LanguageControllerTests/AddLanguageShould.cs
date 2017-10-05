@@ -65,6 +65,13 @@ namespace Test.Integration.ControllerTests.LanguageControllerTests
         }
 
         [TestMethod]
+        public void ReturnStatusCodeBadRequest_WhenGivenNoModel()
+        {
+            var response = _client.PostAsync($"{ControllerRouteEnum.LANGUAGE}", null).Result;
+            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+        }
+
+        [TestMethod]
         public void ReturnCorrectViewModel()
         {
             var model = TestObjectGetter.GetAddLanguageViewModel();
