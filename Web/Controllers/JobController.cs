@@ -39,9 +39,9 @@ namespace Web.Controllers
 
         [HttpPost]
         [ModelStateValidation]
-        public async Task<IActionResult> AddJob([FromBody] AddJobViewModel job)
+        public async Task<IActionResult> AddJob([FromBody] AddJobViewModel entity)
         {
-            var domainModel = JobDomainModelMapper.MapFrom(job);
+            var domainModel = JobDomainModelMapper.MapFrom(entity);
             var savedJob = await _jobRepository.Save(domainModel);
             var jobViewModel = JobViewModelMapper.MapFrom(savedJob);
 
@@ -50,19 +50,16 @@ namespace Web.Controllers
 
         [HttpPut("{id}")]
         [ModelStateValidation]
-        public async Task<IActionResult> UpdateJob(int id, [FromBody] UpdateJobViewModel job)
+        [ModelHasCorrectId]
+        public async Task<IActionResult> UpdateJob(int id, [FromBody] UpdateJobViewModel entity)
         {
-            if (id != job.Id)
-            {
-                return BadRequest("Entity Id does not match.");
-            }
             var foundJob = await _jobRepository.GetById(id);
             if (foundJob == null)
             {
                 return NotFound();
             }
 
-            var viewModel = JobViewModelMapper.MapFrom(id, job);
+            var viewModel = JobViewModelMapper.MapFrom(id, entity);
             var domainModel = JobDomainModelMapper.MapFrom(viewModel);
             var updatedDomainModel = await _jobRepository.Save(domainModel);
 

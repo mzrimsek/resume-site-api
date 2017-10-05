@@ -38,9 +38,9 @@ namespace Web.Controllers
 
         [HttpPost]
         [ModelStateValidation]
-        public async Task<IActionResult> AddLanguage([FromBody] AddLanguageViewModel language)
+        public async Task<IActionResult> AddLanguage([FromBody] AddLanguageViewModel entity)
         {
-            var domainModel = LanguageDomainModelMapper.MapFrom(language);
+            var domainModel = LanguageDomainModelMapper.MapFrom(entity);
             var savedLanguage = await _languageRepository.Save(domainModel);
             var languageViewModel = LanguageViewModelMapper.MapFrom(savedLanguage);
 
@@ -49,19 +49,16 @@ namespace Web.Controllers
 
         [HttpPut("{id}")]
         [ModelStateValidation]
-        public async Task<IActionResult> UpdateLanguage(int id, [FromBody] UpdateLanguageViewModel language)
+        [ModelHasCorrectId]
+        public async Task<IActionResult> UpdateLanguage(int id, [FromBody] UpdateLanguageViewModel entity)
         {
-            if (id != language.Id)
-            {
-                return BadRequest("Entity Id does not match.");
-            }
             var foundLanguage = await _languageRepository.GetById(id);
             if (foundLanguage == null)
             {
                 return NotFound();
             }
 
-            var viewModel = LanguageViewModelMapper.MapFrom(id, language);
+            var viewModel = LanguageViewModelMapper.MapFrom(id, entity);
             var domainModel = LanguageDomainModelMapper.MapFrom(viewModel);
             var updatedDomainModel = await _languageRepository.Save(domainModel);
 

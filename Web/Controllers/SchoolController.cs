@@ -39,9 +39,9 @@ namespace Web.Controllers
 
         [HttpPost]
         [ModelStateValidation]
-        public async Task<IActionResult> AddSchool([FromBody] AddSchoolViewModel school)
+        public async Task<IActionResult> AddSchool([FromBody] AddSchoolViewModel entity)
         {
-            var domainModel = SchoolDomainModelMapper.MapFrom(school);
+            var domainModel = SchoolDomainModelMapper.MapFrom(entity);
             var savedSchool = await _schoolRepository.Save(domainModel);
             var schoolViewModel = SchoolViewModelMapper.MapFrom(savedSchool);
 
@@ -50,19 +50,16 @@ namespace Web.Controllers
 
         [HttpPut("{id}")]
         [ModelStateValidation]
-        public async Task<IActionResult> UpdateSchool(int id, [FromBody] UpdateSchoolViewModel school)
+        [ModelHasCorrectId]
+        public async Task<IActionResult> UpdateSchool(int id, [FromBody] UpdateSchoolViewModel entity)
         {
-            if (id != school.Id)
-            {
-                return BadRequest("Entity Id does not match.");
-            }
             var foundSchool = await _schoolRepository.GetById(id);
             if (foundSchool == null)
             {
                 return NotFound();
             }
 
-            var viewModel = SchoolViewModelMapper.MapFrom(id, school);
+            var viewModel = SchoolViewModelMapper.MapFrom(id, entity);
             var domainModel = SchoolDomainModelMapper.MapFrom(viewModel);
             var updatedDomainModel = await _schoolRepository.Save(domainModel);
 

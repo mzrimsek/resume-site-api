@@ -55,15 +55,15 @@ namespace Web.Controllers
 
         [HttpPost]
         [ModelStateValidation]
-        public async Task<IActionResult> AddJobProject([FromBody] AddJobProjectViewModel jobProject)
+        public async Task<IActionResult> AddJobProject([FromBody] AddJobProjectViewModel entity)
         {
-            var job = await _jobRepository.GetById(jobProject.JobId);
+            var job = await _jobRepository.GetById(entity.JobId);
             if (job == null)
             {
                 return NotFound();
             }
 
-            var domainModel = JobProjectDomainModelMapper.MapFrom(jobProject);
+            var domainModel = JobProjectDomainModelMapper.MapFrom(entity);
             var savedJobProject = await _jobProjectRepository.Save(domainModel);
             var jobProjectViewModel = JobProjectViewModelMapper.MapFrom(savedJobProject);
 
@@ -72,20 +72,17 @@ namespace Web.Controllers
 
         [HttpPut("{id}")]
         [ModelStateValidation]
-        public async Task<IActionResult> UpdateJobProject(int id, [FromBody] UpdateJobProjectViewModel jobProject)
+        [ModelHasCorrectId]
+        public async Task<IActionResult> UpdateJobProject(int id, [FromBody] UpdateJobProjectViewModel entity)
         {
-            if (id != jobProject.Id)
-            {
-                return BadRequest("Entity Id does not match.");
-            }
-            var job = await _jobRepository.GetById(jobProject.JobId);
+            var job = await _jobRepository.GetById(entity.JobId);
             var foundJobProject = await _jobProjectRepository.GetById(id);
             if (job == null || foundJobProject == null)
             {
                 return NotFound();
             }
 
-            var viewModel = JobProjectViewModelMapper.MapFrom(id, jobProject);
+            var viewModel = JobProjectViewModelMapper.MapFrom(id, entity);
             var domainModel = JobProjectDomainModelMapper.MapFrom(viewModel);
             var updatedDomainModel = await _jobProjectRepository.Save(domainModel);
 
