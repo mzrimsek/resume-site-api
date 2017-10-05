@@ -11,7 +11,6 @@ namespace Web.Controllers
     public class LanguageController : Controller
     {
         private readonly ILanguageRepository _languageRepository;
-
         public LanguageController(ILanguageRepository languageRepository)
         {
             _languageRepository = languageRepository;

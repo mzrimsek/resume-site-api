@@ -12,7 +12,6 @@ namespace Integration.EntityFramework.Repositories
     public class SchoolRepository : ISchoolRepository
     {
         private readonly DatabaseContext _databaseContext;
-
         public SchoolRepository(DatabaseContext databaseContext)
         {
             _databaseContext = databaseContext;

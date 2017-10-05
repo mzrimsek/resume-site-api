@@ -12,7 +12,6 @@ namespace Integration.EntityFramework.Repositories
     public class JobRepository : IJobRepository
     {
         private readonly DatabaseContext _databaseContext;
-
         public JobRepository(DatabaseContext databaseContext)
         {
             _databaseContext = databaseContext;
