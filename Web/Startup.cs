@@ -4,15 +4,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Core.Interfaces.RepositoryInterfaces;
 using Integration.EntityFramework.Models;
-using Integration.EntityFramework.Repositories;
+using Web.Configuration;
 
 namespace Web
 {
@@ -36,10 +30,7 @@ namespace Web
             services.AddAutoMapper();
             services.AddMvc();
 
-            services.AddScoped<IJobRepository, JobRepository>();
-            services.AddScoped<IJobProjectRepository, JobProjectRepository>();
-            services.AddScoped<ISchoolRepository, SchoolRepository>();
-            services.AddScoped<ILanguageRepository, LanguageRepository>();
+            DependencyInjectionConfiguration.Configure(services);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
