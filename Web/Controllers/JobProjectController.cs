@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Core.Interfaces.RepositoryInterfaces;
 using Core.Models;
 using Web.ActionFilters;
+using Web.Helpers;
 using Web.Models.JobProjectModels;
 
 namespace Web.Controllers
@@ -15,32 +16,25 @@ namespace Web.Controllers
         private readonly IJobProjectRepository _jobProjectRepository;
         private readonly IJobRepository _jobRepository;
         private readonly IMapper _mapper;
+        private readonly ControllerRequestHelper<JobProjectDomainModel, JobProjectViewModel> _controllerRequestHelper;
         public JobProjectController(IJobProjectRepository jobProjectRepository, IJobRepository jobRepository, IMapper mapper)
         {
             _jobProjectRepository = jobProjectRepository;
             _jobRepository = jobRepository;
             _mapper = mapper;
+            _controllerRequestHelper = new ControllerRequestHelper<JobProjectDomainModel, JobProjectViewModel>(jobProjectRepository, mapper);
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllJobProjects()
         {
-            var jobProjects = await _jobProjectRepository.GetAll();
-            var jobProjectViews = _mapper.Map<IEnumerable<JobProjectViewModel>>(jobProjects);
-            return Ok(jobProjectViews);
+            return await _controllerRequestHelper.GetAll();
         }
 
         [HttpGet("{id}", Name = "GetJobProject")]
         public async Task<IActionResult> GetJobProject(int id)
         {
-            var jobProject = await _jobProjectRepository.GetById(id);
-            if (jobProject == null)
-            {
-                return NotFound();
-            }
-
-            var jobProjectViewModel = _mapper.Map<JobProjectViewModel>(jobProject);
-            return Ok(jobProjectViewModel);
+            return await _controllerRequestHelper.GetById(id);
         }
 
         [HttpGet("job/{jobId}")]
@@ -66,12 +60,7 @@ namespace Web.Controllers
             {
                 return BadRequest("JobId is not valid.");
             }
-
-            var domainModel = _mapper.Map<JobProjectDomainModel>(entity);
-            var savedJobProject = await _jobProjectRepository.Save(domainModel);
-            var jobProjectViewModel = _mapper.Map<JobProjectViewModel>(savedJobProject);
-
-            return CreatedAtRoute("GetJobProject", new { id = jobProjectViewModel.Id }, jobProjectViewModel);
+            return await _controllerRequestHelper.Add(entity, "GetJobProject");
         }
 
         [HttpPut("{id}")]
@@ -84,28 +73,13 @@ namespace Web.Controllers
             {
                 return BadRequest("JobId is not valid.");
             }
-            var foundJobProject = await _jobProjectRepository.GetById(id);
-            if (foundJobProject == null)
-            {
-                return NotFound();
-            }
-
-            var viewModel = _mapper.Map<JobProjectViewModel>(entity);
-            var domainModel = _mapper.Map<JobProjectDomainModel>(viewModel);
-
-            await _jobProjectRepository.Save(domainModel);
-            return NoContent();
+            return await _controllerRequestHelper.Update(id, entity);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteJobProject(int id)
         {
-            var jobProject = await _jobProjectRepository.GetById(id);
-            if (jobProject != null)
-            {
-                _jobProjectRepository.Delete(id);
-            }
-            return NoContent();
+            return await _controllerRequestHelper.Delete(id);
         }
     }
 }
