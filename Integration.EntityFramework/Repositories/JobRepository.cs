@@ -1,10 +1,11 @@
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Core.Interfaces.RepositoryInterfaces;
 using Core.Models;
-using Integration.EntityFramework.Mappers.JobMappers;
 using Integration.EntityFramework.Models;
 
 namespace Integration.EntityFramework.Repositories
@@ -12,26 +13,27 @@ namespace Integration.EntityFramework.Repositories
     public class JobRepository : IJobRepository
     {
         private readonly DatabaseContext _databaseContext;
-        public JobRepository(DatabaseContext databaseContext)
+        private readonly IMapper _mapper;
+        public JobRepository(DatabaseContext databaseContext, IMapper mapper)
         {
             _databaseContext = databaseContext;
+            _mapper = mapper;
         }
 
         public async Task<IEnumerable<JobDomainModel>> GetAll()
         {
-            var jobs = await _databaseContext.Jobs.ToListAsync();
-            return JobDomainModelMapper.MapFrom(jobs);
+            return await _databaseContext.Jobs.Where(x => true).ProjectTo<JobDomainModel>().ToListAsync();
         }
 
         public async Task<JobDomainModel> GetById(int id)
         {
-            var job = await _databaseContext.Jobs.SingleOrDefaultAsync(x => x.Id == id);
-            return job == null ? null : JobDomainModelMapper.MapFrom(job);
+            var job = await _databaseContext.Jobs.Where(x => true).ProjectTo<JobDomainModel>().SingleOrDefaultAsync(x => x.Id == id);
+            return job == null ? null : job;
         }
 
         public async Task<JobDomainModel> Save(JobDomainModel entity)
         {
-            var databaseModel = JobDatabaseModelMapper.MapFrom(entity);
+            var databaseModel = _mapper.Map<JobDatabaseModel>(entity);
             var existingModel = await _databaseContext.Jobs.SingleOrDefaultAsync(x => x.Id == databaseModel.Id);
             if (existingModel == null)
             {
@@ -50,7 +52,7 @@ namespace Integration.EntityFramework.Repositories
             }
 
             await _databaseContext.SaveChangesAsync();
-            return JobDomainModelMapper.MapFrom(databaseModel);
+            return _mapper.Map<JobDomainModel>(databaseModel);
         }
 
         public void Delete(int id)
