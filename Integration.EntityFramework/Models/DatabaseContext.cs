@@ -8,6 +8,7 @@ namespace Integration.EntityFramework.Models
         public DbSet<JobProjectDatabaseModel> JobProjects { get; set; }
         public DbSet<SchoolDatabaseModel> Schools { get; set; }
         public DbSet<LanguageDatabaseModel> Languages { get; set; }
+        public DbSet<SkillDatabaseModel> Skills { get; set; }
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) { }
 
