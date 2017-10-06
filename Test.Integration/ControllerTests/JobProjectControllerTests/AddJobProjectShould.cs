@@ -66,14 +66,14 @@ namespace Test.Integration.ControllerTests.JobProjectControllerTests
         }
 
         [TestMethod]
-        public void ReturnStatusCodeNotFound_WhenGivenValidModel_WithInvalidJobId()
+        public void ReturnStatusCodeBadRequest_WhenGivenValidModel_WithInvalidJobId()
         {
             var model = TestObjectGetter.GetAddJobProjectViewModel(1);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PostAsync($"{ControllerRouteEnum.JOB_PROJECT}", requestContent).Result;
 
-            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
         }
 
         [TestMethod]

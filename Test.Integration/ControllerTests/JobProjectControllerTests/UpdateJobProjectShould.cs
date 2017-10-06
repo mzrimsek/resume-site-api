@@ -78,7 +78,7 @@ namespace Test.Integration.ControllerTests.JobProjectControllerTests
 
             var response = _client.PutAsync($"{ControllerRouteEnum.JOB_PROJECT}/{jobProjectId}", requestContent).Result;
 
-            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
         }
 
         [TestMethod]
@@ -105,21 +105,6 @@ namespace Test.Integration.ControllerTests.JobProjectControllerTests
             var response = _client.PutAsync($"{ControllerRouteEnum.JOB_PROJECT}/{jobProjectId}", requestContent).Result;
 
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-        }
-
-        [TestMethod]
-        public void ReturnUpdatedViewModel()
-        {
-            _jobId = _testObjectCreator.GetIdForNewJob();
-            var jobProjectId = _testObjectCreator.GetIdFromNewJobProject(_jobId);
-            var model = TestObjectGetter.GetUpdateJobProjectViewModel(jobProjectId, _jobId, "A different project");
-            var requestContent = RequestHelper.GetRequestContentFromObject(model);
-
-            var response = _client.PutAsync($"{ControllerRouteEnum.JOB_PROJECT}/{jobProjectId}", requestContent).Result;
-            var serializedContent = RequestHelper.GetObjectFromResponseContent<JobProjectViewModel>(response);
-
-            var isCorrectViewModel = AssertHelper.AreJobProjectViewModelsEqual(model, serializedContent);
-            Assert.IsTrue(isCorrectViewModel);
         }
 
         [TestMethod]
