@@ -94,7 +94,7 @@ namespace Web.Controllers
             var domainModel = _mapper.Map<JobProjectDomainModel>(viewModel);
 
             await _jobProjectRepository.Save(domainModel);
-            return Ok();
+            return NoContent();
         }
 
         [HttpDelete("{id}")]

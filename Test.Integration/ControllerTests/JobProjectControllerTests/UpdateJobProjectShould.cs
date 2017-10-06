@@ -69,7 +69,7 @@ namespace Test.Integration.ControllerTests.JobProjectControllerTests
         }
 
         [TestMethod]
-        public void ReturnStatusCodeNotFound_WhenGivenValidModel_WithInvalidJobId()
+        public void ReturnStatusCodeBadRequest_WhenGivenValidModel_WithInvalidJobId()
         {
             _jobId = _testObjectCreator.GetIdForNewJob();
             var jobProjectId = _testObjectCreator.GetIdFromNewJobProject(_jobId);
@@ -95,7 +95,7 @@ namespace Test.Integration.ControllerTests.JobProjectControllerTests
         }
 
         [TestMethod]
-        public void ReturnStatusCodeOk_WhenGivenValidIdAndValidModel()
+        public void ReturnStatusCodeNoContent_WhenGivenValidIdAndValidModel()
         {
             _jobId = _testObjectCreator.GetIdForNewJob();
             var jobProjectId = _testObjectCreator.GetIdFromNewJobProject(_jobId);
@@ -104,7 +104,7 @@ namespace Test.Integration.ControllerTests.JobProjectControllerTests
 
             var response = _client.PutAsync($"{ControllerRouteEnum.JOB_PROJECT}/{jobProjectId}", requestContent).Result;
 
-            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
         }
 
         [TestMethod]

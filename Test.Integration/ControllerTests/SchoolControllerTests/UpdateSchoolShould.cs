@@ -66,7 +66,7 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
         }
 
         [TestMethod]
-        public void ReturnStatusCodeOk_WhenGivenValidIdAndValidModel()
+        public void ReturnStatusCodeNoContent_WhenGivenValidIdAndValidModel()
         {
             _schoolId = _testObjectCreator.GetIdFromNewSchool();
             var model = TestObjectGetter.GetUpdateSchoolViewModel(_schoolId, "A Different School");
@@ -74,7 +74,7 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
 
             var response = _client.PutAsync($"{ControllerRouteEnum.SCHOOL}/{_schoolId}", requestContent).Result;
 
-            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
         }
 
         [TestMethod]

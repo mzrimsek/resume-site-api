@@ -66,7 +66,7 @@ namespace Web.Controllers
             var domainModel = _mapper.Map<LanguageDomainModel>(viewModel);
 
             await _languageRepository.Save(domainModel);
-            return Ok();
+            return NoContent();
         }
 
         [HttpDelete("{id}")]

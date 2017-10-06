@@ -78,7 +78,7 @@ namespace Test.Integration.ControllerTests.LanguageControllerTests
         }
 
         [TestMethod]
-        public void ReturnStatusCodeOk_WhenGivenValidIdAndValidModel()
+        public void ReturnStatusCodeNoContent_WhenGivenValidIdAndValidModel()
         {
             _languageId = _testObjectCreator.GetIdFromNewLanguage();
             var model = TestObjectGetter.GetUpdateLanguageViewModel(_languageId, "A different language", 2);
@@ -86,7 +86,7 @@ namespace Test.Integration.ControllerTests.LanguageControllerTests
 
             var response = _client.PutAsync($"{ControllerRouteEnum.LANGUAGE}/{_languageId}", requestContent).Result;
 
-            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
         }
 
         [TestMethod]

@@ -67,7 +67,7 @@ namespace Web.Controllers
             var domainModel = _mapper.Map<SchoolDomainModel>(viewModel);
 
             await _schoolRepository.Save(domainModel);
-            return Ok();
+            return NoContent();
         }
 
         [HttpDelete("{id}")]

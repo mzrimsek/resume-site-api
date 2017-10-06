@@ -66,7 +66,7 @@ namespace Test.Integration.ControllerTests.JobControllerTests
         }
 
         [TestMethod]
-        public void ReturnStatusCodeOk_WhenGivenValidIdAndValidModel()
+        public void ReturnStatusCodeNoContent_WhenGivenValidIdAndValidModel()
         {
             _jobId = _testObjectCreator.GetIdForNewJob();
             var model = TestObjectGetter.GetUpdateJobViewModel(_jobId, "A Different Company");
@@ -74,7 +74,7 @@ namespace Test.Integration.ControllerTests.JobControllerTests
 
             var response = _client.PutAsync($"{ControllerRouteEnum.JOB}/{_jobId}", requestContent).Result;
 
-            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
         }
 
         [TestMethod]
