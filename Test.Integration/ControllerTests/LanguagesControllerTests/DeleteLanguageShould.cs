@@ -52,5 +52,11 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
 
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
         }
+
+        [TestMethod]
+        public void DeleteSkillsForLanguage()
+        {
+            Assert.Fail();
+        }
     }
 }
