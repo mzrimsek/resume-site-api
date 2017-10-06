@@ -60,7 +60,7 @@ namespace Web.Controllers
             var job = await _jobRepository.GetById(entity.JobId);
             if (job == null)
             {
-                return NotFound();
+                return BadRequest("JobId is not valid.");
             }
 
             var domainModel = JobProjectDomainModelMapper.MapFrom(entity);
@@ -76,18 +76,21 @@ namespace Web.Controllers
         public async Task<IActionResult> UpdateJobProject(int id, [FromBody] UpdateJobProjectViewModel entity)
         {
             var job = await _jobRepository.GetById(entity.JobId);
+            if (job == null)
+            {
+                return BadRequest("JobId is not valid.");
+            }
             var foundJobProject = await _jobProjectRepository.GetById(id);
-            if (job == null || foundJobProject == null)
+            if (foundJobProject == null)
             {
                 return NotFound();
             }
 
             var viewModel = JobProjectViewModelMapper.MapFrom(id, entity);
             var domainModel = JobProjectDomainModelMapper.MapFrom(viewModel);
-            var updatedDomainModel = await _jobProjectRepository.Save(domainModel);
 
-            var updatedViewModel = JobProjectViewModelMapper.MapFrom(updatedDomainModel);
-            return Ok(updatedViewModel);
+            await _jobProjectRepository.Save(domainModel);
+            return Ok();
         }
 
         [HttpDelete("{id}")]
