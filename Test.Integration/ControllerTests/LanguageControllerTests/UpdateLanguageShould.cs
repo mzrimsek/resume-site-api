@@ -90,20 +90,6 @@ namespace Test.Integration.ControllerTests.LanguageControllerTests
         }
 
         [TestMethod]
-        public void ReturnUpdatedViewModel()
-        {
-            _languageId = _testObjectCreator.GetIdFromNewLanguage();
-            var model = TestObjectGetter.GetUpdateLanguageViewModel(_languageId, "A different language", 2);
-            var requestContent = RequestHelper.GetRequestContentFromObject(model);
-
-            var response = _client.PutAsync($"{ControllerRouteEnum.LANGUAGE}/{_languageId}", requestContent).Result;
-            var serializedContent = RequestHelper.GetObjectFromResponseContent<LanguageViewModel>(response);
-
-            var isCorrectViewModel = AssertHelper.AreLanguageViewModelsEqual(model, serializedContent);
-            Assert.IsTrue(isCorrectViewModel);
-        }
-
-        [TestMethod]
         public void SaveUpdatedViewModel()
         {
             _languageId = _testObjectCreator.GetIdFromNewLanguage();

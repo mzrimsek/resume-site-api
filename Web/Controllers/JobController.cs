@@ -65,10 +65,9 @@ namespace Web.Controllers
 
             var viewModel = _mapper.Map<JobViewModel>(entity);
             var domainModel = _mapper.Map<JobDomainModel>(viewModel);
-            var updatedDomainModel = await _jobRepository.Save(domainModel);
 
-            var updatedViewModel = _mapper.Map<JobViewModel>(updatedDomainModel);
-            return Ok(updatedViewModel);
+            await _jobRepository.Save(domainModel);
+            return Ok();
         }
 
         [HttpDelete("{id}")]

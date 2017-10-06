@@ -78,20 +78,6 @@ namespace Test.Integration.ControllerTests.JobControllerTests
         }
 
         [TestMethod]
-        public void ReturnUpdatedViewModel()
-        {
-            _jobId = _testObjectCreator.GetIdForNewJob();
-            var model = TestObjectGetter.GetUpdateJobViewModel(_jobId, "A Different Company");
-            var requestContent = RequestHelper.GetRequestContentFromObject(model);
-
-            var response = _client.PutAsync($"{ControllerRouteEnum.JOB}/{_jobId}", requestContent).Result;
-            var serializedContent = RequestHelper.GetObjectFromResponseContent<JobViewModel>(response);
-
-            var isCorrectViewModel = AssertHelper.AreTestJobViewModelsEqual(model, serializedContent);
-            Assert.IsTrue(isCorrectViewModel);
-        }
-
-        [TestMethod]
         public void SaveUpdatedViewModel()
         {
             _jobId = _testObjectCreator.GetIdForNewJob();

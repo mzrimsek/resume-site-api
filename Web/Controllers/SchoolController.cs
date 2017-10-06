@@ -61,10 +61,9 @@ namespace Web.Controllers
 
             var viewModel = SchoolViewModelMapper.MapFrom(id, entity);
             var domainModel = SchoolDomainModelMapper.MapFrom(viewModel);
-            var updatedDomainModel = await _schoolRepository.Save(domainModel);
 
-            var updatedViewModel = SchoolViewModelMapper.MapFrom(updatedDomainModel);
-            return Ok(updatedViewModel);
+            await _schoolRepository.Save(domainModel);
+            return Ok();
         }
 
         [HttpDelete("{id}")]

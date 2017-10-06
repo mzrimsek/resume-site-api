@@ -60,10 +60,9 @@ namespace Web.Controllers
 
             var viewModel = LanguageViewModelMapper.MapFrom(id, entity);
             var domainModel = LanguageDomainModelMapper.MapFrom(viewModel);
-            var updatedDomainModel = await _languageRepository.Save(domainModel);
 
-            var updatedViewModel = LanguageViewModelMapper.MapFrom(updatedDomainModel);
-            return Ok(updatedViewModel);
+            await _languageRepository.Save(domainModel);
+            return Ok();
         }
 
         [HttpDelete("{id}")]

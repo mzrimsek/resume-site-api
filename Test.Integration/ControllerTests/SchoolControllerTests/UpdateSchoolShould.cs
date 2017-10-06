@@ -78,20 +78,6 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
         }
 
         [TestMethod]
-        public void ReturnUpdatedViewModel()
-        {
-            _schoolId = _testObjectCreator.GetIdFromNewSchool();
-            var model = TestObjectGetter.GetUpdateSchoolViewModel(_schoolId, "A Different School");
-            var requestContent = RequestHelper.GetRequestContentFromObject(model);
-
-            var response = _client.PutAsync($"{ControllerRouteEnum.SCHOOL}/{_schoolId}", requestContent).Result;
-            var serializedContent = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(response);
-
-            var isCorrectViewModel = AssertHelper.AreSchoolViewModelsEqual(model, serializedContent);
-            Assert.IsTrue(isCorrectViewModel);
-        }
-
-        [TestMethod]
         public void SaveUpdatedViewModel()
         {
             _schoolId = _testObjectCreator.GetIdFromNewSchool();
