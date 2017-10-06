@@ -24,7 +24,7 @@ namespace Test.Integration.ControllerTests.JobProjectControllerTests
         [TestCleanup]
         public void TearDown()
         {
-            var _ = _client.DeleteAsync($"{ControllerRouteEnum.JOB}/{_jobId}").Result;
+            var _ = _client.DeleteAsync($"{ControllerRouteEnum.JOBS}/{_jobId}").Result;
             _client.Dispose();
             _server.Dispose();
         }

@@ -4,7 +4,7 @@ using System.Net;
 using System.Net.Http;
 using Test.Integration.TestHelpers;
 
-namespace Test.Integration.ControllerTests.JobControllerTests
+namespace Test.Integration.ControllerTests.JobsControllerTests
 {
     [TestClass]
     public class DeleteJobShould
@@ -30,7 +30,7 @@ namespace Test.Integration.ControllerTests.JobControllerTests
         [TestMethod]
         public void ReturnStatusCodeNoContent_WhenGivenInvalidId()
         {
-            var response = _client.DeleteAsync($"{ControllerRouteEnum.JOB}/1").Result;
+            var response = _client.DeleteAsync($"{ControllerRouteEnum.JOBS}/1").Result;
             Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
         }
 
@@ -38,7 +38,7 @@ namespace Test.Integration.ControllerTests.JobControllerTests
         public void ReturnStatusCodeNoContent_WhenGivenValidId()
         {
             var jobId = _testObjectCreator.GetIdForNewJob();
-            var response = _client.DeleteAsync($"{ControllerRouteEnum.JOB}/{jobId}").Result;
+            var response = _client.DeleteAsync($"{ControllerRouteEnum.JOBS}/{jobId}").Result;
             Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
         }
 
@@ -47,8 +47,8 @@ namespace Test.Integration.ControllerTests.JobControllerTests
         {
             var jobId = _testObjectCreator.GetIdForNewJob();
 
-            var _ = _client.DeleteAsync($"{ControllerRouteEnum.JOB}/{jobId}").Result;
-            var response = _client.GetAsync($"{ControllerRouteEnum.JOB}/{jobId}").Result;
+            var _ = _client.DeleteAsync($"{ControllerRouteEnum.JOBS}/{jobId}").Result;
+            var response = _client.GetAsync($"{ControllerRouteEnum.JOBS}/{jobId}").Result;
 
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
         }
@@ -59,7 +59,7 @@ namespace Test.Integration.ControllerTests.JobControllerTests
             var jobId = _testObjectCreator.GetIdForNewJob();
             var jobProjectId = _testObjectCreator.GetIdFromNewJobProject(jobId);
 
-            var _ = _client.DeleteAsync($"{ControllerRouteEnum.JOB}/{jobId}").Result;
+            var _ = _client.DeleteAsync($"{ControllerRouteEnum.JOBS}/{jobId}").Result;
             var response = _client.GetAsync($"{ControllerRouteEnum.JOB_PROJECT}/{jobProjectId}").Result;
 
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
