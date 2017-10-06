@@ -27,8 +27,7 @@ namespace Integration.EntityFramework.Repositories
 
         public async Task<SkillDomainModel> GetById(int id)
         {
-            var skill = await _databaseContext.Skills.Where(x => x.Id == id).ProjectTo<SkillDomainModel>().FirstOrDefaultAsync();
-            return skill == null ? null : skill;
+            return await _databaseContext.Skills.Where(x => x.Id == id).ProjectTo<SkillDomainModel>().FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<SkillDomainModel>> GetByLanguageId(int languageId)
