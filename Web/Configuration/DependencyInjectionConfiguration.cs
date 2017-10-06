@@ -12,6 +12,7 @@ namespace Web.Configuration
             services.AddScoped<IJobProjectRepository, JobProjectRepository>();
             services.AddScoped<ISchoolRepository, SchoolRepository>();
             services.AddScoped<ILanguageRepository, LanguageRepository>();
+            services.AddScoped<ISkillRepository, SkillRepository>();
         }
     }
 }
