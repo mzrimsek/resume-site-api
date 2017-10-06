@@ -1,6 +1,8 @@
+using Core.Interfaces;
+
 namespace Web.Models.SchoolModels
 {
-    public class SchoolViewModel
+    public class SchoolViewModel : IHasId
     {
         public int Id { get; set; }
         public string Name { get; set; }

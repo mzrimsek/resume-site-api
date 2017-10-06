@@ -1,6 +1,8 @@
+using Core.Interfaces;
+
 namespace Web.Models.JobModels
 {
-    public class JobViewModel
+    public class JobViewModel : IHasId
     {
         public int Id { get; set; }
         public string Name { get; set; }
