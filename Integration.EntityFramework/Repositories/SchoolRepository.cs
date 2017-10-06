@@ -1,10 +1,11 @@
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Core.Interfaces.RepositoryInterfaces;
 using Core.Models;
-using Integration.EntityFramework.Mappers.SchoolMappers;
 using Integration.EntityFramework.Models;
 
 namespace Integration.EntityFramework.Repositories
@@ -12,26 +13,27 @@ namespace Integration.EntityFramework.Repositories
     public class SchoolRepository : ISchoolRepository
     {
         private readonly DatabaseContext _databaseContext;
-        public SchoolRepository(DatabaseContext databaseContext)
+        private readonly IMapper _mapper;
+        public SchoolRepository(DatabaseContext databaseContext, IMapper mapper)
         {
             _databaseContext = databaseContext;
+            _mapper = mapper;
         }
 
         public async Task<IEnumerable<SchoolDomainModel>> GetAll()
         {
-            var schools = await _databaseContext.Schools.ToListAsync();
-            return SchoolDomainModelMapper.MapFrom(schools);
+            return await _databaseContext.Schools.Where(x => true).ProjectTo<SchoolDomainModel>().ToListAsync();
         }
 
         public async Task<SchoolDomainModel> GetById(int id)
         {
-            var school = await _databaseContext.Schools.SingleOrDefaultAsync(x => x.Id == id);
-            return school == null ? null : SchoolDomainModelMapper.MapFrom(school);
+            var school = await _databaseContext.Schools.Where(x => true).ProjectTo<SchoolDomainModel>().SingleOrDefaultAsync(x => x.Id == id);
+            return school == null ? null : school;
         }
 
         public async Task<SchoolDomainModel> Save(SchoolDomainModel entity)
         {
-            var databaseModel = SchoolDatabaseModelMapper.MapFrom(entity);
+            var databaseModel = _mapper.Map<SchoolDatabaseModel>(entity);
             var existingModel = await _databaseContext.Schools.SingleOrDefaultAsync(x => x.Id == databaseModel.Id);
             if (existingModel == null)
             {
@@ -51,7 +53,7 @@ namespace Integration.EntityFramework.Repositories
             }
 
             await _databaseContext.SaveChangesAsync();
-            return SchoolDomainModelMapper.MapFrom(databaseModel);
+            return _mapper.Map<SchoolDomainModel>(databaseModel);
         }
 
         public void Delete(int id)
