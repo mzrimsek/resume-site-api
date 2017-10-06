@@ -18,7 +18,6 @@ namespace Web
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
             Configuration = builder.Build();
-
         }
 
         public IConfiguration Configuration { get; }

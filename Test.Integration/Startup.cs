@@ -16,7 +16,6 @@ namespace Test.Integration
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath);
             Configuration = builder.Build();
-
         }
 
         public IConfiguration Configuration { get; }
