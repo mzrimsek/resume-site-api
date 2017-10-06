@@ -28,7 +28,6 @@ namespace Web.MapperProfiles
                 .ForMember(dest => dest.EndDate,
                            opt => opt.MapFrom(src => src.EndDate.Format()));
 
-            CreateMap<AddJobViewModel, JobViewModel>();
             CreateMap<UpdateJobViewModel, JobViewModel>();
         }
     }
