@@ -27,7 +27,7 @@ namespace Integration.EntityFramework.Repositories
 
         public async Task<JobProjectDomainModel> GetById(int id)
         {
-            var jobProject = await _databaseContext.JobProjects.Where(x => true).ProjectTo<JobProjectDomainModel>().SingleOrDefaultAsync(x => x.Id == id);
+            var jobProject = await _databaseContext.JobProjects.Where(x => x.Id == id).ProjectTo<JobProjectDomainModel>().FirstOrDefaultAsync();
             return jobProject == null ? null : jobProject;
         }
 

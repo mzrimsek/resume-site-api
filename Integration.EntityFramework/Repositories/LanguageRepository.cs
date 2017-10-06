@@ -27,7 +27,7 @@ namespace Integration.EntityFramework.Repositories
 
         public async Task<LanguageDomainModel> GetById(int id)
         {
-            var language = await _databaseContext.Languages.Where(x => true).ProjectTo<LanguageDomainModel>().SingleOrDefaultAsync(x => x.Id == id);
+            var language = await _databaseContext.Languages.Where(x => x.Id == id).ProjectTo<LanguageDomainModel>().FirstOrDefaultAsync();
             return language == null ? null : language;
         }
 

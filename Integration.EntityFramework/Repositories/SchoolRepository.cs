@@ -27,7 +27,7 @@ namespace Integration.EntityFramework.Repositories
 
         public async Task<SchoolDomainModel> GetById(int id)
         {
-            var school = await _databaseContext.Schools.Where(x => true).ProjectTo<SchoolDomainModel>().SingleOrDefaultAsync(x => x.Id == id);
+            var school = await _databaseContext.Schools.Where(x => x.Id == id).ProjectTo<SchoolDomainModel>().FirstOrDefaultAsync();
             return school == null ? null : school;
         }
 
