@@ -2,8 +2,8 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Core.Interfaces.RepositoryInterfaces;
 using Core.Interfaces;
+using Core.Interfaces.RepositoryInterfaces;
 
 namespace Web.Helpers
 {
