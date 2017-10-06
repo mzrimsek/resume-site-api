@@ -6,10 +6,10 @@ using System.Net.Http;
 using Test.Integration.TestHelpers;
 using Test.Integration.TestModels.JobProjectModels;
 
-namespace Test.Integration.ControllerTests.JobProjectControllerTests
+namespace Test.Integration.ControllerTests.JobProjectsControllerTests
 {
     [TestClass]
-    public class GetAllJobProjectsShould
+    public class GetJobProjectsForJobShould
     {
         private TestServer _server;
         private HttpClient _client;
@@ -32,27 +32,38 @@ namespace Test.Integration.ControllerTests.JobProjectControllerTests
         }
 
         [TestMethod]
-        public void ReturnStatusCodeOk()
+        public void ReturnStatusCodeNotFound_WhenGivenInvalidJobId()
         {
-            var response = _client.GetAsync($"{ControllerRouteEnum.JOB_PROJECT}").Result;
-            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            var response = _client.GetAsync($"{ControllerRouteEnum.JOB_PROJECTS}/job/1").Result;
+            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
         }
 
         [TestMethod]
-        public void ReturnEmptyList_WhenNoJobProjectsAreCreated()
+        public void ReturnStatusCodeOk_WhenGivenValidJobId()
         {
-            var response = _client.GetAsync($"{ControllerRouteEnum.JOB_PROJECT}").Result;
+            _jobId = _testObjectCreator.GetIdForNewJob();
+            var getResponse = _client.GetAsync($"{ControllerRouteEnum.JOB_PROJECTS}/job/{_jobId}").Result;
+            Assert.AreEqual(HttpStatusCode.OK, getResponse.StatusCode);
+        }
+
+        [TestMethod]
+        public void ReturnEmptyList_WhenJobHasNoJobProjects()
+        {
+            _jobId = _testObjectCreator.GetIdForNewJob();
+
+            var response = _client.GetAsync($"{ControllerRouteEnum.JOB_PROJECTS}/job/{_jobId}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<JobProjectViewModel>>(response);
+
             Assert.AreEqual(0, serializedContent.Count);
         }
 
         [TestMethod]
-        public void ReturnOneJobProject_WhenOneJobProjectIsCreated()
+        public void ReturnOneJobProject_WhenOneJobProjectIsCreatedForJob()
         {
             _jobId = _testObjectCreator.GetIdForNewJob();
             var jobProjectId = _testObjectCreator.GetIdFromNewJobProject(_jobId);
 
-            var response = _client.GetAsync($"{ControllerRouteEnum.JOB_PROJECT}").Result;
+            var response = _client.GetAsync($"{ControllerRouteEnum.JOB_PROJECTS}/job/{_jobId}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<JobProjectViewModel>>(response);
 
             Assert.AreEqual(1, serializedContent.Count);

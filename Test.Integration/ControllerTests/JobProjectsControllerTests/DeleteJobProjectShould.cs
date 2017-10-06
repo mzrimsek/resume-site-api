@@ -4,14 +4,15 @@ using System.Net;
 using System.Net.Http;
 using Test.Integration.TestHelpers;
 
-namespace Test.Integration.ControllerTests.LanguageControllerTests
+namespace Test.Integration.ControllerTests.JobProjectsControllerTests
 {
     [TestClass]
-    public class DeleteLanguageShould
+    public class DeleteJobProjectShould
     {
         private TestServer _server;
         private HttpClient _client;
         private TestObjectCreator _testObjectCreator;
+        private int _jobId;
 
         [TestInitialize]
         public void SetUp()
@@ -23,6 +24,7 @@ namespace Test.Integration.ControllerTests.LanguageControllerTests
         [TestCleanup]
         public void TearDown()
         {
+            var _ = _client.DeleteAsync($"{ControllerRouteEnum.JOBS}/{_jobId}").Result;
             _client.Dispose();
             _server.Dispose();
         }
@@ -30,25 +32,29 @@ namespace Test.Integration.ControllerTests.LanguageControllerTests
         [TestMethod]
         public void ReturnStatusCodeNoContent_WhenGivenInvalidId()
         {
-            var response = _client.DeleteAsync($"{ControllerRouteEnum.LANGUAGE}/1").Result;
+            var response = _client.DeleteAsync($"{ControllerRouteEnum.JOB_PROJECTS}/1").Result;
             Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
         }
 
         [TestMethod]
         public void ReturnStatusCodeNoContent_WhenGivenValidId()
         {
-            var languageId = _testObjectCreator.GetIdFromNewLanguage();
-            var response = _client.DeleteAsync($"{ControllerRouteEnum.LANGUAGE}/{languageId}").Result;
+            _jobId = _testObjectCreator.GetIdForNewJob();
+            var jobProjectId = _testObjectCreator.GetIdFromNewJobProject(_jobId);
+
+            var response = _client.DeleteAsync($"{ControllerRouteEnum.JOB_PROJECTS}/{jobProjectId}").Result;
+
             Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
         }
 
         [TestMethod]
-        public void DeleteLanguage()
+        public void DeleteJobProject()
         {
-            var languageId = _testObjectCreator.GetIdFromNewLanguage();
+            _jobId = _testObjectCreator.GetIdForNewJob();
+            var jobProjectId = _testObjectCreator.GetIdFromNewJobProject(_jobId);
 
-            var _ = _client.DeleteAsync($"{ControllerRouteEnum.LANGUAGE}/{languageId}").Result;
-            var response = _client.GetAsync($"{ControllerRouteEnum.LANGUAGE}/{languageId}").Result;
+            var _ = _client.DeleteAsync($"{ControllerRouteEnum.JOB_PROJECTS}/{jobProjectId}").Result;
+            var response = _client.GetAsync($"{ControllerRouteEnum.JOB_PROJECTS}/{jobProjectId}").Result;
 
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
         }

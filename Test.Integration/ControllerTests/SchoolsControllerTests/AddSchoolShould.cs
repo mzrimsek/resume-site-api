@@ -5,7 +5,7 @@ using System.Net.Http;
 using Test.Integration.TestHelpers;
 using Test.Integration.TestModels.SchoolModels;
 
-namespace Test.Integration.ControllerTests.SchoolControllerTests
+namespace Test.Integration.ControllerTests.SchoolsControllerTests
 {
     [TestClass]
     public class AddSchoolShould
@@ -23,7 +23,7 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
         [TestCleanup]
         public void TearDown()
         {
-            var _ = _client.DeleteAsync($"{ControllerRouteEnum.SCHOOL}/{_schoolId}").Result;
+            var _ = _client.DeleteAsync($"{ControllerRouteEnum.SCHOOLS}/{_schoolId}").Result;
             _client.Dispose();
             _server.Dispose();
         }
@@ -34,7 +34,7 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
             var model = TestObjectGetter.GetAddSchoolViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.SCHOOL}", requestContent).Result;
+            var response = _client.PostAsync($"{ControllerRouteEnum.SCHOOLS}", requestContent).Result;
             _schoolId = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(response).Id;
 
             Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
@@ -46,7 +46,7 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
             var model = TestObjectGetter.GetAddSchoolViewModel(null);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.SCHOOL}", requestContent).Result;
+            var response = _client.PostAsync($"{ControllerRouteEnum.SCHOOLS}", requestContent).Result;
 
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
         }
@@ -57,7 +57,7 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
             var model = TestObjectGetter.GetAddSchoolViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.SCHOOL}", requestContent).Result;
+            var response = _client.PostAsync($"{ControllerRouteEnum.SCHOOLS}", requestContent).Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(response);
             _schoolId = serializedContent.Id;
 
@@ -71,9 +71,9 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
             var model = TestObjectGetter.GetAddSchoolViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.SCHOOL}", requestContent).Result;
+            var response = _client.PostAsync($"{ControllerRouteEnum.SCHOOLS}", requestContent).Result;
             _schoolId = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(response).Id;
-            response = _client.GetAsync($"{ControllerRouteEnum.SCHOOL}/{_schoolId}").Result;
+            response = _client.GetAsync($"{ControllerRouteEnum.SCHOOLS}/{_schoolId}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(response);
 
             var isCorrectViewModel = AssertHelper.AreSchoolViewModelsEqual(model, serializedContent);

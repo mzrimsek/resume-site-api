@@ -4,17 +4,17 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using Test.Integration.TestHelpers;
-using Test.Integration.TestModels.LanguageModels;
+using Test.Integration.TestModels.SchoolModels;
 
-namespace Test.Integration.ControllerTests.LanguageControllerTests
+namespace Test.Integration.ControllerTests.SchoolsControllerTests
 {
     [TestClass]
-    public class GetAllLanguagesShould
+    public class GetAllSchoolsShould
     {
         private TestServer _server;
         private HttpClient _client;
         private TestObjectCreator _testObjectCreator;
-        private int _languageId;
+        private int _schoolId;
 
         [TestInitialize]
         public void SetUp()
@@ -26,7 +26,7 @@ namespace Test.Integration.ControllerTests.LanguageControllerTests
         [TestCleanup]
         public void TearDown()
         {
-            var _ = _client.DeleteAsync($"{ControllerRouteEnum.LANGUAGE}/{_languageId}").Result;
+            var _ = _client.DeleteAsync($"{ControllerRouteEnum.SCHOOLS}/{_schoolId}").Result;
             _client.Dispose();
             _server.Dispose();
         }
@@ -34,28 +34,28 @@ namespace Test.Integration.ControllerTests.LanguageControllerTests
         [TestMethod]
         public void ReturnStatusCodeOk()
         {
-            var response = _client.GetAsync($"{ControllerRouteEnum.LANGUAGE}").Result;
+            var response = _client.GetAsync($"{ControllerRouteEnum.SCHOOLS}").Result;
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         }
 
         [TestMethod]
-        public void ReturnEmptyList_WhenNoLanguagesAreCreated()
+        public void ReturnEmptyList_WhenNoSchoolsAreCreated()
         {
-            var response = _client.GetAsync($"{ControllerRouteEnum.LANGUAGE}").Result;
-            var serializedContent = RequestHelper.GetObjectFromResponseContent<List<LanguageViewModel>>(response);
+            var response = _client.GetAsync($"{ControllerRouteEnum.SCHOOLS}").Result;
+            var serializedContent = RequestHelper.GetObjectFromResponseContent<List<SchoolViewModel>>(response);
             Assert.AreEqual(0, serializedContent.Count);
         }
 
         [TestMethod]
-        public void ReturnOneJob_WhenOneLanguageIsCreated()
+        public void ReturnOneSchool_WhenOneSchoolIsCreated()
         {
-            _languageId = _testObjectCreator.GetIdFromNewLanguage();
+            _schoolId = _testObjectCreator.GetIdFromNewSchool();
 
-            var response = _client.GetAsync($"{ControllerRouteEnum.LANGUAGE}").Result;
-            var serializedContent = RequestHelper.GetObjectFromResponseContent<List<LanguageViewModel>>(response);
+            var getResponse = _client.GetAsync($"{ControllerRouteEnum.SCHOOLS}").Result;
+            var serializedContent = RequestHelper.GetObjectFromResponseContent<List<SchoolViewModel>>(getResponse);
 
             Assert.AreEqual(1, serializedContent.Count);
-            Assert.AreEqual(_languageId, serializedContent[0].Id);
+            Assert.AreEqual(_schoolId, serializedContent[0].Id);
         }
     }
 }

@@ -60,7 +60,7 @@ namespace Test.Integration.ControllerTests.JobsControllerTests
             var jobProjectId = _testObjectCreator.GetIdFromNewJobProject(jobId);
 
             var _ = _client.DeleteAsync($"{ControllerRouteEnum.JOBS}/{jobId}").Result;
-            var response = _client.GetAsync($"{ControllerRouteEnum.JOB_PROJECT}/{jobProjectId}").Result;
+            var response = _client.GetAsync($"{ControllerRouteEnum.JOB_PROJECTS}/{jobProjectId}").Result;
 
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
         }

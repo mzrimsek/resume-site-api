@@ -26,7 +26,7 @@ namespace Test.Integration.TestHelpers
         {
             var model = TestObjectGetter.GetAddJobProjectViewModel(jobId);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
-            var response = _client.PostAsync($"{ControllerRouteEnum.JOB_PROJECT}", requestContent).Result;
+            var response = _client.PostAsync($"{ControllerRouteEnum.JOB_PROJECTS}", requestContent).Result;
             return RequestHelper.GetObjectFromResponseContent<JobProjectViewModel>(response).Id;
         }
 
@@ -34,7 +34,7 @@ namespace Test.Integration.TestHelpers
         {
             var model = TestObjectGetter.GetAddSchoolViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
-            var response = _client.PostAsync($"{ControllerRouteEnum.SCHOOL}", requestContent).Result;
+            var response = _client.PostAsync($"{ControllerRouteEnum.SCHOOLS}", requestContent).Result;
             return RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(response).Id;
         }
 
@@ -42,7 +42,7 @@ namespace Test.Integration.TestHelpers
         {
             var model = TestObjectGetter.GetAddLanguageViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
-            var response = _client.PostAsync($"{ControllerRouteEnum.LANGUAGE}", requestContent).Result;
+            var response = _client.PostAsync($"{ControllerRouteEnum.LANGUAGES}", requestContent).Result;
             return RequestHelper.GetObjectFromResponseContent<LanguageViewModel>(response).Id;
         }
     }

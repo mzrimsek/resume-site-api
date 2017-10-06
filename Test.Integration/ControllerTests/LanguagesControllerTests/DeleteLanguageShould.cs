@@ -4,10 +4,10 @@ using System.Net;
 using System.Net.Http;
 using Test.Integration.TestHelpers;
 
-namespace Test.Integration.ControllerTests.SchoolControllerTests
+namespace Test.Integration.ControllerTests.LanguagesControllerTests
 {
     [TestClass]
-    public class DeleteSchoolShould
+    public class DeleteLanguageShould
     {
         private TestServer _server;
         private HttpClient _client;
@@ -30,25 +30,25 @@ namespace Test.Integration.ControllerTests.SchoolControllerTests
         [TestMethod]
         public void ReturnStatusCodeNoContent_WhenGivenInvalidId()
         {
-            var response = _client.DeleteAsync($"{ControllerRouteEnum.SCHOOL}/1").Result;
+            var response = _client.DeleteAsync($"{ControllerRouteEnum.LANGUAGES}/1").Result;
             Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
         }
 
         [TestMethod]
         public void ReturnStatusCodeNoContent_WhenGivenValidId()
         {
-            var schoolId = _testObjectCreator.GetIdFromNewSchool();
-            var response = _client.DeleteAsync($"{ControllerRouteEnum.SCHOOL}/{schoolId}").Result;
+            var languageId = _testObjectCreator.GetIdFromNewLanguage();
+            var response = _client.DeleteAsync($"{ControllerRouteEnum.LANGUAGES}/{languageId}").Result;
             Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
         }
 
         [TestMethod]
-        public void DeleteSchool()
+        public void DeleteLanguage()
         {
-            var schoolId = _testObjectCreator.GetIdFromNewSchool();
+            var languageId = _testObjectCreator.GetIdFromNewLanguage();
 
-            var _ = _client.DeleteAsync($"{ControllerRouteEnum.SCHOOL}/{schoolId}").Result;
-            var response = _client.GetAsync($"{ControllerRouteEnum.SCHOOL}/{schoolId}").Result;
+            var _ = _client.DeleteAsync($"{ControllerRouteEnum.LANGUAGES}/{languageId}").Result;
+            var response = _client.GetAsync($"{ControllerRouteEnum.LANGUAGES}/{languageId}").Result;
 
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
         }

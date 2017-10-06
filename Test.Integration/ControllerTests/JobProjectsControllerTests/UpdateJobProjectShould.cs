@@ -5,7 +5,7 @@ using System.Net.Http;
 using Test.Integration.TestHelpers;
 using Test.Integration.TestModels.JobProjectModels;
 
-namespace Test.Integration.ControllerTests.JobProjectControllerTests
+namespace Test.Integration.ControllerTests.JobProjectsControllerTests
 {
     [TestClass]
     public class UpdateJobProjectShould
@@ -37,7 +37,7 @@ namespace Test.Integration.ControllerTests.JobProjectControllerTests
             var model = TestObjectGetter.GetUpdateJobProjectViewModel(1, _jobId, "A different project");
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PutAsync($"{ControllerRouteEnum.JOB_PROJECT}/1", requestContent).Result;
+            var response = _client.PutAsync($"{ControllerRouteEnum.JOB_PROJECTS}/1", requestContent).Result;
 
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
         }
@@ -50,7 +50,7 @@ namespace Test.Integration.ControllerTests.JobProjectControllerTests
             var model = TestObjectGetter.GetUpdateJobProjectViewModel(jobProjectId, _jobId, null);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PutAsync($"{ControllerRouteEnum.JOB_PROJECT}/{jobProjectId}", requestContent).Result;
+            var response = _client.PutAsync($"{ControllerRouteEnum.JOB_PROJECTS}/{jobProjectId}", requestContent).Result;
 
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
         }
@@ -63,7 +63,7 @@ namespace Test.Integration.ControllerTests.JobProjectControllerTests
             var model = TestObjectGetter.GetUpdateJobProjectViewModel(jobProjectId, 0, "A different project");
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PutAsync($"{ControllerRouteEnum.JOB_PROJECT}/{jobProjectId}", requestContent).Result;
+            var response = _client.PutAsync($"{ControllerRouteEnum.JOB_PROJECTS}/{jobProjectId}", requestContent).Result;
 
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
         }
@@ -76,7 +76,7 @@ namespace Test.Integration.ControllerTests.JobProjectControllerTests
             var model = TestObjectGetter.GetUpdateJobProjectViewModel(jobProjectId, _jobId + 1, "A different project");
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PutAsync($"{ControllerRouteEnum.JOB_PROJECT}/{jobProjectId}", requestContent).Result;
+            var response = _client.PutAsync($"{ControllerRouteEnum.JOB_PROJECTS}/{jobProjectId}", requestContent).Result;
 
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
         }
@@ -89,7 +89,7 @@ namespace Test.Integration.ControllerTests.JobProjectControllerTests
             var model = TestObjectGetter.GetUpdateJobProjectViewModel(jobProjectId + 1, _jobId, "A different project");
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PutAsync($"{ControllerRouteEnum.JOB_PROJECT}/{jobProjectId}", requestContent).Result;
+            var response = _client.PutAsync($"{ControllerRouteEnum.JOB_PROJECTS}/{jobProjectId}", requestContent).Result;
 
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
         }
@@ -102,7 +102,7 @@ namespace Test.Integration.ControllerTests.JobProjectControllerTests
             var model = TestObjectGetter.GetUpdateJobProjectViewModel(jobProjectId, _jobId, "A different project");
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PutAsync($"{ControllerRouteEnum.JOB_PROJECT}/{jobProjectId}", requestContent).Result;
+            var response = _client.PutAsync($"{ControllerRouteEnum.JOB_PROJECTS}/{jobProjectId}", requestContent).Result;
 
             Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
         }
@@ -115,8 +115,8 @@ namespace Test.Integration.ControllerTests.JobProjectControllerTests
             var model = TestObjectGetter.GetUpdateJobProjectViewModel(jobProjectId, _jobId, "A different project");
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var _ = _client.PutAsync($"{ControllerRouteEnum.JOB_PROJECT}/{jobProjectId}", requestContent).Result;
-            var response = _client.GetAsync($"{ControllerRouteEnum.JOB_PROJECT}/{jobProjectId}").Result;
+            var _ = _client.PutAsync($"{ControllerRouteEnum.JOB_PROJECTS}/{jobProjectId}", requestContent).Result;
+            var response = _client.GetAsync($"{ControllerRouteEnum.JOB_PROJECTS}/{jobProjectId}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<JobProjectViewModel>(response);
 
             var isCorrectViewModel = AssertHelper.AreJobProjectViewModelsEqual(model, serializedContent);
