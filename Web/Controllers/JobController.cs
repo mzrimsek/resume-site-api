@@ -1,8 +1,10 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Core.Interfaces.RepositoryInterfaces;
+using Core.Models;
 using Web.ActionFilters;
-using Web.Mappers.JobMappers;
 using Web.Models.JobModels;
 
 namespace Web.Controllers
@@ -11,16 +13,18 @@ namespace Web.Controllers
     public class JobController : Controller
     {
         private readonly IJobRepository _jobRepository;
-        public JobController(IJobRepository jobRepository)
+        private readonly IMapper _mapper;
+        public JobController(IJobRepository jobRepository, IMapper mapper)
         {
             _jobRepository = jobRepository;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllJobs()
         {
             var jobs = await _jobRepository.GetAll();
-            var jobViews = JobViewModelMapper.MapFrom(jobs); ;
+            var jobViews = _mapper.Map<IEnumerable<JobViewModel>>(jobs);
             return Ok(jobViews);
         }
 
@@ -33,7 +37,7 @@ namespace Web.Controllers
                 return NotFound();
             }
 
-            var jobViewModel = JobViewModelMapper.MapFrom(job);
+            var jobViewModel = _mapper.Map<JobViewModel>(job);
             return Ok(jobViewModel);
         }
 
@@ -41,9 +45,9 @@ namespace Web.Controllers
         [ModelStateValidation]
         public async Task<IActionResult> AddJob([FromBody] AddJobViewModel entity)
         {
-            var domainModel = JobDomainModelMapper.MapFrom(entity);
+            var domainModel = _mapper.Map<JobDomainModel>(entity);
             var savedJob = await _jobRepository.Save(domainModel);
-            var jobViewModel = JobViewModelMapper.MapFrom(savedJob);
+            var jobViewModel = _mapper.Map<JobViewModel>(savedJob);
 
             return CreatedAtRoute("GetJob", new { id = jobViewModel.Id }, jobViewModel);
         }
@@ -59,11 +63,11 @@ namespace Web.Controllers
                 return NotFound();
             }
 
-            var viewModel = JobViewModelMapper.MapFrom(id, entity);
-            var domainModel = JobDomainModelMapper.MapFrom(viewModel);
+            var viewModel = _mapper.Map<JobViewModel>(entity);
+            var domainModel = _mapper.Map<JobDomainModel>(viewModel);
             var updatedDomainModel = await _jobRepository.Save(domainModel);
 
-            var updatedViewModel = JobViewModelMapper.MapFrom(updatedDomainModel);
+            var updatedViewModel = _mapper.Map<JobViewModel>(updatedDomainModel);
             return Ok(updatedViewModel);
         }
 
