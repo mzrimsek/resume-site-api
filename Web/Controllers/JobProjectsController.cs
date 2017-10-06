@@ -11,13 +11,13 @@ using Web.Models.JobProjectModels;
 namespace Web.Controllers
 {
     [Route("api/[controller]")]
-    public class JobProjectController : Controller
+    public class JobProjectsController : Controller
     {
         private readonly IJobProjectRepository _jobProjectRepository;
         private readonly IJobRepository _jobRepository;
         private readonly IMapper _mapper;
         private readonly ControllerRequestHelper<JobProjectDomainModel, JobProjectViewModel> _controllerRequestHelper;
-        public JobProjectController(IJobProjectRepository jobProjectRepository, IJobRepository jobRepository, IMapper mapper)
+        public JobProjectsController(IJobProjectRepository jobProjectRepository, IJobRepository jobRepository, IMapper mapper)
         {
             _jobProjectRepository = jobProjectRepository;
             _jobRepository = jobRepository;

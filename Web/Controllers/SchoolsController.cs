@@ -11,10 +11,10 @@ using Web.Models.SchoolModels;
 namespace Web.Controllers
 {
     [Route("api/[controller]")]
-    public class SchoolController : Controller
+    public class SchoolsController : Controller
     {
         private readonly ControllerRequestHelper<SchoolDomainModel, SchoolViewModel> _controllerRequestHelper;
-        public SchoolController(ISchoolRepository schoolRepository, IMapper mapper)
+        public SchoolsController(ISchoolRepository schoolRepository, IMapper mapper)
         {
             _controllerRequestHelper = new ControllerRequestHelper<SchoolDomainModel, SchoolViewModel>(schoolRepository, mapper);
         }

@@ -11,10 +11,10 @@ using Web.Models.JobModels;
 namespace Web.Controllers
 {
     [Route("api/[controller]")]
-    public class JobController : Controller
+    public class JobsController : Controller
     {
         private readonly ControllerRequestHelper<JobDomainModel, JobViewModel> _controllerRequestHelper;
-        public JobController(IJobRepository jobRepository, IMapper mapper)
+        public JobsController(IJobRepository jobRepository, IMapper mapper)
         {
             _controllerRequestHelper = new ControllerRequestHelper<JobDomainModel, JobViewModel>(jobRepository, mapper);
         }

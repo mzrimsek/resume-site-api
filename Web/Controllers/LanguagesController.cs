@@ -11,10 +11,10 @@ using Web.Models.LanguageModels;
 namespace Web.Controllers
 {
     [Route("api/[controller]")]
-    public class LanguageController : Controller
+    public class LanguagesController : Controller
     {
         private readonly ControllerRequestHelper<LanguageDomainModel, LanguageViewModel> _controllerRequestHelper;
-        public LanguageController(ILanguageRepository languageRepository, IMapper mapper)
+        public LanguagesController(ILanguageRepository languageRepository, IMapper mapper)
         {
             _controllerRequestHelper = new ControllerRequestHelper<LanguageDomainModel, LanguageViewModel>(languageRepository, mapper);
         }
