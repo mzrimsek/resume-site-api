@@ -1,8 +1,10 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Core.Models;
 using Core.Interfaces.RepositoryInterfaces;
 using Web.ActionFilters;
-using Web.Mappers.SchoolMappers;
 using Web.Models.SchoolModels;
 
 namespace Web.Controllers
@@ -11,16 +13,18 @@ namespace Web.Controllers
     public class SchoolController : Controller
     {
         private readonly ISchoolRepository _schoolRepository;
-        public SchoolController(ISchoolRepository schoolRepository)
+        private readonly IMapper _mapper;
+        public SchoolController(ISchoolRepository schoolRepository, IMapper mapper)
         {
             _schoolRepository = schoolRepository;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllSchools()
         {
             var schools = await _schoolRepository.GetAll();
-            var schoolViews = SchoolViewModelMapper.MapFrom(schools); ;
+            var schoolViews = _mapper.Map<IEnumerable<SchoolViewModel>>(schools); ;
             return Ok(schoolViews);
         }
 
@@ -33,7 +37,7 @@ namespace Web.Controllers
                 return NotFound();
             }
 
-            var schoolViewModel = SchoolViewModelMapper.MapFrom(school);
+            var schoolViewModel = _mapper.Map<SchoolViewModel>(school);
             return Ok(schoolViewModel);
         }
 
@@ -41,9 +45,9 @@ namespace Web.Controllers
         [ModelStateValidation]
         public async Task<IActionResult> AddSchool([FromBody] AddSchoolViewModel entity)
         {
-            var domainModel = SchoolDomainModelMapper.MapFrom(entity);
+            var domainModel = _mapper.Map<SchoolDomainModel>(entity);
             var savedSchool = await _schoolRepository.Save(domainModel);
-            var schoolViewModel = SchoolViewModelMapper.MapFrom(savedSchool);
+            var schoolViewModel = _mapper.Map<SchoolViewModel>(savedSchool);
 
             return CreatedAtRoute("GetSchool", new { id = schoolViewModel.Id }, schoolViewModel);
         }
@@ -59,8 +63,8 @@ namespace Web.Controllers
                 return NotFound();
             }
 
-            var viewModel = SchoolViewModelMapper.MapFrom(id, entity);
-            var domainModel = SchoolDomainModelMapper.MapFrom(viewModel);
+            var viewModel = _mapper.Map<SchoolViewModel>(entity);
+            var domainModel = _mapper.Map<SchoolDomainModel>(viewModel);
 
             await _schoolRepository.Save(domainModel);
             return Ok();
