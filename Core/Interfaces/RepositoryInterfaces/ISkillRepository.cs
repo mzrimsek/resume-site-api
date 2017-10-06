@@ -6,6 +6,6 @@ namespace Core.Interfaces.RepositoryInterfaces
 {
     public interface ISkillRepository : IRepository<SkillDomainModel>
     {
-        Task<IEnumerable<LanguageDomainModel>> GetByLanguageId(int jobId);
+        Task<IEnumerable<SkillDomainModel>> GetByLanguageId(int languageId);
     }
 }
