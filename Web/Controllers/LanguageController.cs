@@ -1,8 +1,10 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Core.Models;
 using Core.Interfaces.RepositoryInterfaces;
 using Web.ActionFilters;
-using Web.Mappers.LanguageMappers;
 using Web.Models.LanguageModels;
 
 namespace Web.Controllers
@@ -11,16 +13,18 @@ namespace Web.Controllers
     public class LanguageController : Controller
     {
         private readonly ILanguageRepository _languageRepository;
-        public LanguageController(ILanguageRepository languageRepository)
+        private readonly IMapper _mapper;
+        public LanguageController(ILanguageRepository languageRepository, IMapper mapper)
         {
             _languageRepository = languageRepository;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllLanguages()
         {
             var languages = await _languageRepository.GetAll();
-            var languageViews = LanguageViewModelMapper.MapFrom(languages);
+            var languageViews = _mapper.Map<IEnumerable<LanguageViewModel>>(languages);
             return Ok(languageViews);
         }
 
@@ -32,7 +36,7 @@ namespace Web.Controllers
             {
                 return NotFound();
             }
-            var languageViewModel = LanguageViewModelMapper.MapFrom(language);
+            var languageViewModel = _mapper.Map<LanguageViewModel>(language);
             return Ok(languageViewModel);
         }
 
@@ -40,9 +44,9 @@ namespace Web.Controllers
         [ModelStateValidation]
         public async Task<IActionResult> AddLanguage([FromBody] AddLanguageViewModel entity)
         {
-            var domainModel = LanguageDomainModelMapper.MapFrom(entity);
+            var domainModel = _mapper.Map<LanguageDomainModel>(entity);
             var savedLanguage = await _languageRepository.Save(domainModel);
-            var languageViewModel = LanguageViewModelMapper.MapFrom(savedLanguage);
+            var languageViewModel = _mapper.Map<LanguageViewModel>(savedLanguage);
 
             return CreatedAtRoute("GetLanguage", new { id = languageViewModel.Id }, languageViewModel);
         }
@@ -58,8 +62,8 @@ namespace Web.Controllers
                 return NotFound();
             }
 
-            var viewModel = LanguageViewModelMapper.MapFrom(id, entity);
-            var domainModel = LanguageDomainModelMapper.MapFrom(viewModel);
+            var viewModel = _mapper.Map<LanguageViewModel>(entity);
+            var domainModel = _mapper.Map<LanguageDomainModel>(viewModel);
 
             await _languageRepository.Save(domainModel);
             return Ok();
