@@ -1,8 +1,10 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Core.Interfaces.RepositoryInterfaces;
+using Core.Models;
 using Web.ActionFilters;
-using Web.Mappers.JobProjectMappers;
 using Web.Models.JobProjectModels;
 
 namespace Web.Controllers
@@ -12,17 +14,19 @@ namespace Web.Controllers
     {
         private readonly IJobProjectRepository _jobProjectRepository;
         private readonly IJobRepository _jobRepository;
-        public JobProjectController(IJobProjectRepository jobProjectRepository, IJobRepository jobRepository)
+        private readonly IMapper _mapper;
+        public JobProjectController(IJobProjectRepository jobProjectRepository, IJobRepository jobRepository, IMapper mapper)
         {
             _jobProjectRepository = jobProjectRepository;
             _jobRepository = jobRepository;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllJobProjects()
         {
             var jobProjects = await _jobProjectRepository.GetAll();
-            var jobProjectViews = JobProjectViewModelMapper.MapFrom(jobProjects);
+            var jobProjectViews = _mapper.Map<IEnumerable<JobProjectViewModel>>(jobProjects);
             return Ok(jobProjectViews);
         }
 
@@ -35,7 +39,7 @@ namespace Web.Controllers
                 return NotFound();
             }
 
-            var jobProjectViewModel = JobProjectViewModelMapper.MapFrom(jobProject);
+            var jobProjectViewModel = _mapper.Map<JobProjectViewModel>(jobProject);
             return Ok(jobProjectViewModel);
         }
 
@@ -49,7 +53,7 @@ namespace Web.Controllers
             }
 
             var jobProjects = await _jobProjectRepository.GetByJobId(jobId);
-            var jobProjectViews = JobProjectViewModelMapper.MapFrom(jobProjects);
+            var jobProjectViews = _mapper.Map<IEnumerable<JobProjectViewModel>>(jobProjects);
             return Ok(jobProjectViews);
         }
 
@@ -63,9 +67,9 @@ namespace Web.Controllers
                 return BadRequest("JobId is not valid.");
             }
 
-            var domainModel = JobProjectDomainModelMapper.MapFrom(entity);
+            var domainModel = _mapper.Map<JobProjectDomainModel>(entity);
             var savedJobProject = await _jobProjectRepository.Save(domainModel);
-            var jobProjectViewModel = JobProjectViewModelMapper.MapFrom(savedJobProject);
+            var jobProjectViewModel = _mapper.Map<JobProjectViewModel>(savedJobProject);
 
             return CreatedAtRoute("GetJobProject", new { id = jobProjectViewModel.Id }, jobProjectViewModel);
         }
@@ -86,8 +90,8 @@ namespace Web.Controllers
                 return NotFound();
             }
 
-            var viewModel = JobProjectViewModelMapper.MapFrom(id, entity);
-            var domainModel = JobProjectDomainModelMapper.MapFrom(viewModel);
+            var viewModel = _mapper.Map<JobProjectViewModel>(entity);
+            var domainModel = _mapper.Map<JobProjectDomainModel>(viewModel);
 
             await _jobProjectRepository.Save(domainModel);
             return Ok();
