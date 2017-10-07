@@ -2,6 +2,7 @@ using Test.Integration.TestModels.JobModels;
 using Test.Integration.TestModels.JobProjectModels;
 using Test.Integration.TestModels.LanguageModels;
 using Test.Integration.TestModels.SchoolModels;
+using Test.Integration.TestModels.SkillModels;
 
 namespace Test.Integration.TestHelpers
 {
@@ -38,6 +39,13 @@ namespace Test.Integration.TestHelpers
         public static bool AreLanguageViewModelsEqual(AddLanguageViewModel expected, LanguageViewModel actual)
         {
             return expected.Name == actual.Name
+                && expected.Rating == actual.Rating;
+        }
+
+        public static bool AreSkillViewModelsEqual(AddSkillViewModel expected, SkillViewModel actual)
+        {
+            return expected.LanguageId == actual.LanguageId
+                && expected.Name == actual.Name
                 && expected.Rating == actual.Rating;
         }
     }
