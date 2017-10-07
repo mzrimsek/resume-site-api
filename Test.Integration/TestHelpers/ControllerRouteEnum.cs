@@ -6,8 +6,10 @@ namespace Test.Integration.TestHelpers
         public static string SCHOOLS = new ControllerRouteEnum("schools").Route;
         public static string JOB_PROJECTS = new ControllerRouteEnum("jobProjects").Route;
         public static string LANGUAGES = new ControllerRouteEnum("languages").Route;
+        public static string SKILLS = new ControllerRouteEnum("skills").Route;
 
-        public string Route { get; private set; }
+        public string Route
+        { get; private set; }
         public ControllerRouteEnum(string route)
         {
             Route = $"/api/{route}";
