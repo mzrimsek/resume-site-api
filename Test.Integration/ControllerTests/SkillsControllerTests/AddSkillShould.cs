@@ -44,25 +44,47 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestMethod]
         public void ReturnStatusCodeBadRequest_WhenGivenInvalidModel_WithInvalidName()
         {
-            Assert.Fail();
+            _languageId = _testObjectCreator.GetIdFromNewLanguage();
+            var model = TestObjectGetter.GetAddSkillViewModel(_languageId, null, 1);
+            var requestContent = RequestHelper.GetRequestContentFromObject(model);
+
+            var response = _client.PostAsync($"{ControllerRouteEnum.SKILLS}", requestContent).Result;
+
+            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
         }
 
         [TestMethod]
         public void ReturnStatusCodeBadRequest_WhenGivenInvalidModel_WithInvalidRating()
         {
-            Assert.Fail();
+            _languageId = _testObjectCreator.GetIdFromNewLanguage();
+            var model = TestObjectGetter.GetAddSkillViewModel(_languageId, "MVC", 4);
+            var requestContent = RequestHelper.GetRequestContentFromObject(model);
+
+            var response = _client.PostAsync($"{ControllerRouteEnum.SKILLS}", requestContent).Result;
+
+            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
         }
 
         [TestMethod]
         public void ReturnStatusCodeBadRequest_WhenGivenInvalidModel_WithInvalidLanguageId()
         {
-            Assert.Fail();
+            var model = TestObjectGetter.GetAddSkillViewModel(0, "MVC", 3);
+            var requestContent = RequestHelper.GetRequestContentFromObject(model);
+
+            var response = _client.PostAsync($"{ControllerRouteEnum.SKILLS}", requestContent).Result;
+
+            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
         }
 
         [TestMethod]
         public void ReturnStatusCodeBadRequest_WhenGivenValidModel_WithInvalidLanguageId()
         {
-            Assert.Fail();
+            var model = TestObjectGetter.GetAddSkillViewModel(1, "MVC", 3);
+            var requestContent = RequestHelper.GetRequestContentFromObject(model);
+
+            var response = _client.PostAsync($"{ControllerRouteEnum.SKILLS}", requestContent).Result;
+
+            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
         }
 
         [TestMethod]
