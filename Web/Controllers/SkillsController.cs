@@ -58,7 +58,7 @@ namespace Web.Controllers
             var language = await _languageRepository.GetById(entity.LanguageId);
             if (language == null)
             {
-                return BadRequest("LanguageId is not valid.");
+                return BadRequest("Language does not exist.");
             }
             return await _controllerRequestHelper.Add(entity, "GetSkill");
         }
@@ -71,7 +71,7 @@ namespace Web.Controllers
             var language = await _languageRepository.GetById(entity.LanguageId);
             if (language == null)
             {
-                return BadRequest("LanguageId is not valid.");
+                return BadRequest("Language does not exist.");
             }
             return await _controllerRequestHelper.Update(id, entity);
         }

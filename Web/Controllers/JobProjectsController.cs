@@ -58,7 +58,7 @@ namespace Web.Controllers
             var job = await _jobRepository.GetById(entity.JobId);
             if (job == null)
             {
-                return BadRequest("JobId is not valid.");
+                return BadRequest("Job does not exist");
             }
             return await _controllerRequestHelper.Add(entity, "GetJobProject");
         }
@@ -71,7 +71,7 @@ namespace Web.Controllers
             var job = await _jobRepository.GetById(entity.JobId);
             if (job == null)
             {
-                return BadRequest("JobId is not valid.");
+                return BadRequest("Job does not exist.");
             }
             return await _controllerRequestHelper.Update(id, entity);
         }
