@@ -2,7 +2,7 @@ using Test.Integration.TestModels.JobModels;
 using Test.Integration.TestModels.JobProjectModels;
 using Test.Integration.TestModels.LanguageModels;
 using Test.Integration.TestModels.SchoolModels;
-using Web.Models.SkillModels;
+using Test.Integration.TestModels.SkillModels;
 
 namespace Test.Integration.TestHelpers
 {
