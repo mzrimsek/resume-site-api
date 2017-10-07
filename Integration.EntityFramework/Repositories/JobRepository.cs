@@ -59,7 +59,7 @@ namespace Integration.EntityFramework.Repositories
             var jobToDelete = _databaseContext.Jobs.SingleOrDefault(x => x.Id == id);
             if (jobToDelete != null)
             {
-                var jobProjectsForJob = _databaseContext.JobProjects.Where(x => x.JobId == jobToDelete.Id);
+                var jobProjectsForJob = _databaseContext.JobProjects.Where(x => x.JobId == id);
                 _databaseContext.RemoveRange(jobProjectsForJob);
                 _databaseContext.Remove(jobToDelete);
                 _databaseContext.SaveChanges();
