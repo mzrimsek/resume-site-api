@@ -3,6 +3,7 @@ using Test.Integration.TestModels.JobModels;
 using Test.Integration.TestModels.JobProjectModels;
 using Test.Integration.TestModels.LanguageModels;
 using Test.Integration.TestModels.SchoolModels;
+using Test.Integration.TestModels.SkillModels;
 
 namespace Test.Integration.TestHelpers
 {
@@ -44,6 +45,14 @@ namespace Test.Integration.TestHelpers
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
             var response = _client.PostAsync($"{ControllerRouteEnum.LANGUAGES}", requestContent).Result;
             return RequestHelper.GetObjectFromResponseContent<LanguageViewModel>(response).Id;
+        }
+
+        public int GetIdFromNewSkill(int languageId)
+        {
+            var model = TestObjectGetter.GetAddSkillViewModel(languageId);
+            var requestContent = RequestHelper.GetRequestContentFromObject(model);
+            var response = _client.PostAsync($"{ControllerRouteEnum.SKILLS}", requestContent).Result;
+            return RequestHelper.GetObjectFromResponseContent<SkillViewModel>(response).Id;
         }
     }
 }
