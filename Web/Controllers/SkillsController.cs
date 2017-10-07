@@ -55,6 +55,11 @@ namespace Web.Controllers
         [ModelStateValidation]
         public async Task<IActionResult> AddSkill([FromBody] AddSkillViewModel entity)
         {
+            var language = await _languageRepository.GetById(entity.LanguageId);
+            if (language == null)
+            {
+                return BadRequest("LanguageId is not valid.");
+            }
             return await _controllerRequestHelper.Add(entity, "GetSkill");
         }
 
@@ -63,6 +68,11 @@ namespace Web.Controllers
         [ModelHasCorrectId]
         public async Task<IActionResult> UpdateSkill(int id, [FromBody] UpdateSkillViewModel entity)
         {
+            var language = await _languageRepository.GetById(entity.LanguageId);
+            if (language == null)
+            {
+                return BadRequest("LanguageId is not valid.");
+            }
             return await _controllerRequestHelper.Update(id, entity);
         }
 
