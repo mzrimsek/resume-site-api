@@ -56,7 +56,13 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
         [TestMethod]
         public void DeleteSkillsForLanguage()
         {
-            Assert.Fail();
+            var languageId = _testObjectCreator.GetIdFromNewLanguage();
+            var skillId = _testObjectCreator.GetIdFromNewSkill(languageId);
+
+            var _ = _client.DeleteAsync($"{ControllerRouteEnum.LANGUAGES}/{languageId}").Result;
+            var response = _client.GetAsync($"{ControllerRouteEnum.SKILLS}/{skillId}").Result;
+
+            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
         }
     }
 }
