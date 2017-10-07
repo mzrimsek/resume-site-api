@@ -1,8 +1,8 @@
-using Microsoft.AspNetCore.TestHost;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using Microsoft.AspNetCore.TestHost;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Test.Integration.TestHelpers;
 using Test.Integration.TestModels.JobModels;
 

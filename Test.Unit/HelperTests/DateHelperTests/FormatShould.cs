@@ -1,6 +1,6 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using Core.Helpers;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Test.Unit.HelperTests.DateHelperTests
 {

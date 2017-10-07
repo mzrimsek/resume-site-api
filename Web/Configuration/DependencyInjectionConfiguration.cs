@@ -1,6 +1,6 @@
-using Microsoft.Extensions.DependencyInjection;
 using Core.Interfaces.RepositoryInterfaces;
 using Integration.EntityFramework.Repositories;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Web.Configuration
 {

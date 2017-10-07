@@ -1,12 +1,12 @@
-using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Core.Interfaces.RepositoryInterfaces;
 using Core.Models;
 using Integration.EntityFramework.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Integration.EntityFramework.Repositories
 {

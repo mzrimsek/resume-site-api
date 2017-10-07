@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.TestHost;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Net;
 using System.Net.Http;
+using Microsoft.AspNetCore.TestHost;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Test.Integration.TestHelpers;
 
 namespace Test.Integration.ControllerTests.JobsControllerTests

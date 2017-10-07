@@ -8,8 +8,7 @@ namespace Test.Integration.TestHelpers
         public static string LANGUAGES = new ControllerRouteEnum("languages").Route;
         public static string SKILLS = new ControllerRouteEnum("skills").Route;
 
-        public string Route
-        { get; private set; }
+        public string Route { get; private set; }
         public ControllerRouteEnum(string route)
         {
             Route = $"/api/{route}";
