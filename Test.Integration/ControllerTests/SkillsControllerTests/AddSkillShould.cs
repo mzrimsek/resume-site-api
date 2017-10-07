@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Net;
 using System.Net.Http;
 using Test.Integration.TestHelpers;
+using Test.Integration.TestModels.SkillModels;
 
 namespace Test.Integration.ControllerTests.SkillsControllerTests
 {
@@ -90,13 +91,31 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestMethod]
         public void ReturnCorrectViewModel()
         {
-            Assert.Fail();
+            _languageId = _testObjectCreator.GetIdFromNewLanguage();
+            var model = TestObjectGetter.GetAddSkillViewModel(_languageId);
+            var requestContent = RequestHelper.GetRequestContentFromObject(model);
+
+            var response = _client.PostAsync($"{ControllerRouteEnum.SKILLS}", requestContent).Result;
+            var serializedContent = RequestHelper.GetObjectFromResponseContent<SkillViewModel>(response);
+
+            var isCorrectViewModel = AssertHelper.AreSkillViewModelsEqual(model, serializedContent);
+            Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
         }
 
         [TestMethod]
         public void SaveCorrectViewModel()
         {
-            Assert.Fail();
+            _languageId = _testObjectCreator.GetIdFromNewLanguage();
+            var model = TestObjectGetter.GetAddSkillViewModel(_languageId);
+            var requestContent = RequestHelper.GetRequestContentFromObject(model);
+
+            var response = _client.PostAsync($"{ControllerRouteEnum.SKILLS}", requestContent).Result;
+            var skillId = RequestHelper.GetObjectFromResponseContent<SkillViewModel>(response).Id;
+            response = _client.GetAsync($"{ControllerRouteEnum.SKILLS}/{skillId}").Result;
+            var serializedContent = RequestHelper.GetObjectFromResponseContent<SkillViewModel>(response);
+
+            var isCorrectViewModel = AssertHelper.AreSkillViewModelsEqual(model, serializedContent);
+            Assert.IsTrue(isCorrectViewModel);
         }
     }
 }
