@@ -55,6 +55,8 @@ namespace Integration.EntityFramework.Repositories
             var languageToDelete = _databaseContext.Languages.SingleOrDefault(x => x.Id == id);
             if (languageToDelete != null)
             {
+                var skillsForLanguage = _databaseContext.Skills.Where(x => x.LanguageId == id);
+                _databaseContext.RemoveRange(skillsForLanguage);
                 _databaseContext.Remove(languageToDelete);
                 _databaseContext.SaveChanges();
             }
