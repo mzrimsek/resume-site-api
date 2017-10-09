@@ -1,4 +1,5 @@
 using System.Net.Http;
+using Core.Interfaces;
 using Test.Integration.TestModels.JobModels;
 using Test.Integration.TestModels.JobProjectModels;
 using Test.Integration.TestModels.LanguageModels;
@@ -9,7 +10,7 @@ namespace Test.Integration.TestHelpers
 {
     public class TestObjectCreator
     {
-        private HttpClient _client;
+        private readonly HttpClient _client;
         public TestObjectCreator(HttpClient client)
         {
             _client = client;
@@ -18,41 +19,38 @@ namespace Test.Integration.TestHelpers
         public int GetIdForNewJob()
         {
             var model = TestObjectGetter.GetAddJobViewModel();
-            var requestContent = RequestHelper.GetRequestContentFromObject(model);
-            var response = _client.PostAsync($"{ControllerRouteEnum.JOBS}", requestContent).Result;
-            return RequestHelper.GetObjectFromResponseContent<JobViewModel>(response).Id;
+            return GetIdFromNewTestObject<JobViewModel>(model, ControllerRouteEnum.JOBS);
         }
 
         public int GetIdFromNewJobProject(int jobId)
         {
             var model = TestObjectGetter.GetAddJobProjectViewModel(jobId);
-            var requestContent = RequestHelper.GetRequestContentFromObject(model);
-            var response = _client.PostAsync($"{ControllerRouteEnum.JOB_PROJECTS}", requestContent).Result;
-            return RequestHelper.GetObjectFromResponseContent<JobProjectViewModel>(response).Id;
+            return GetIdFromNewTestObject<JobProjectViewModel>(model, ControllerRouteEnum.JOB_PROJECTS);
         }
 
         public int GetIdFromNewSchool()
         {
             var model = TestObjectGetter.GetAddSchoolViewModel();
-            var requestContent = RequestHelper.GetRequestContentFromObject(model);
-            var response = _client.PostAsync($"{ControllerRouteEnum.SCHOOLS}", requestContent).Result;
-            return RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(response).Id;
+            return GetIdFromNewTestObject<SchoolViewModel>(model, ControllerRouteEnum.SCHOOLS);
         }
 
         public int GetIdFromNewLanguage()
         {
             var model = TestObjectGetter.GetAddLanguageViewModel();
-            var requestContent = RequestHelper.GetRequestContentFromObject(model);
-            var response = _client.PostAsync($"{ControllerRouteEnum.LANGUAGES}", requestContent).Result;
-            return RequestHelper.GetObjectFromResponseContent<LanguageViewModel>(response).Id;
+            return GetIdFromNewTestObject<LanguageViewModel>(model, ControllerRouteEnum.LANGUAGES);
         }
 
         public int GetIdFromNewSkill(int languageId)
         {
             var model = TestObjectGetter.GetAddSkillViewModel(languageId);
+            return GetIdFromNewTestObject<LanguageViewModel>(model, ControllerRouteEnum.SKILLS);
+        }
+
+        private int GetIdFromNewTestObject<T> (object model, string route) where T : IHasId
+        {
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
-            var response = _client.PostAsync($"{ControllerRouteEnum.SKILLS}", requestContent).Result;
-            return RequestHelper.GetObjectFromResponseContent<SkillViewModel>(response).Id;
+            var response = _client.PostAsync($"{route}", requestContent).Result;
+            return RequestHelper.GetObjectFromResponseContent<T>(response).Id;
         }
     }
 }
