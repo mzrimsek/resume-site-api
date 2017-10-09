@@ -46,7 +46,7 @@ namespace Test.Integration.TestHelpers
             return GetIdFromNewTestObject<LanguageViewModel>(model, ControllerRouteEnum.SKILLS);
         }
 
-        private int GetIdFromNewTestObject<T> (object model, string route) where T : IHasId
+        private int GetIdFromNewTestObject<T>(object model, string route) where T : IHasId
         {
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
             var response = _client.PostAsync($"{route}", requestContent).Result;
