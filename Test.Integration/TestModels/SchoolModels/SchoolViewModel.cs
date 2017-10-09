@@ -1,6 +1,8 @@
+using Core.Interfaces;
+
 namespace Test.Integration.TestModels.SchoolModels
 {
-    public class SchoolViewModel
+    public class SchoolViewModel : IHasId
     {
         public int Id { get; set; }
         public string Name { get; set; }

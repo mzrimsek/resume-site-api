@@ -1,6 +1,8 @@
+using Core.Interfaces;
+
 namespace Test.Integration.TestModels.SkillModels
 {
-    public class SkillViewModel
+    public class SkillViewModel : IHasId
     {
         public int Id { get; set; }
         public int LanguageId { get; set; }
