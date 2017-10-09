@@ -42,8 +42,8 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
         public void ReturnStatusCodeOk_WhenGivenValidJobId()
         {
             _jobId = _testObjectCreator.GetIdForNewJob();
-            var getResponse = _client.GetAsync($"{ControllerRouteEnum.JOB_PROJECTS}/job/{_jobId}").Result;
-            Assert.AreEqual(HttpStatusCode.OK, getResponse.StatusCode);
+            var response = _client.GetAsync($"{ControllerRouteEnum.JOB_PROJECTS}/job/{_jobId}").Result;
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         }
 
         [TestMethod]
