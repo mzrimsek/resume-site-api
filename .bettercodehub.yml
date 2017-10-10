@@ -1,4 +1,4 @@
-- name: csharp
-  production:
-    exclude:
-      - /Integration.EntityFramework/Migrations/.*
+languages:
+- csharp
+exclude:
+- /Integration.EntityFramework/Migrations/*\.cs
