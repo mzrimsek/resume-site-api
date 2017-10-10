@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using FluentAssertions;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Test.Integration.TestHelpers;
@@ -35,7 +36,7 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
         public void ReturnStatusCodeOk()
         {
             var response = _client.GetAsync($"{ControllerRouteEnum.JobProjects}").Result;
-            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
         [TestMethod]
@@ -43,7 +44,7 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
         {
             var response = _client.GetAsync($"{ControllerRouteEnum.JobProjects}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<JobProjectViewModel>>(response);
-            Assert.AreEqual(0, serializedContent.Count);
+            serializedContent.Should().BeEmpty();
         }
 
         [TestMethod]
@@ -55,8 +56,8 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
             var response = _client.GetAsync($"{ControllerRouteEnum.JobProjects}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<JobProjectViewModel>>(response);
 
-            Assert.AreEqual(1, serializedContent.Count);
-            Assert.AreEqual(jobProjectId, serializedContent[0].Id);
+            serializedContent.Should().HaveCount(1);
+            serializedContent[0].Id.Should().Be(jobProjectId);
         }
     }
 }

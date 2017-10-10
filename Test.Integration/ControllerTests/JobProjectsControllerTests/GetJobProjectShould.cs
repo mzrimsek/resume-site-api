@@ -1,5 +1,6 @@
 using System.Net;
 using System.Net.Http;
+using FluentAssertions;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Test.Integration.TestHelpers;
@@ -34,7 +35,7 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
         public void ReturnStatusCodeNotFound_WhenGivenInvalidId()
         {
             var response = _client.GetAsync($"{ControllerRouteEnum.JobProjects}/1").Result;
-            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+            response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
 
         [TestMethod]
@@ -45,7 +46,7 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
 
             var response = _client.GetAsync($"{ControllerRouteEnum.JobProjects}/{jobProjectId}").Result;
 
-            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
         [TestMethod]
@@ -61,7 +62,7 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
             var serializedContent = RequestHelper.GetObjectFromResponseContent<JobProjectViewModel>(response);
 
             var isCorrectViewModel = AssertHelper.AreJobProjectViewModelsEqual(model, serializedContent);
-            Assert.IsTrue(isCorrectViewModel);
+            isCorrectViewModel.Should().BeTrue();
         }
     }
 }

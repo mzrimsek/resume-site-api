@@ -1,5 +1,6 @@
 using System.Net;
 using System.Net.Http;
+using FluentAssertions;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Test.Integration.TestHelpers;
@@ -39,7 +40,7 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
 
             var response = _client.PostAsync($"{ControllerRouteEnum.JobProjects}", requestContent).Result;
 
-            Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
+            response.StatusCode.Should().Be(HttpStatusCode.Created);
         }
 
         [TestMethod]
@@ -51,7 +52,7 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
 
             var response = _client.PostAsync($"{ControllerRouteEnum.JobProjects}", requestContent).Result;
 
-            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
 
         [TestMethod]
@@ -62,7 +63,7 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
 
             var response = _client.PostAsync($"{ControllerRouteEnum.JobProjects}", requestContent).Result;
 
-            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
 
         [TestMethod]
@@ -73,7 +74,7 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
 
             var response = _client.PostAsync($"{ControllerRouteEnum.JobProjects}", requestContent).Result;
 
-            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
 
         [TestMethod]
@@ -87,7 +88,7 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
             var serializedContent = RequestHelper.GetObjectFromResponseContent<JobProjectViewModel>(response);
 
             var isCorrectViewModel = AssertHelper.AreJobProjectViewModelsEqual(model, serializedContent);
-            Assert.IsTrue(isCorrectViewModel);
+            isCorrectViewModel.Should().BeTrue();
         }
 
         [TestMethod]
@@ -103,7 +104,7 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
             var serializedContent = RequestHelper.GetObjectFromResponseContent<JobProjectViewModel>(response);
 
             var isCorrectViewModel = AssertHelper.AreJobProjectViewModelsEqual(model, serializedContent);
-            Assert.IsTrue(isCorrectViewModel);
+            isCorrectViewModel.Should().BeTrue();
         }
     }
 }
