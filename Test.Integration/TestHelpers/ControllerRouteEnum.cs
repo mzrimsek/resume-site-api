@@ -2,14 +2,14 @@ namespace Test.Integration.TestHelpers
 {
     public class ControllerRouteEnum
     {
-        public static string JOBS = new ControllerRouteEnum("jobs").Route;
-        public static string SCHOOLS = new ControllerRouteEnum("schools").Route;
-        public static string JOB_PROJECTS = new ControllerRouteEnum("jobProjects").Route;
-        public static string LANGUAGES = new ControllerRouteEnum("languages").Route;
-        public static string SKILLS = new ControllerRouteEnum("skills").Route;
+        public static readonly string Jobs = new ControllerRouteEnum("jobs").Route;
+        public static readonly string Schools = new ControllerRouteEnum("schools").Route;
+        public static readonly string JobProjects = new ControllerRouteEnum("jobProjects").Route;
+        public static readonly string Languages = new ControllerRouteEnum("languages").Route;
+        public static readonly string Skills = new ControllerRouteEnum("skills").Route;
 
-        public string Route { get; private set; }
-        public ControllerRouteEnum(string route)
+        private string Route { get; set; }
+        private ControllerRouteEnum(string route)
         {
             Route = $"/api/{route}";
         }

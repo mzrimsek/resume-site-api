@@ -26,7 +26,7 @@ namespace Test.Integration.ControllerTests.SchoolsControllerTests
         [TestCleanup]
         public void TearDown()
         {
-            var _ = _client.DeleteAsync($"{ControllerRouteEnum.SCHOOLS}/{_schoolId}").Result;
+            var _ = _client.DeleteAsync($"{ControllerRouteEnum.Schools}/{_schoolId}").Result;
             _client.Dispose();
             _server.Dispose();
         }
@@ -34,14 +34,14 @@ namespace Test.Integration.ControllerTests.SchoolsControllerTests
         [TestMethod]
         public void ReturnStatusCodeOk()
         {
-            var response = _client.GetAsync($"{ControllerRouteEnum.SCHOOLS}").Result;
+            var response = _client.GetAsync($"{ControllerRouteEnum.Schools}").Result;
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         }
 
         [TestMethod]
         public void ReturnEmptyList_WhenNoSchoolsAreCreated()
         {
-            var response = _client.GetAsync($"{ControllerRouteEnum.SCHOOLS}").Result;
+            var response = _client.GetAsync($"{ControllerRouteEnum.Schools}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<SchoolViewModel>>(response);
             Assert.AreEqual(0, serializedContent.Count);
         }
@@ -51,7 +51,7 @@ namespace Test.Integration.ControllerTests.SchoolsControllerTests
         {
             _schoolId = _testObjectCreator.GetIdFromNewSchool();
 
-            var getResponse = _client.GetAsync($"{ControllerRouteEnum.SCHOOLS}").Result;
+            var getResponse = _client.GetAsync($"{ControllerRouteEnum.Schools}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<SchoolViewModel>>(getResponse);
 
             Assert.AreEqual(1, serializedContent.Count);

@@ -25,7 +25,7 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
         [TestCleanup]
         public void TearDown()
         {
-            var _ = _client.DeleteAsync($"{ControllerRouteEnum.JOBS}/{_jobId}").Result;
+            var _ = _client.DeleteAsync($"{ControllerRouteEnum.Jobs}/{_jobId}").Result;
             _client.Dispose();
             _server.Dispose();
         }
@@ -37,7 +37,7 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
             var model = TestObjectGetter.GetAddJobProjectViewModel(_jobId);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.JOB_PROJECTS}", requestContent).Result;
+            var response = _client.PostAsync($"{ControllerRouteEnum.JobProjects}", requestContent).Result;
 
             Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
         }
@@ -49,7 +49,7 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
             var model = TestObjectGetter.GetAddJobProjectViewModel(_jobId, null);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.JOB_PROJECTS}", requestContent).Result;
+            var response = _client.PostAsync($"{ControllerRouteEnum.JobProjects}", requestContent).Result;
 
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
         }
@@ -60,7 +60,7 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
             var model = TestObjectGetter.GetAddJobProjectViewModel(0);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.JOB_PROJECTS}", requestContent).Result;
+            var response = _client.PostAsync($"{ControllerRouteEnum.JobProjects}", requestContent).Result;
 
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
         }
@@ -71,7 +71,7 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
             var model = TestObjectGetter.GetAddJobProjectViewModel(1);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.JOB_PROJECTS}", requestContent).Result;
+            var response = _client.PostAsync($"{ControllerRouteEnum.JobProjects}", requestContent).Result;
 
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
         }
@@ -83,7 +83,7 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
             var model = TestObjectGetter.GetAddJobProjectViewModel(_jobId);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.JOB_PROJECTS}", requestContent).Result;
+            var response = _client.PostAsync($"{ControllerRouteEnum.JobProjects}", requestContent).Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<JobProjectViewModel>(response);
 
             var isCorrectViewModel = AssertHelper.AreJobProjectViewModelsEqual(model, serializedContent);
@@ -97,9 +97,9 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
             var model = TestObjectGetter.GetAddJobProjectViewModel(_jobId);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.JOB_PROJECTS}", requestContent).Result;
+            var response = _client.PostAsync($"{ControllerRouteEnum.JobProjects}", requestContent).Result;
             var jobProjectId = RequestHelper.GetObjectFromResponseContent<JobProjectViewModel>(response).Id;
-            response = _client.GetAsync($"{ControllerRouteEnum.JOB_PROJECTS}/{jobProjectId}").Result;
+            response = _client.GetAsync($"{ControllerRouteEnum.JobProjects}/{jobProjectId}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<JobProjectViewModel>(response);
 
             var isCorrectViewModel = AssertHelper.AreJobProjectViewModelsEqual(model, serializedContent);

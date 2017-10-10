@@ -4,13 +4,13 @@ namespace Core.Enums
 {
     public class RatingEnum
     {
-        public static RatingEnum OK = new RatingEnum(1, "Beginner");
-        public static RatingEnum GOOD = new RatingEnum(2, "Intermediate");
-        public static RatingEnum GREAT = new RatingEnum(3, "Experienced");
+        private static readonly RatingEnum Ok = new RatingEnum(1, "Beginner");
+        private static readonly RatingEnum Good = new RatingEnum(2, "Intermediate");
+        private static readonly RatingEnum Great = new RatingEnum(3, "Experienced");
 
         public int Key { get; private set; }
         public string Display { get; private set; }
-        public RatingEnum(int key, string display)
+        private RatingEnum(int key, string display)
         {
             Key = key;
             Display = display;
@@ -18,7 +18,7 @@ namespace Core.Enums
 
         public static IEnumerable<RatingEnum> GetAll()
         {
-            return new List<RatingEnum>() { OK, GOOD, GREAT };
+            return new List<RatingEnum>() { Ok, Good, Great };
         }
     }
 }

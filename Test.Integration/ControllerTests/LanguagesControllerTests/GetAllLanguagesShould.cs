@@ -26,7 +26,7 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
         [TestCleanup]
         public void TearDown()
         {
-            var _ = _client.DeleteAsync($"{ControllerRouteEnum.LANGUAGES}/{_languageId}").Result;
+            var _ = _client.DeleteAsync($"{ControllerRouteEnum.Languages}/{_languageId}").Result;
             _client.Dispose();
             _server.Dispose();
         }
@@ -34,14 +34,14 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
         [TestMethod]
         public void ReturnStatusCodeOk()
         {
-            var response = _client.GetAsync($"{ControllerRouteEnum.LANGUAGES}").Result;
+            var response = _client.GetAsync($"{ControllerRouteEnum.Languages}").Result;
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         }
 
         [TestMethod]
         public void ReturnEmptyList_WhenNoLanguagesAreCreated()
         {
-            var response = _client.GetAsync($"{ControllerRouteEnum.LANGUAGES}").Result;
+            var response = _client.GetAsync($"{ControllerRouteEnum.Languages}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<LanguageViewModel>>(response);
             Assert.AreEqual(0, serializedContent.Count);
         }
@@ -51,7 +51,7 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
         {
             _languageId = _testObjectCreator.GetIdFromNewLanguage();
 
-            var response = _client.GetAsync($"{ControllerRouteEnum.LANGUAGES}").Result;
+            var response = _client.GetAsync($"{ControllerRouteEnum.Languages}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<LanguageViewModel>>(response);
 
             Assert.AreEqual(1, serializedContent.Count);

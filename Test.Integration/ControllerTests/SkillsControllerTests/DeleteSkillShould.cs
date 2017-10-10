@@ -24,7 +24,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestCleanup]
         public void TearDown()
         {
-            var _ = _client.DeleteAsync($"{ControllerRouteEnum.LANGUAGES}/{_languageId}").Result;
+            var _ = _client.DeleteAsync($"{ControllerRouteEnum.Languages}/{_languageId}").Result;
             _client.Dispose();
             _server.Dispose();
         }
@@ -32,7 +32,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestMethod]
         public void ReturnStatusCodeNoContent_WhenGivenInvalidId()
         {
-            var response = _client.DeleteAsync($"{ControllerRouteEnum.SKILLS}/1").Result;
+            var response = _client.DeleteAsync($"{ControllerRouteEnum.Skills}/1").Result;
             Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
         }
 
@@ -42,7 +42,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
             _languageId = _testObjectCreator.GetIdFromNewLanguage();
             var skillId = _testObjectCreator.GetIdFromNewSkill(_languageId);
 
-            var response = _client.DeleteAsync($"{ControllerRouteEnum.SKILLS}/{skillId}").Result;
+            var response = _client.DeleteAsync($"{ControllerRouteEnum.Skills}/{skillId}").Result;
 
             Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
         }
@@ -53,8 +53,8 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
             _languageId = _testObjectCreator.GetIdFromNewLanguage();
             var skillId = _testObjectCreator.GetIdFromNewSkill(_languageId);
 
-            var _ = _client.DeleteAsync($"{ControllerRouteEnum.SKILLS}/{skillId}").Result;
-            var response = _client.GetAsync($"{ControllerRouteEnum.SKILLS}/{skillId}").Result;
+            var _ = _client.DeleteAsync($"{ControllerRouteEnum.Skills}/{skillId}").Result;
+            var response = _client.GetAsync($"{ControllerRouteEnum.Skills}/{skillId}").Result;
 
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
         }

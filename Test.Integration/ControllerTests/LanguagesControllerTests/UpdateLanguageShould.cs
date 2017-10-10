@@ -25,7 +25,7 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
         [TestCleanup]
         public void TearDown()
         {
-            var _ = _client.DeleteAsync($"{ControllerRouteEnum.LANGUAGES}/{_languageId}").Result;
+            var _ = _client.DeleteAsync($"{ControllerRouteEnum.Languages}/{_languageId}").Result;
             _client.Dispose();
             _server.Dispose();
         }
@@ -36,7 +36,7 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
             var model = TestObjectGetter.GetUpdateLanguageViewModel(1, "A different language", 1);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PutAsync($"{ControllerRouteEnum.LANGUAGES}/1", requestContent).Result;
+            var response = _client.PutAsync($"{ControllerRouteEnum.Languages}/1", requestContent).Result;
 
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
         }
@@ -48,7 +48,7 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
             var model = TestObjectGetter.GetUpdateLanguageViewModel(_languageId, null, 1);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PutAsync($"{ControllerRouteEnum.LANGUAGES}/{_languageId}", requestContent).Result;
+            var response = _client.PutAsync($"{ControllerRouteEnum.Languages}/{_languageId}", requestContent).Result;
 
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
         }
@@ -60,7 +60,7 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
             var model = TestObjectGetter.GetUpdateLanguageViewModel(_languageId, "A different language", 4);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PutAsync($"{ControllerRouteEnum.LANGUAGES}/{_languageId}", requestContent).Result;
+            var response = _client.PutAsync($"{ControllerRouteEnum.Languages}/{_languageId}", requestContent).Result;
 
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
         }
@@ -72,7 +72,7 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
             var model = TestObjectGetter.GetUpdateLanguageViewModel(_languageId + 1, "A different language", 2);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PutAsync($"{ControllerRouteEnum.LANGUAGES}/{_languageId}", requestContent).Result;
+            var response = _client.PutAsync($"{ControllerRouteEnum.Languages}/{_languageId}", requestContent).Result;
 
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
         }
@@ -84,7 +84,7 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
             var model = TestObjectGetter.GetUpdateLanguageViewModel(_languageId, "A different language", 2);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PutAsync($"{ControllerRouteEnum.LANGUAGES}/{_languageId}", requestContent).Result;
+            var response = _client.PutAsync($"{ControllerRouteEnum.Languages}/{_languageId}", requestContent).Result;
 
             Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
         }
@@ -96,8 +96,8 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
             var model = TestObjectGetter.GetUpdateLanguageViewModel(_languageId, "A different language", 2);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var _ = _client.PutAsync($"{ControllerRouteEnum.LANGUAGES}/{_languageId}", requestContent).Result;
-            var response = _client.GetAsync($"{ControllerRouteEnum.LANGUAGES}/{_languageId}").Result;
+            var _ = _client.PutAsync($"{ControllerRouteEnum.Languages}/{_languageId}", requestContent).Result;
+            var response = _client.GetAsync($"{ControllerRouteEnum.Languages}/{_languageId}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<LanguageViewModel>(response);
 
             var isCorrectViewModel = AssertHelper.AreLanguageViewModelsEqual(model, serializedContent);

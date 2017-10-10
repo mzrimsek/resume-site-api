@@ -26,7 +26,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestCleanup]
         public void TearDown()
         {
-            var _ = _client.DeleteAsync($"{ControllerRouteEnum.LANGUAGES}/{_languageId}").Result;
+            var _ = _client.DeleteAsync($"{ControllerRouteEnum.Languages}/{_languageId}").Result;
             _client.Dispose();
             _server.Dispose();
         }
@@ -34,14 +34,14 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestMethod]
         public void ReturnStatusCodeOk()
         {
-            var response = _client.GetAsync($"{ControllerRouteEnum.SKILLS}").Result;
+            var response = _client.GetAsync($"{ControllerRouteEnum.Skills}").Result;
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         }
 
         [TestMethod]
         public void ReturnEmptyList_WhenNoSkillsAreCreated()
         {
-            var response = _client.GetAsync($"{ControllerRouteEnum.SKILLS}").Result;
+            var response = _client.GetAsync($"{ControllerRouteEnum.Skills}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<SkillViewModel>>(response);
             Assert.AreEqual(0, serializedContent.Count);
         }
@@ -52,7 +52,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
             _languageId = _testObjectCreator.GetIdFromNewLanguage();
             var skillId = _testObjectCreator.GetIdFromNewSkill(_languageId);
 
-            var response = _client.GetAsync($"{ControllerRouteEnum.SKILLS}").Result;
+            var response = _client.GetAsync($"{ControllerRouteEnum.Skills}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<SkillViewModel>>(response);
             
             Assert.AreEqual(1, serializedContent.Count);

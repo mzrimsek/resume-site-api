@@ -25,7 +25,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestCleanup]
         public void TearDown()
         {
-            var _ = _client.DeleteAsync($"{ControllerRouteEnum.LANGUAGES}/{_languageId}").Result;
+            var _ = _client.DeleteAsync($"{ControllerRouteEnum.Languages}/{_languageId}").Result;
             _client.Dispose();
             _server.Dispose();
         }
@@ -37,7 +37,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
             var model = TestObjectGetter.GetAddSkillViewModel(_languageId);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.SKILLS}", requestContent).Result;
+            var response = _client.PostAsync($"{ControllerRouteEnum.Skills}", requestContent).Result;
 
             Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
         }
@@ -49,7 +49,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
             var model = TestObjectGetter.GetAddSkillViewModel(_languageId, null, 1);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.SKILLS}", requestContent).Result;
+            var response = _client.PostAsync($"{ControllerRouteEnum.Skills}", requestContent).Result;
 
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
         }
@@ -61,7 +61,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
             var model = TestObjectGetter.GetAddSkillViewModel(_languageId, "MVC", 4);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.SKILLS}", requestContent).Result;
+            var response = _client.PostAsync($"{ControllerRouteEnum.Skills}", requestContent).Result;
 
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
         }
@@ -72,7 +72,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
             var model = TestObjectGetter.GetAddSkillViewModel(0, "MVC", 3);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.SKILLS}", requestContent).Result;
+            var response = _client.PostAsync($"{ControllerRouteEnum.Skills}", requestContent).Result;
 
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
         }
@@ -83,7 +83,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
             var model = TestObjectGetter.GetAddSkillViewModel(1, "MVC", 3);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.SKILLS}", requestContent).Result;
+            var response = _client.PostAsync($"{ControllerRouteEnum.Skills}", requestContent).Result;
 
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
         }
@@ -95,7 +95,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
             var model = TestObjectGetter.GetAddSkillViewModel(_languageId);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.SKILLS}", requestContent).Result;
+            var response = _client.PostAsync($"{ControllerRouteEnum.Skills}", requestContent).Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<SkillViewModel>(response);
 
             var isCorrectViewModel = AssertHelper.AreSkillViewModelsEqual(model, serializedContent);
@@ -109,9 +109,9 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
             var model = TestObjectGetter.GetAddSkillViewModel(_languageId);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.SKILLS}", requestContent).Result;
+            var response = _client.PostAsync($"{ControllerRouteEnum.Skills}", requestContent).Result;
             var skillId = RequestHelper.GetObjectFromResponseContent<SkillViewModel>(response).Id;
-            response = _client.GetAsync($"{ControllerRouteEnum.SKILLS}/{skillId}").Result;
+            response = _client.GetAsync($"{ControllerRouteEnum.Skills}/{skillId}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<SkillViewModel>(response);
 
             var isCorrectViewModel = AssertHelper.AreSkillViewModelsEqual(model, serializedContent);

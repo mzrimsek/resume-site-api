@@ -30,7 +30,7 @@ namespace Test.Integration.ControllerTests.SchoolsControllerTests
         [TestMethod]
         public void ReturnStatusCodeNoContent_WhenGivenInvalidId()
         {
-            var response = _client.DeleteAsync($"{ControllerRouteEnum.SCHOOLS}/1").Result;
+            var response = _client.DeleteAsync($"{ControllerRouteEnum.Schools}/1").Result;
             Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
         }
 
@@ -38,7 +38,7 @@ namespace Test.Integration.ControllerTests.SchoolsControllerTests
         public void ReturnStatusCodeNoContent_WhenGivenValidId()
         {
             var schoolId = _testObjectCreator.GetIdFromNewSchool();
-            var response = _client.DeleteAsync($"{ControllerRouteEnum.SCHOOLS}/{schoolId}").Result;
+            var response = _client.DeleteAsync($"{ControllerRouteEnum.Schools}/{schoolId}").Result;
             Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
         }
 
@@ -47,8 +47,8 @@ namespace Test.Integration.ControllerTests.SchoolsControllerTests
         {
             var schoolId = _testObjectCreator.GetIdFromNewSchool();
 
-            var _ = _client.DeleteAsync($"{ControllerRouteEnum.SCHOOLS}/{schoolId}").Result;
-            var response = _client.GetAsync($"{ControllerRouteEnum.SCHOOLS}/{schoolId}").Result;
+            var _ = _client.DeleteAsync($"{ControllerRouteEnum.Schools}/{schoolId}").Result;
+            var response = _client.GetAsync($"{ControllerRouteEnum.Schools}/{schoolId}").Result;
 
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
         }

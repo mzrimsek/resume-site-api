@@ -26,7 +26,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestCleanup]
         public void TearDown()
         {
-            var _ = _client.DeleteAsync($"{ControllerRouteEnum.LANGUAGES}/{_languageId}").Result;
+            var _ = _client.DeleteAsync($"{ControllerRouteEnum.Languages}/{_languageId}").Result;
             _client.Dispose();
             _server.Dispose();
         }
@@ -34,7 +34,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestMethod]
         public void ReturnStatusCodeNotFound_WhenGivenInvalidLanguageId()
         {
-            var response = _client.GetAsync($"{ControllerRouteEnum.SKILLS}/language/1").Result;
+            var response = _client.GetAsync($"{ControllerRouteEnum.Skills}/language/1").Result;
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
         }
 
@@ -42,7 +42,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         public void ReturnStatusCodeOk_WhenGivenValidLanguageId()
         {
             _languageId = _testObjectCreator.GetIdFromNewLanguage();
-            var response = _client.GetAsync($"{ControllerRouteEnum.SKILLS}/language/{_languageId}").Result;
+            var response = _client.GetAsync($"{ControllerRouteEnum.Skills}/language/{_languageId}").Result;
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);            
         }
 
@@ -51,7 +51,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         {
             _languageId = _testObjectCreator.GetIdFromNewLanguage();
             
-            var response = _client.GetAsync($"{ControllerRouteEnum.SKILLS}/language/{_languageId}").Result;
+            var response = _client.GetAsync($"{ControllerRouteEnum.Skills}/language/{_languageId}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<SkillViewModel>>(response);
             
             Assert.AreEqual(0, serializedContent.Count); 
@@ -63,7 +63,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
             _languageId = _testObjectCreator.GetIdFromNewLanguage();
             var skillId = _testObjectCreator.GetIdFromNewSkill(_languageId);
             
-            var response = _client.GetAsync($"{ControllerRouteEnum.SKILLS}/language/{_languageId}").Result;
+            var response = _client.GetAsync($"{ControllerRouteEnum.Skills}/language/{_languageId}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<SkillViewModel>>(response);
             
             Assert.AreEqual(1, serializedContent.Count); 

@@ -30,7 +30,7 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
         [TestMethod]
         public void ReturnStatusCodeNoContent_WhenGivenInvalidId()
         {
-            var response = _client.DeleteAsync($"{ControllerRouteEnum.LANGUAGES}/1").Result;
+            var response = _client.DeleteAsync($"{ControllerRouteEnum.Languages}/1").Result;
             Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
         }
 
@@ -38,7 +38,7 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
         public void ReturnStatusCodeNoContent_WhenGivenValidId()
         {
             var languageId = _testObjectCreator.GetIdFromNewLanguage();
-            var response = _client.DeleteAsync($"{ControllerRouteEnum.LANGUAGES}/{languageId}").Result;
+            var response = _client.DeleteAsync($"{ControllerRouteEnum.Languages}/{languageId}").Result;
             Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
         }
 
@@ -47,8 +47,8 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
         {
             var languageId = _testObjectCreator.GetIdFromNewLanguage();
 
-            var _ = _client.DeleteAsync($"{ControllerRouteEnum.LANGUAGES}/{languageId}").Result;
-            var response = _client.GetAsync($"{ControllerRouteEnum.LANGUAGES}/{languageId}").Result;
+            var _ = _client.DeleteAsync($"{ControllerRouteEnum.Languages}/{languageId}").Result;
+            var response = _client.GetAsync($"{ControllerRouteEnum.Languages}/{languageId}").Result;
 
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
         }
@@ -59,8 +59,8 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
             var languageId = _testObjectCreator.GetIdFromNewLanguage();
             var skillId = _testObjectCreator.GetIdFromNewSkill(languageId);
 
-            var _ = _client.DeleteAsync($"{ControllerRouteEnum.LANGUAGES}/{languageId}").Result;
-            var response = _client.GetAsync($"{ControllerRouteEnum.SKILLS}/{skillId}").Result;
+            var _ = _client.DeleteAsync($"{ControllerRouteEnum.Languages}/{languageId}").Result;
+            var response = _client.GetAsync($"{ControllerRouteEnum.Skills}/{skillId}").Result;
 
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
         }

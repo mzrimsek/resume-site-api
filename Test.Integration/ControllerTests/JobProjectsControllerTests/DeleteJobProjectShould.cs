@@ -24,7 +24,7 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
         [TestCleanup]
         public void TearDown()
         {
-            var _ = _client.DeleteAsync($"{ControllerRouteEnum.JOBS}/{_jobId}").Result;
+            var _ = _client.DeleteAsync($"{ControllerRouteEnum.Jobs}/{_jobId}").Result;
             _client.Dispose();
             _server.Dispose();
         }
@@ -32,7 +32,7 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
         [TestMethod]
         public void ReturnStatusCodeNoContent_WhenGivenInvalidId()
         {
-            var response = _client.DeleteAsync($"{ControllerRouteEnum.JOB_PROJECTS}/1").Result;
+            var response = _client.DeleteAsync($"{ControllerRouteEnum.JobProjects}/1").Result;
             Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
         }
 
@@ -42,7 +42,7 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
             _jobId = _testObjectCreator.GetIdForNewJob();
             var jobProjectId = _testObjectCreator.GetIdFromNewJobProject(_jobId);
 
-            var response = _client.DeleteAsync($"{ControllerRouteEnum.JOB_PROJECTS}/{jobProjectId}").Result;
+            var response = _client.DeleteAsync($"{ControllerRouteEnum.JobProjects}/{jobProjectId}").Result;
 
             Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
         }
@@ -53,8 +53,8 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
             _jobId = _testObjectCreator.GetIdForNewJob();
             var jobProjectId = _testObjectCreator.GetIdFromNewJobProject(_jobId);
 
-            var _ = _client.DeleteAsync($"{ControllerRouteEnum.JOB_PROJECTS}/{jobProjectId}").Result;
-            var response = _client.GetAsync($"{ControllerRouteEnum.JOB_PROJECTS}/{jobProjectId}").Result;
+            var _ = _client.DeleteAsync($"{ControllerRouteEnum.JobProjects}/{jobProjectId}").Result;
+            var response = _client.GetAsync($"{ControllerRouteEnum.JobProjects}/{jobProjectId}").Result;
 
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
         }

@@ -19,31 +19,31 @@ namespace Test.Integration.TestHelpers
         public int GetIdForNewJob()
         {
             var model = TestObjectGetter.GetAddJobViewModel();
-            return GetIdFromNewTestObject<JobViewModel>(model, ControllerRouteEnum.JOBS);
+            return GetIdFromNewTestObject<JobViewModel>(model, ControllerRouteEnum.Jobs);
         }
 
         public int GetIdFromNewJobProject(int jobId)
         {
             var model = TestObjectGetter.GetAddJobProjectViewModel(jobId);
-            return GetIdFromNewTestObject<JobProjectViewModel>(model, ControllerRouteEnum.JOB_PROJECTS);
+            return GetIdFromNewTestObject<JobProjectViewModel>(model, ControllerRouteEnum.JobProjects);
         }
 
         public int GetIdFromNewSchool()
         {
             var model = TestObjectGetter.GetAddSchoolViewModel();
-            return GetIdFromNewTestObject<SchoolViewModel>(model, ControllerRouteEnum.SCHOOLS);
+            return GetIdFromNewTestObject<SchoolViewModel>(model, ControllerRouteEnum.Schools);
         }
 
         public int GetIdFromNewLanguage()
         {
             var model = TestObjectGetter.GetAddLanguageViewModel();
-            return GetIdFromNewTestObject<LanguageViewModel>(model, ControllerRouteEnum.LANGUAGES);
+            return GetIdFromNewTestObject<LanguageViewModel>(model, ControllerRouteEnum.Languages);
         }
 
         public int GetIdFromNewSkill(int languageId)
         {
             var model = TestObjectGetter.GetAddSkillViewModel(languageId);
-            return GetIdFromNewTestObject<LanguageViewModel>(model, ControllerRouteEnum.SKILLS);
+            return GetIdFromNewTestObject<LanguageViewModel>(model, ControllerRouteEnum.Skills);
         }
 
         private int GetIdFromNewTestObject<T>(object model, string route) where T : IHasId

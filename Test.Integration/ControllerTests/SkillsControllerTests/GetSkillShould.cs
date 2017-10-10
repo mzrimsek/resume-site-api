@@ -25,7 +25,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestCleanup]
         public void TearDown()
         {
-            var _ = _client.DeleteAsync($"{ControllerRouteEnum.LANGUAGES}/{_languageId}").Result;
+            var _ = _client.DeleteAsync($"{ControllerRouteEnum.Languages}/{_languageId}").Result;
             _client.Dispose();
             _server.Dispose();
         }
@@ -33,7 +33,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestMethod]
         public void ReturnStatusCodeNotFound_WhenGivenInvalidId()
         {
-            var response = _client.GetAsync($"{ControllerRouteEnum.SKILLS}/1").Result;
+            var response = _client.GetAsync($"{ControllerRouteEnum.Skills}/1").Result;
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
         }
 
@@ -43,7 +43,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
             _languageId = _testObjectCreator.GetIdFromNewLanguage();
             var skillId = _testObjectCreator.GetIdFromNewSkill(_languageId);
 
-            var response = _client.GetAsync($"{ControllerRouteEnum.SKILLS}/{skillId}").Result;
+            var response = _client.GetAsync($"{ControllerRouteEnum.Skills}/{skillId}").Result;
             
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         }
@@ -54,10 +54,10 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
             _languageId = _testObjectCreator.GetIdFromNewLanguage();
             var model = TestObjectGetter.GetAddSkillViewModel(_languageId);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
-            var response = _client.PostAsync($"{ControllerRouteEnum.SKILLS}", requestContent).Result;
+            var response = _client.PostAsync($"{ControllerRouteEnum.Skills}", requestContent).Result;
             var skillId = RequestHelper.GetObjectFromResponseContent<SkillViewModel>(response).Id;
 
-            response = _client.GetAsync($"{ControllerRouteEnum.SKILLS}/{skillId}").Result;
+            response = _client.GetAsync($"{ControllerRouteEnum.Skills}/{skillId}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<SkillViewModel>(response);
 
             var isCorrectViewModel = AssertHelper.AreSkillViewModelsEqual(model, serializedContent);

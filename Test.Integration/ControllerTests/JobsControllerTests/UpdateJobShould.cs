@@ -25,7 +25,7 @@ namespace Test.Integration.ControllerTests.JobsControllerTests
         [TestCleanup]
         public void TearDown()
         {
-            var _ = _client.DeleteAsync($"{ControllerRouteEnum.JOBS}/{_jobId}").Result;
+            var _ = _client.DeleteAsync($"{ControllerRouteEnum.Jobs}/{_jobId}").Result;
             _client.Dispose();
             _server.Dispose();
         }
@@ -36,7 +36,7 @@ namespace Test.Integration.ControllerTests.JobsControllerTests
             var model = TestObjectGetter.GetUpdateJobViewModel(1, "A Different Company");
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PutAsync($"{ControllerRouteEnum.JOBS}/1", requestContent).Result;
+            var response = _client.PutAsync($"{ControllerRouteEnum.Jobs}/1", requestContent).Result;
 
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
         }
@@ -48,7 +48,7 @@ namespace Test.Integration.ControllerTests.JobsControllerTests
             var model = TestObjectGetter.GetUpdateJobViewModel(_jobId, null);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PutAsync($"{ControllerRouteEnum.JOBS}/{_jobId}", requestContent).Result;
+            var response = _client.PutAsync($"{ControllerRouteEnum.Jobs}/{_jobId}", requestContent).Result;
 
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
         }
@@ -60,7 +60,7 @@ namespace Test.Integration.ControllerTests.JobsControllerTests
             var model = TestObjectGetter.GetUpdateJobViewModel(_jobId + 1, "A Different Company");
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PutAsync($"{ControllerRouteEnum.JOBS}/{_jobId}", requestContent).Result;
+            var response = _client.PutAsync($"{ControllerRouteEnum.Jobs}/{_jobId}", requestContent).Result;
 
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
         }
@@ -72,7 +72,7 @@ namespace Test.Integration.ControllerTests.JobsControllerTests
             var model = TestObjectGetter.GetUpdateJobViewModel(_jobId, "A Different Company");
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PutAsync($"{ControllerRouteEnum.JOBS}/{_jobId}", requestContent).Result;
+            var response = _client.PutAsync($"{ControllerRouteEnum.Jobs}/{_jobId}", requestContent).Result;
 
             Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
         }
@@ -84,8 +84,8 @@ namespace Test.Integration.ControllerTests.JobsControllerTests
             var model = TestObjectGetter.GetUpdateJobViewModel(_jobId, "A Different Company");
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var _ = _client.PutAsync($"{ControllerRouteEnum.JOBS}/{_jobId}", requestContent).Result;
-            var response = _client.GetAsync($"{ControllerRouteEnum.JOBS}/{_jobId}").Result;
+            var _ = _client.PutAsync($"{ControllerRouteEnum.Jobs}/{_jobId}", requestContent).Result;
+            var response = _client.GetAsync($"{ControllerRouteEnum.Jobs}/{_jobId}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<JobViewModel>(response);
 
             var isCorrectViewModel = AssertHelper.AreTestJobViewModelsEqual(model, serializedContent);
