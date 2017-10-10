@@ -1,9 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Core.Interfaces;
 
 namespace Integration.EntityFramework.Models
 {
-    public class JobProjectDatabaseModel
+    public class JobProjectDatabaseModel : IHasId
     {
         [Key]
         public int Id { get; set; }

@@ -1,8 +1,9 @@
 using System.ComponentModel.DataAnnotations;
+using Core.Interfaces;
 
 namespace Integration.EntityFramework.Models
 {
-    public class LanguageDatabaseModel
+    public class LanguageDatabaseModel : IHasId
     {
         [Key]
         public int Id { get; set; }

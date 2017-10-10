@@ -1,9 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Core.Interfaces;
 
 namespace Integration.EntityFramework.Models
 {
-    public class SkillDatabaseModel
+    public class SkillDatabaseModel : IHasId
     {
         [Key]
         public int Id { get; set; }

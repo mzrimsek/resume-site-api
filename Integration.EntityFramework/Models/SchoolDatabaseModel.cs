@@ -1,9 +1,10 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using Core.Interfaces;
 
 namespace Integration.EntityFramework.Models
 {
-    public class SchoolDatabaseModel
+    public class SchoolDatabaseModel : IHasId
     {
         [Key]
         public int Id { get; set; }
