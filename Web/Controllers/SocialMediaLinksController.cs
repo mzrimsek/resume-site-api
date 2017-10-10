@@ -19,20 +19,20 @@ namespace Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllJobs()
+        public async Task<IActionResult> GetAllSocialMediaLinks()
         {
             return await _controllerRequestHelper.GetAll();
         }
 
         [HttpGet("{id}", Name = "GetSocialMediaLink")]
-        public async Task<IActionResult> GetJob(int id)
+        public async Task<IActionResult> GetSocialMediaLink(int id)
         {
             return await _controllerRequestHelper.GetById(id);
         }
 
         [HttpPost]
         [ModelStateValidation]
-        public async Task<IActionResult> AddJob([FromBody] AddSocialMediaLinkViewModel entity)
+        public async Task<IActionResult> AddSocialMediaLink([FromBody] AddSocialMediaLinkViewModel entity)
         {
             return await _controllerRequestHelper.Add(entity, "GetSocialMediaLink");
         }
@@ -40,13 +40,13 @@ namespace Web.Controllers
         [HttpPut("{id}")]
         [ModelStateValidation]
         [ModelHasCorrectId]
-        public async Task<IActionResult> UpdateJob(int id, [FromBody] UpdateSocialMediaLinkViewModel entity)
+        public async Task<IActionResult> UpdateSocialMediaLink(int id, [FromBody] UpdateSocialMediaLinkViewModel entity)
         {
             return await _controllerRequestHelper.Update(id, entity);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteJob(int id)
+        public async Task<IActionResult> DeleteSocialMediaLink(int id)
         {
             return await _controllerRequestHelper.Delete(id);
         }
