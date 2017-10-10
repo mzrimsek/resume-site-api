@@ -1,5 +1,6 @@
 using System.Net;
 using System.Net.Http;
+using FluentAssertions;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Test.Integration.TestHelpers;
@@ -38,7 +39,7 @@ namespace Test.Integration.ControllerTests.JobsControllerTests
 
             var response = _client.PutAsync($"{ControllerRouteEnum.Jobs}/1", requestContent).Result;
 
-            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+            response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
 
         [TestMethod]
@@ -50,7 +51,7 @@ namespace Test.Integration.ControllerTests.JobsControllerTests
 
             var response = _client.PutAsync($"{ControllerRouteEnum.Jobs}/{_jobId}", requestContent).Result;
 
-            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
 
         [TestMethod]
@@ -62,7 +63,7 @@ namespace Test.Integration.ControllerTests.JobsControllerTests
 
             var response = _client.PutAsync($"{ControllerRouteEnum.Jobs}/{_jobId}", requestContent).Result;
 
-            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
 
         [TestMethod]
@@ -74,7 +75,7 @@ namespace Test.Integration.ControllerTests.JobsControllerTests
 
             var response = _client.PutAsync($"{ControllerRouteEnum.Jobs}/{_jobId}", requestContent).Result;
 
-            Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
+            response.StatusCode.Should().Be(HttpStatusCode.NoContent);
         }
 
         [TestMethod]
@@ -89,7 +90,7 @@ namespace Test.Integration.ControllerTests.JobsControllerTests
             var serializedContent = RequestHelper.GetObjectFromResponseContent<JobViewModel>(response);
 
             var isCorrectViewModel = AssertHelper.AreTestJobViewModelsEqual(model, serializedContent);
-            Assert.IsTrue(isCorrectViewModel);
+            isCorrectViewModel.Should().BeTrue();
         }
     }
 }
