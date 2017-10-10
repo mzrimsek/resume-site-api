@@ -1,5 +1,6 @@
 using System.Net;
 using System.Net.Http;
+using FluentAssertions;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Test.Integration.TestHelpers;
@@ -37,7 +38,7 @@ namespace Test.Integration.ControllerTests.SchoolsControllerTests
             var response = _client.PostAsync($"{ControllerRouteEnum.Schools}", requestContent).Result;
             _schoolId = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(response).Id;
 
-            Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
+            response.StatusCode.Should().Be(HttpStatusCode.Created);
         }
 
         [TestMethod]
@@ -48,7 +49,7 @@ namespace Test.Integration.ControllerTests.SchoolsControllerTests
 
             var response = _client.PostAsync($"{ControllerRouteEnum.Schools}", requestContent).Result;
 
-            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
 
         [TestMethod]
@@ -62,7 +63,7 @@ namespace Test.Integration.ControllerTests.SchoolsControllerTests
             _schoolId = serializedContent.Id;
 
             var isCorrectViewModel = AssertHelper.AreSchoolViewModelsEqual(model, serializedContent);
-            Assert.IsTrue(isCorrectViewModel);
+            isCorrectViewModel.Should().BeTrue();
         }
 
         [TestMethod]
@@ -77,7 +78,7 @@ namespace Test.Integration.ControllerTests.SchoolsControllerTests
             var serializedContent = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(response);
 
             var isCorrectViewModel = AssertHelper.AreSchoolViewModelsEqual(model, serializedContent);
-            Assert.IsTrue(isCorrectViewModel);
+            isCorrectViewModel.Should().BeTrue();
         }
     }
 }

@@ -1,5 +1,6 @@
 using System.Net;
 using System.Net.Http;
+using FluentAssertions;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Test.Integration.TestHelpers;
@@ -34,7 +35,7 @@ namespace Test.Integration.ControllerTests.SchoolsControllerTests
         public void ReturnStatusCodeNotFound_WhenGivenInvalidId()
         {
             var response = _client.GetAsync($"{ControllerRouteEnum.Schools}/1").Result;
-            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+            response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
 
         [TestMethod]
@@ -42,7 +43,7 @@ namespace Test.Integration.ControllerTests.SchoolsControllerTests
         {
             _schoolId = _testObjectCreator.GetIdFromNewSchool();
             var response = _client.GetAsync($"{ControllerRouteEnum.Schools}/{_schoolId}").Result;
-            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
         [TestMethod]
@@ -57,7 +58,7 @@ namespace Test.Integration.ControllerTests.SchoolsControllerTests
             var serializedContent = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(response);
 
             var isCorrectViewModel = AssertHelper.AreSchoolViewModelsEqual(model, serializedContent);
-            Assert.IsTrue(isCorrectViewModel);
+            isCorrectViewModel.Should().BeTrue();
         }
     }
 }
