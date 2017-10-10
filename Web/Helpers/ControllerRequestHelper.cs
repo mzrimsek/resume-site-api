@@ -7,11 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Helpers
 {
-    public class ControllerRequestHelper<DomainModelType, ViewModelType>
+    public class ControllerRequestHelper<TDomainModel, TViewModel>
     {
-        private readonly IRepository<DomainModelType> _repository;
+        private readonly IRepository<TDomainModel> _repository;
         private readonly IMapper _mapper;
-        public ControllerRequestHelper(IRepository<DomainModelType> repository, IMapper mapper)
+        public ControllerRequestHelper(IRepository<TDomainModel> repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
@@ -20,7 +20,7 @@ namespace Web.Helpers
         public async Task<IActionResult> GetAll()
         {
             var entities = await _repository.GetAll();
-            var views = _mapper.Map<IEnumerable<ViewModelType>>(entities);
+            var views = _mapper.Map<IEnumerable<TViewModel>>(entities);
             return new OkObjectResult(views);
         }
 
@@ -32,15 +32,15 @@ namespace Web.Helpers
                 return new NotFoundObjectResult(null);
             }
 
-            var view = _mapper.Map<ViewModelType>(entity);
+            var view = _mapper.Map<TViewModel>(entity);
             return new OkObjectResult(view);
         }
 
         public async Task<IActionResult> Add(object entity, string createdRouteName)
         {
-            var domain = _mapper.Map<DomainModelType>(entity);
+            var domain = _mapper.Map<TDomainModel>(entity);
             var saved = await _repository.Save(domain);
-            var view = _mapper.Map<ViewModelType>(saved) as IHasId;
+            var view = _mapper.Map<TViewModel>(saved) as IHasId;
 
             return new CreatedAtRouteResult(createdRouteName, new { id = view.Id }, view);
         }
@@ -53,8 +53,8 @@ namespace Web.Helpers
                 return new NotFoundObjectResult(null);
             }
 
-            var view = _mapper.Map<ViewModelType>(entity);
-            var domain = _mapper.Map<DomainModelType>(view);
+            var view = _mapper.Map<TViewModel>(entity);
+            var domain = _mapper.Map<TDomainModel>(view);
 
             await _repository.Save(domain);
             return new NoContentResult();
