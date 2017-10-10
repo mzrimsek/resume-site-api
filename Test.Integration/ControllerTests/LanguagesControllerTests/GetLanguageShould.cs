@@ -1,5 +1,6 @@
 using System.Net;
 using System.Net.Http;
+using FluentAssertions;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Test.Integration.TestHelpers;
@@ -34,7 +35,7 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
         public void ReturnStatusCodeNotFound_WhenGivenInvalidId()
         {
             var response = _client.GetAsync($"{ControllerRouteEnum.Languages}/1").Result;
-            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+            response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
 
         [TestMethod]
@@ -42,7 +43,7 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
         {
             _languageId = _testObjectCreator.GetIdFromNewLanguage();
             var response = _client.GetAsync($"{ControllerRouteEnum.Languages}/{_languageId}").Result;
-            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
         [TestMethod]
@@ -57,7 +58,7 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
             var serializedContent = RequestHelper.GetObjectFromResponseContent<LanguageViewModel>(response);
 
             var isCorrectViewModel = AssertHelper.AreLanguageViewModelsEqual(model, serializedContent);
-            Assert.IsTrue(isCorrectViewModel);
+            isCorrectViewModel.Should().BeTrue();
         }
     }
 }

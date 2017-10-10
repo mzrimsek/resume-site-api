@@ -1,5 +1,6 @@
 using System.Net;
 using System.Net.Http;
+using FluentAssertions;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Test.Integration.TestHelpers;
@@ -39,7 +40,7 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
             var response = _client.PostAsync($"{ControllerRouteEnum.Languages}", requestContent).Result;
             _languageId = RequestHelper.GetObjectFromResponseContent<LanguageViewModel>(response).Id;
 
-            Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
+            response.StatusCode.Should().Be(HttpStatusCode.Created);
         }
 
         [TestMethod]
@@ -50,7 +51,7 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
 
             var response = _client.PostAsync($"{ControllerRouteEnum.Languages}", requestContent).Result;
 
-            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
 
         [TestMethod]
@@ -61,7 +62,7 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
 
             var response = _client.PostAsync($"{ControllerRouteEnum.Languages}", requestContent).Result;
 
-            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
 
         [TestMethod]
@@ -75,7 +76,7 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
             _languageId = serializedContent.Id;
 
             var isCorrectViewModel = AssertHelper.AreLanguageViewModelsEqual(model, serializedContent);
-            Assert.IsTrue(isCorrectViewModel);
+            isCorrectViewModel.Should().BeTrue();
         }
 
         [TestMethod]
@@ -90,7 +91,7 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
             var serializedContent = RequestHelper.GetObjectFromResponseContent<LanguageViewModel>(response);
 
             var isCorrectViewModel = AssertHelper.AreLanguageViewModelsEqual(model, serializedContent);
-            Assert.IsTrue(isCorrectViewModel);
+            isCorrectViewModel.Should().BeTrue();
         }
     }
 }

@@ -1,5 +1,6 @@
 using System.Net;
 using System.Net.Http;
+using FluentAssertions;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Test.Integration.TestHelpers;
@@ -31,7 +32,7 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
         public void ReturnStatusCodeNoContent_WhenGivenInvalidId()
         {
             var response = _client.DeleteAsync($"{ControllerRouteEnum.Languages}/1").Result;
-            Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
+            response.StatusCode.Should().Be(HttpStatusCode.NoContent);
         }
 
         [TestMethod]
@@ -39,7 +40,7 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
         {
             var languageId = _testObjectCreator.GetIdFromNewLanguage();
             var response = _client.DeleteAsync($"{ControllerRouteEnum.Languages}/{languageId}").Result;
-            Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
+            response.StatusCode.Should().Be(HttpStatusCode.NoContent);
         }
 
         [TestMethod]
@@ -50,7 +51,7 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
             var _ = _client.DeleteAsync($"{ControllerRouteEnum.Languages}/{languageId}").Result;
             var response = _client.GetAsync($"{ControllerRouteEnum.Languages}/{languageId}").Result;
 
-            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+            response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
 
         [TestMethod]
@@ -62,7 +63,7 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
             var _ = _client.DeleteAsync($"{ControllerRouteEnum.Languages}/{languageId}").Result;
             var response = _client.GetAsync($"{ControllerRouteEnum.Skills}/{skillId}").Result;
 
-            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+            response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
     }
 }
