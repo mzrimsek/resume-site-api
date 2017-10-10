@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using FluentAssertions;
@@ -57,7 +58,7 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<JobProjectViewModel>>(response);
 
             serializedContent.Should().HaveCount(1);
-            serializedContent[0].Id.Should().Be(jobProjectId);
+            serializedContent.First().Id.Should().Be(jobProjectId);
         }
     }
 }
