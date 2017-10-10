@@ -3,6 +3,6 @@ mono: none
 dotnet: 2.0.0
 script:
   - dotnet restore
-  - dotnet build ./TheLog/
+  - dotnet build ./Web/
   - dotnet test ./Test.Unit/
   - dotnet test ./Test.Integration/
