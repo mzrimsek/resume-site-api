@@ -1,5 +1,6 @@
 using System;
 using Core.Helpers;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Test.Unit.HelperTests.DateHelperTests
@@ -12,7 +13,7 @@ namespace Test.Unit.HelperTests.DateHelperTests
         {
             var date = new DateTime(2017, 7, 22);
             var formattedDate = date.Format();
-            Assert.AreEqual("7/22/2017", formattedDate);
+            formattedDate.Should().Be("7/22/2017");
         }
     }
 }
