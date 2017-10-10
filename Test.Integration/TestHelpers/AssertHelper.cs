@@ -1,8 +1,10 @@
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Test.Integration.TestModels.JobModels;
 using Test.Integration.TestModels.JobProjectModels;
 using Test.Integration.TestModels.LanguageModels;
 using Test.Integration.TestModels.SchoolModels;
 using Test.Integration.TestModels.SkillModels;
+using Test.Integration.TestModels.SocialMediaLinkModels;
 
 namespace Test.Integration.TestHelpers
 {
@@ -47,6 +49,12 @@ namespace Test.Integration.TestHelpers
             return expected.LanguageId == actual.LanguageId
                 && expected.Name == actual.Name
                 && expected.Rating == actual.Rating;
+        }
+
+        public static bool AreTestSocialMediaLinkViewModelsEqual(AddSocialMediaLinkViewModel expected, SocialMediaLinkViewModel actual)
+        {
+            return expected.Name == actual.Name
+                && expected.Url == actual.Url;
         }
     }
 }
