@@ -1,0 +1,4 @@
+- name: csharp
+  production:
+    exclude:
+      - /Integration.EntityFramework/Migrations/.*
