@@ -3,7 +3,7 @@ using Core.Interfaces;
 
 namespace Test.Integration.TestModels.SocialMediaLinkModels
 {
-    public class UpdateSocialMediaLinkViewModel : Web.Models.SocialMediaLinkModels.AddSocialMediaLinkViewModel, IHasId
+    public class UpdateSocialMediaLinkViewModel : AddSocialMediaLinkViewModel, IHasId
     {
         [Required]
         public int Id { get; set; }

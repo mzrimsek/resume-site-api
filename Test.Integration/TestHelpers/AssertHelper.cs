@@ -1,4 +1,3 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Test.Integration.TestModels.JobModels;
 using Test.Integration.TestModels.JobProjectModels;
 using Test.Integration.TestModels.LanguageModels;
