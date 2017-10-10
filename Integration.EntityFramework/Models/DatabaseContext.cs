@@ -9,8 +9,9 @@ namespace Integration.EntityFramework.Models
         public DbSet<SchoolDatabaseModel> Schools { get; set; }
         public DbSet<LanguageDatabaseModel> Languages { get; set; }
         public DbSet<SkillDatabaseModel> Skills { get; set; }
+        public DbSet<SocialMediaLinkDatabaseModel> SocialMediaLinks { get; set; }
 
-        public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) { }
+        public DatabaseContext(DbContextOptions options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
