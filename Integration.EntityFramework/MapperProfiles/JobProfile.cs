@@ -10,6 +10,7 @@ namespace Integration.EntityFramework.MapperProfiles
         {
             CreateMap<JobDatabaseModel, JobDomainModel>();
             CreateMap<JobDomainModel, JobDatabaseModel>();
+            CreateMap<JobDatabaseModel, JobDatabaseModel>();
         }
     }
 }

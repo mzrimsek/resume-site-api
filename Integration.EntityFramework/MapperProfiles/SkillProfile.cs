@@ -10,6 +10,7 @@ namespace Integration.EntityFramework.MapperProfiles
         {
             CreateMap<SkillDatabaseModel, SkillDomainModel>();
             CreateMap<SkillDomainModel, SkillDatabaseModel>();
+            CreateMap<SkillDatabaseModel, SkillDatabaseModel>();
         }
     }
 }

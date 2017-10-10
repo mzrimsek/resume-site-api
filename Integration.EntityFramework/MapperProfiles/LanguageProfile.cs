@@ -10,6 +10,7 @@ namespace Integration.EntityFramework.MapperProfiles
         {
             CreateMap<LanguageDatabaseModel, LanguageDomainModel>();
             CreateMap<LanguageDomainModel, LanguageDatabaseModel>();
+            CreateMap<LanguageDatabaseModel, LanguageDatabaseModel>();
         }
     }
 }

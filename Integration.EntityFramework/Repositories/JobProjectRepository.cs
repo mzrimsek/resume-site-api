@@ -45,10 +45,7 @@ namespace Integration.EntityFramework.Repositories
             }
             else
             {
-                existingModel.JobId = databaseModel.JobId;
-                existingModel.Name = databaseModel.Name;
-                existingModel.Description = databaseModel.Description;
-
+                _mapper.Map(databaseModel, existingModel);
                 _databaseContext.Update(existingModel);
             }
 

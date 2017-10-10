@@ -10,6 +10,7 @@ namespace Integration.EntityFramework.MapperProfiles
         {
             CreateMap<SchoolDatabaseModel, SchoolDomainModel>();
             CreateMap<SchoolDomainModel, SchoolDatabaseModel>();
+            CreateMap<SchoolDatabaseModel, SchoolDatabaseModel>();
         }
     }
 }

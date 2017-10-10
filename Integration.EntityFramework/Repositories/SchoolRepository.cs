@@ -40,14 +40,7 @@ namespace Integration.EntityFramework.Repositories
             }
             else
             {
-                existingModel.Name = databaseModel.Name;
-                existingModel.City = databaseModel.City;
-                existingModel.State = databaseModel.State;
-                existingModel.Major = databaseModel.Major;
-                existingModel.Degree = databaseModel.Degree;
-                existingModel.StartDate = databaseModel.StartDate;
-                existingModel.EndDate = databaseModel.EndDate;
-
+                _mapper.Map(databaseModel, existingModel);
                 _databaseContext.Update(existingModel);
             }
 

@@ -40,9 +40,7 @@ namespace Integration.EntityFramework.Repositories
             }
             else
             {
-                existingModel.Name = databaseModel.Name;
-                existingModel.Rating = databaseModel.Rating;
-
+                _mapper.Map(databaseModel, existingModel);
                 _databaseContext.Update(existingModel);
             }
 
