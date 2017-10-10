@@ -1,61 +1,44 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using Core.Interfaces.RepositoryInterfaces;
 using Core.Models;
+using Integration.EntityFramework.Helpers;
 using Integration.EntityFramework.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace Integration.EntityFramework.Repositories
 {
     public class SchoolRepository : ISchoolRepository
     {
         private readonly DatabaseContext _databaseContext;
-        private readonly IMapper _mapper;
+        private readonly RepositoryHelper<SchoolDomainModel, SchoolDatabaseModel> _repositoryHelper;
         public SchoolRepository(DatabaseContext databaseContext, IMapper mapper)
         {
             _databaseContext = databaseContext;
-            _mapper = mapper;
+            _repositoryHelper = new RepositoryHelper<SchoolDomainModel, SchoolDatabaseModel>(databaseContext.Schools, mapper);
         }
 
         public async Task<IEnumerable<SchoolDomainModel>> GetAll()
         {
-            return await _databaseContext.Schools.Where(x => true).ProjectTo<SchoolDomainModel>().ToListAsync();
+            return await _repositoryHelper.GetAll();
         }
 
         public async Task<SchoolDomainModel> GetById(int id)
         {
-            return await _databaseContext.Schools.Where(x => x.Id == id).ProjectTo<SchoolDomainModel>().FirstOrDefaultAsync();
+            return await _repositoryHelper.GetById(id);
         }
 
         public async Task<SchoolDomainModel> Save(SchoolDomainModel entity)
         {
-            var databaseModel = _mapper.Map<SchoolDatabaseModel>(entity);
-            var existingModel = await _databaseContext.Schools.SingleOrDefaultAsync(x => x.Id == databaseModel.Id);
-            if (existingModel == null)
-            {
-                await _databaseContext.AddAsync(databaseModel);
-            }
-            else
-            {
-                _mapper.Map(databaseModel, existingModel);
-                _databaseContext.Update(existingModel);
-            }
-
+            var school = await _repositoryHelper.Save(entity);
             await _databaseContext.SaveChangesAsync();
-            return _mapper.Map<SchoolDomainModel>(databaseModel);
+            return school;
         }
 
-        public void Delete(int id)
+        public async void Delete(int id)
         {
-            var schoolToDelete = _databaseContext.Schools.SingleOrDefault(x => x.Id == id);
-            if (schoolToDelete != null)
-            {
-                _databaseContext.Remove(schoolToDelete);
-                _databaseContext.SaveChanges();
-            }
+            _repositoryHelper.Delete(id);
+            await _databaseContext.SaveChangesAsync();
         }
     }
 }

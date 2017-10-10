@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using Core.Interfaces.RepositoryInterfaces;
 using Core.Models;
+using Integration.EntityFramework.Helpers;
 using Integration.EntityFramework.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,50 +13,39 @@ namespace Integration.EntityFramework.Repositories
     public class LanguageRepository : ILanguageRepository
     {
         private readonly DatabaseContext _databaseContext;
-        private readonly IMapper _mapper;
+        private readonly RepositoryHelper<LanguageDomainModel, LanguageDatabaseModel> _repositoryHelper;
         public LanguageRepository(DatabaseContext databaseContext, IMapper mapper)
         {
             _databaseContext = databaseContext;
-            _mapper = mapper;
+            _repositoryHelper = new RepositoryHelper<LanguageDomainModel, LanguageDatabaseModel>(databaseContext.Languages, mapper);
         }
 
         public async Task<IEnumerable<LanguageDomainModel>> GetAll()
         {
-            return await _databaseContext.Languages.Where(x => true).ProjectTo<LanguageDomainModel>().ToListAsync();
+            return await _repositoryHelper.GetAll();
         }
 
         public async Task<LanguageDomainModel> GetById(int id)
         {
-            return await _databaseContext.Languages.Where(x => x.Id == id).ProjectTo<LanguageDomainModel>().FirstOrDefaultAsync();
+            return await _repositoryHelper.GetById(id);
         }
 
         public async Task<LanguageDomainModel> Save(LanguageDomainModel entity)
         {
-            var databaseModel = _mapper.Map<LanguageDatabaseModel>(entity);
-            var existingModel = await _databaseContext.Languages.SingleOrDefaultAsync(x => x.Id == databaseModel.Id);
-            if (existingModel == null)
-            {
-                await _databaseContext.AddAsync(databaseModel);
-            }
-            else
-            {
-                _mapper.Map(databaseModel, existingModel);
-                _databaseContext.Update(existingModel);
-            }
-
+            var language = await _repositoryHelper.Save(entity);
             await _databaseContext.SaveChangesAsync();
-            return _mapper.Map<LanguageDomainModel>(databaseModel);
+            return language;
         }
 
-        public void Delete(int id)
+        public async void Delete(int id)
         {
-            var languageToDelete = _databaseContext.Languages.SingleOrDefault(x => x.Id == id);
+            var languageToDelete = await _databaseContext.Languages.SingleOrDefaultAsync(x => x.Id == id);
             if (languageToDelete != null)
             {
-                var skillsForLanguage = _databaseContext.Skills.Where(x => x.LanguageId == id);
+                var skillsForLanguage = await _databaseContext.Skills.Where(x => x.LanguageId == id).ToListAsync();
                 _databaseContext.RemoveRange(skillsForLanguage);
                 _databaseContext.Remove(languageToDelete);
-                _databaseContext.SaveChanges();
+                await _databaseContext.SaveChangesAsync();
             }
         }
     }

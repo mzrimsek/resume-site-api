@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using Core.Interfaces.RepositoryInterfaces;
 using Core.Models;
+using Integration.EntityFramework.Helpers;
 using Integration.EntityFramework.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,50 +13,39 @@ namespace Integration.EntityFramework.Repositories
     public class JobRepository : IJobRepository
     {
         private readonly DatabaseContext _databaseContext;
-        private readonly IMapper _mapper;
+        private readonly RepositoryHelper<JobDomainModel, JobDatabaseModel> _repositoryHelper;
         public JobRepository(DatabaseContext databaseContext, IMapper mapper)
         {
             _databaseContext = databaseContext;
-            _mapper = mapper;
+            _repositoryHelper = new RepositoryHelper<JobDomainModel, JobDatabaseModel>(databaseContext.Jobs, mapper);
         }
 
         public async Task<IEnumerable<JobDomainModel>> GetAll()
         {
-            return await _databaseContext.Jobs.Where(x => true).ProjectTo<JobDomainModel>().ToListAsync();
+            return await _repositoryHelper.GetAll();
         }
 
         public async Task<JobDomainModel> GetById(int id)
         {
-            return await _databaseContext.Jobs.Where(x => x.Id == id).ProjectTo<JobDomainModel>().FirstOrDefaultAsync();
+            return await _repositoryHelper.GetById(id);
         }
 
         public async Task<JobDomainModel> Save(JobDomainModel entity)
         {
-            var databaseModel = _mapper.Map<JobDatabaseModel>(entity);
-            var existingModel = await _databaseContext.Jobs.SingleOrDefaultAsync(x => x.Id == databaseModel.Id);
-            if (existingModel == null)
-            {
-                await _databaseContext.AddAsync(databaseModel);
-            }
-            else
-            {
-                _mapper.Map(databaseModel, existingModel);
-                _databaseContext.Update(existingModel);
-            }
-
+            var job = await _repositoryHelper.Save(entity);
             await _databaseContext.SaveChangesAsync();
-            return _mapper.Map<JobDomainModel>(databaseModel);
+            return job;
         }
 
-        public void Delete(int id)
+        public async void Delete(int id)
         {
-            var jobToDelete = _databaseContext.Jobs.SingleOrDefault(x => x.Id == id);
+            var jobToDelete = await _databaseContext.Jobs.SingleOrDefaultAsync(x => x.Id == id);
             if (jobToDelete != null)
             {
-                var jobProjectsForJob = _databaseContext.JobProjects.Where(x => x.JobId == id);
+                var jobProjectsForJob = await _databaseContext.JobProjects.Where(x => x.JobId == id).ToListAsync();
                 _databaseContext.RemoveRange(jobProjectsForJob);
                 _databaseContext.Remove(jobToDelete);
-                _databaseContext.SaveChanges();
+                await _databaseContext.SaveChangesAsync();
             }
         }
     }

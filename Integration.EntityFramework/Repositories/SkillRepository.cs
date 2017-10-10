@@ -5,6 +5,7 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Core.Interfaces.RepositoryInterfaces;
 using Core.Models;
+using Integration.EntityFramework.Helpers;
 using Integration.EntityFramework.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,21 +14,21 @@ namespace Integration.EntityFramework.Repositories
     public class SkillRepository : ISkillRepository
     {
         private readonly DatabaseContext _databaseContext;
-        private readonly IMapper _mapper;
+        private readonly RepositoryHelper<SkillDomainModel, SkillDatabaseModel> _repositoryHelper;
         public SkillRepository(DatabaseContext databaseContext, IMapper mapper)
         {
             _databaseContext = databaseContext;
-            _mapper = mapper;
+            _repositoryHelper = new RepositoryHelper<SkillDomainModel, SkillDatabaseModel>(databaseContext.Skills, mapper);
         }
 
         public async Task<IEnumerable<SkillDomainModel>> GetAll()
         {
-            return await _databaseContext.Skills.Where(x => true).ProjectTo<SkillDomainModel>().ToListAsync();
+            return await _repositoryHelper.GetAll();
         }
 
         public async Task<SkillDomainModel> GetById(int id)
         {
-            return await _databaseContext.Skills.Where(x => x.Id == id).ProjectTo<SkillDomainModel>().FirstOrDefaultAsync();
+            return await _repositoryHelper.GetById(id);
         }
 
         public async Task<IEnumerable<SkillDomainModel>> GetByLanguageId(int languageId)
@@ -37,30 +38,15 @@ namespace Integration.EntityFramework.Repositories
 
         public async Task<SkillDomainModel> Save(SkillDomainModel entity)
         {
-            var databaseModel = _mapper.Map<SkillDatabaseModel>(entity);
-            var existingModel = await _databaseContext.Skills.SingleOrDefaultAsync(x => x.Id == databaseModel.Id);
-            if (existingModel == null)
-            {
-                await _databaseContext.AddAsync(databaseModel);
-            }
-            else
-            {
-                _mapper.Map(databaseModel, existingModel);
-                _databaseContext.Update(existingModel);
-            }
-
+            var skill = await _repositoryHelper.Save(entity);
             await _databaseContext.SaveChangesAsync();
-            return _mapper.Map<SkillDomainModel>(databaseModel);
+            return skill;
         }
 
-        public void Delete(int id)
+        public async void Delete(int id)
         {
-            var skillToDelete = _databaseContext.Skills.SingleOrDefault(x => x.Id == id);
-            if (skillToDelete != null)
-            {
-                _databaseContext.Remove(skillToDelete);
-                _databaseContext.SaveChanges();
-            }
+            _repositoryHelper.Delete(id);
+            await _databaseContext.SaveChangesAsync();
         }
 
     }
