@@ -1,6 +1,7 @@
 # resume-site-api
 
-[![BCH compliance](https://bettercodehub.com/edge/badge/mzrimsek/resume-site-api?branch=configure-bettercodehub)](https://bettercodehub.com/)
+[![Build Status](https://travis-ci.org/mzrimsek/resume-site-api.svg?branch=master)](https://travis-ci.org/mzrimsek/resume-site-api)
+[![BCH compliance](https://bettercodehub.com/edge/badge/mzrimsek/resume-site-api?branch=master)](https://bettercodehub.com/)
 
 The backend for my impending updated resume website. Additions to come soon (including API documentation).
 
