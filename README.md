@@ -20,5 +20,5 @@ The backend for my impending updated resume website. Additions to come soon (inc
 
 ### Run Tests (Run from Root)
 
-* Enable test debugging - `export VSTEST_HOST_DEBUG=1`
+* Enable test debugging (in Visual Studio Code) - `export VSTEST_HOST_DEBUG=1`
 * `dotnet test Test.Unit/ && dotnet test Test.Integration/`
