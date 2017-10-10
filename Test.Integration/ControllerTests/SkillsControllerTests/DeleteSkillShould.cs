@@ -1,5 +1,6 @@
 using System.Net;
 using System.Net.Http;
+using FluentAssertions;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Test.Integration.TestHelpers;
@@ -33,7 +34,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         public void ReturnStatusCodeNoContent_WhenGivenInvalidId()
         {
             var response = _client.DeleteAsync($"{ControllerRouteEnum.Skills}/1").Result;
-            Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
+            response.StatusCode.Should().Be(HttpStatusCode.NoContent);
         }
 
         [TestMethod]
@@ -44,7 +45,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
 
             var response = _client.DeleteAsync($"{ControllerRouteEnum.Skills}/{skillId}").Result;
 
-            Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
+            response.StatusCode.Should().Be(HttpStatusCode.NoContent);
         }
 
         [TestMethod]
@@ -56,7 +57,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
             var _ = _client.DeleteAsync($"{ControllerRouteEnum.Skills}/{skillId}").Result;
             var response = _client.GetAsync($"{ControllerRouteEnum.Skills}/{skillId}").Result;
 
-            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+            response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
     }
 }

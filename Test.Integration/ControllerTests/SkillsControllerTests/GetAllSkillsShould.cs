@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
+using FluentAssertions;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Test.Integration.TestHelpers;
@@ -35,7 +37,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         public void ReturnStatusCodeOk()
         {
             var response = _client.GetAsync($"{ControllerRouteEnum.Skills}").Result;
-            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
         [TestMethod]
@@ -43,7 +45,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         {
             var response = _client.GetAsync($"{ControllerRouteEnum.Skills}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<SkillViewModel>>(response);
-            Assert.AreEqual(0, serializedContent.Count);
+            serializedContent.Should().BeEmpty();
         }
 
         [TestMethod]
@@ -54,9 +56,9 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
 
             var response = _client.GetAsync($"{ControllerRouteEnum.Skills}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<SkillViewModel>>(response);
-            
-            Assert.AreEqual(1, serializedContent.Count);
-            Assert.AreEqual(skillId, serializedContent[0].Id);
+
+            serializedContent.Should().HaveCount(1);
+            serializedContent.First().Id.Should().Be(skillId);
         }
     }
 }
