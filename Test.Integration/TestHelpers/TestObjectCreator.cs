@@ -5,6 +5,7 @@ using Test.Integration.TestModels.JobProjectModels;
 using Test.Integration.TestModels.LanguageModels;
 using Test.Integration.TestModels.SchoolModels;
 using Test.Integration.TestModels.SkillModels;
+using Test.Integration.TestModels.SocialMediaLinkModels;
 
 namespace Test.Integration.TestHelpers
 {
@@ -43,7 +44,13 @@ namespace Test.Integration.TestHelpers
         public int GetIdFromNewSkill(int languageId)
         {
             var model = TestObjectGetter.GetAddSkillViewModel(languageId);
-            return GetIdFromNewTestObject<LanguageViewModel>(model, ControllerRouteEnum.Skills);
+            return GetIdFromNewTestObject<SkillViewModel>(model, ControllerRouteEnum.Skills);
+        }
+
+        public int GetIdFromNewSocialMediaLink()
+        {
+            var model = TestObjectGetter.GetAddSocialMediaLinkViewModel();
+            return GetIdFromNewTestObject<SocialMediaLinkViewModel>(model, ControllerRouteEnum.SocialMediaLinks);
         }
 
         private int GetIdFromNewTestObject<T>(object model, string route) where T : IHasId

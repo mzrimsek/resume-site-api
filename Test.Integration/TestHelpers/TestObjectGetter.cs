@@ -3,12 +3,13 @@ using Test.Integration.TestModels.JobProjectModels;
 using Test.Integration.TestModels.LanguageModels;
 using Test.Integration.TestModels.SchoolModels;
 using Test.Integration.TestModels.SkillModels;
+using Test.Integration.TestModels.SocialMediaLinkModels;
 
 namespace Test.Integration.TestHelpers
 {
     public static class TestObjectGetter
     {
-        public static AddJobViewModel GetAddJobViewModel(string name)
+        public static AddJobViewModel GetAddJobViewModel(string name = "Some Company")
         {
             return new AddJobViewModel
             {
@@ -19,11 +20,6 @@ namespace Test.Integration.TestHelpers
                 StartDate = "1/1/2017",
                 EndDate = "7/1/2017"
             };
-        }
-
-        public static AddJobViewModel GetAddJobViewModel()
-        {
-            return GetAddJobViewModel("Some Company");
         }
 
         public static UpdateJobViewModel GetUpdateJobViewModel(int id, string name)
@@ -41,7 +37,7 @@ namespace Test.Integration.TestHelpers
             };
         }
 
-        public static AddSchoolViewModel GetAddSchoolViewModel(string name)
+        public static AddSchoolViewModel GetAddSchoolViewModel(string name = "Kent State University")
         {
             return new AddSchoolViewModel
             {
@@ -53,11 +49,6 @@ namespace Test.Integration.TestHelpers
                 StartDate = "9/1/2015",
                 EndDate = "5/13/2017"
             };
-        }
-
-        public static AddSchoolViewModel GetAddSchoolViewModel()
-        {
-            return GetAddSchoolViewModel("Kent State University");
         }
 
         public static UpdateSchoolViewModel GetUpdateSchoolViewModel(int id, string name)
@@ -76,7 +67,7 @@ namespace Test.Integration.TestHelpers
             };
         }
 
-        public static AddJobProjectViewModel GetAddJobProjectViewModel(int jobId, string name)
+        public static AddJobProjectViewModel GetAddJobProjectViewModel(int jobId, string name = "Some project name")
         {
             return new AddJobProjectViewModel
             {
@@ -84,11 +75,6 @@ namespace Test.Integration.TestHelpers
                 Name = name,
                 Description = "Some project description"
             };
-        }
-
-        public static AddJobProjectViewModel GetAddJobProjectViewModel(int jobId)
-        {
-            return GetAddJobProjectViewModel(jobId, "Some project name");
         }
 
         public static UpdateJobProjectViewModel GetUpdateJobProjectViewModel(int id, int jobId, string name)
@@ -103,18 +89,13 @@ namespace Test.Integration.TestHelpers
             };
         }
 
-        public static AddLanguageViewModel GetAddLanguageViewModel(string name, int rating)
+        public static AddLanguageViewModel GetAddLanguageViewModel(string name = "C#", int rating = 3)
         {
             return new AddLanguageViewModel
             {
                 Name = name,
                 Rating = rating
             };
-        }
-
-        public static AddLanguageViewModel GetAddLanguageViewModel()
-        {
-            return GetAddLanguageViewModel("C#", 3);
         }
 
         public static UpdateLanguageViewModel GetUpdateLanguageViewModel(int id, string name, int rating)
@@ -127,7 +108,7 @@ namespace Test.Integration.TestHelpers
             };
         }
 
-        public static AddSkillViewModel GetAddSkillViewModel(int languageId, string name, int rating)
+        public static AddSkillViewModel GetAddSkillViewModel(int languageId, string name = "MVC", int rating = 3)
         {
             return new AddSkillViewModel
             {
@@ -135,11 +116,6 @@ namespace Test.Integration.TestHelpers
                 Name = name,
                 Rating = rating
             };
-        }
-
-        public static AddSkillViewModel GetAddSkillViewModel(int languageId)
-        {
-            return GetAddSkillViewModel(languageId, "MVC", 3);
         }
 
         public static UpdateSkillViewModel GetUpdateSkillViewModel(int id, int languageId, string name, int rating)
@@ -150,6 +126,25 @@ namespace Test.Integration.TestHelpers
                 LanguageId = languageId,
                 Name = name,
                 Rating = rating
+            };
+        }
+
+        public static AddSocialMediaLinkViewModel GetAddSocialMediaLinkViewModel(string name = "GitHub")
+        {
+            return new AddSocialMediaLinkViewModel
+            {
+                Name = name,
+                Url = "https://github.com/mzrimsek"
+            };
+        }
+
+        public static UpdateSocialMediaLinkViewModel GetUpdateSocialMediaLinkViewModel(int id, string name)
+        {
+            return new UpdateSocialMediaLinkViewModel
+            {
+                Id = id,
+                Name = name,
+                Url = "https://github.com/mzrimsek"
             };
         }
     }
