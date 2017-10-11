@@ -8,6 +8,6 @@ namespace Core.Interfaces.RepositoryInterfaces
         Task<IEnumerable<T>> GetAll();
         Task<T> GetById(int id);
         Task<T> Save(T entity);
-        void Delete(int id);
+        Task Delete(int id);
     }
 }

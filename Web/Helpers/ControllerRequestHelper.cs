@@ -65,7 +65,7 @@ namespace Web.Helpers
             var entity = await _repository.GetById(id);
             if (entity != null)
             {
-                _repository.Delete(id);
+                await _repository.Delete(id);
             }
             return new NoContentResult();
         }

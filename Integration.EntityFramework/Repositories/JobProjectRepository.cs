@@ -43,9 +43,9 @@ namespace Integration.EntityFramework.Repositories
             return jobProject;
         }
 
-        public async void Delete(int id)
+        public async Task Delete(int id)
         {
-            _repositoryHelper.Delete(id);
+            await _repositoryHelper.Delete(id);
             await _databaseContext.SaveChangesAsync();
         }
     }

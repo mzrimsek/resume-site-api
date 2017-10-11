@@ -44,7 +44,7 @@ namespace Integration.EntityFramework.Helpers
             return _mapper.Map<TDomainModel>(databaseModel);
         }
 
-        public async void Delete(int id)
+        public async Task Delete(int id)
         {
             var entityToDelete = await _dbSet.SingleOrDefaultAsync(x => x.Id == id);
             if (entityToDelete != null)

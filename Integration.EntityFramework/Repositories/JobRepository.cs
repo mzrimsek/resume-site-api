@@ -37,7 +37,7 @@ namespace Integration.EntityFramework.Repositories
             return job;
         }
 
-        public async void Delete(int id)
+        public async Task Delete(int id)
         {
             var jobToDelete = await _databaseContext.Jobs.SingleOrDefaultAsync(x => x.Id == id);
             if (jobToDelete != null)

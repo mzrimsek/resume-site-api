@@ -37,7 +37,7 @@ namespace Integration.EntityFramework.Repositories
             return language;
         }
 
-        public async void Delete(int id)
+        public async Task Delete(int id)
         {
             var languageToDelete = await _databaseContext.Languages.SingleOrDefaultAsync(x => x.Id == id);
             if (languageToDelete != null)
