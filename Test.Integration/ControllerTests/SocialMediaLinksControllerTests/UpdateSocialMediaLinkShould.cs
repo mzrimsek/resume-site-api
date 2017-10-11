@@ -26,7 +26,6 @@ namespace Test.Integration.ControllerTests.SocialMediaLinksControllerTests
         [TestCleanup]
         public void TearDown()
         {
-            var _ = _client.DeleteAsync($"{ControllerRouteEnum.SocialMediaLinks}/{_socialMediaLinkId}").Result;
             _client.Dispose();
             _server.Dispose();
         }

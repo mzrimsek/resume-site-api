@@ -1,3 +1,4 @@
+using System;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -22,7 +23,8 @@ namespace Test.Integration
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DatabaseContext>(options => options.UseInMemoryDatabase("test-database"));
+            var databaseName = Guid.NewGuid().ToString();
+            services.AddDbContext<DatabaseContext>(options => options.UseInMemoryDatabase(databaseName));
             services.AddAutoMapper();
             services.AddMvc();
 

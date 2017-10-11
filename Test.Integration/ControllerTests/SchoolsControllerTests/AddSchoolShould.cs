@@ -24,7 +24,6 @@ namespace Test.Integration.ControllerTests.SchoolsControllerTests
         [TestCleanup]
         public void TearDown()
         {
-            var _ = _client.DeleteAsync($"{ControllerRouteEnum.Schools}/{_schoolId}").Result;
             _client.Dispose();
             _server.Dispose();
         }
