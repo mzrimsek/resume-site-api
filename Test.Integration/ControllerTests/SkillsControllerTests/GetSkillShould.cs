@@ -11,23 +11,22 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
     [TestClass]
     public class GetSkillShould
     {
-        private TestServer _server;
+        private TestSetupHelper _testSetupHelper;
         private HttpClient _client;
         private TestObjectCreator _testObjectCreator;
-        private int _languageId;
 
         [TestInitialize]
         public void SetUp()
         {
-            (_server, _client) = new TestSetupHelper().GetTestServerAndClient();
+            _testSetupHelper = new TestSetupHelper();
+            _client = _testSetupHelper.GetTestClient();
             _testObjectCreator = new TestObjectCreator(_client);
         }
 
         [TestCleanup]
         public void TearDown()
         {
-            _client.Dispose();
-            _server.Dispose();
+            _testSetupHelper.DisposeTestServerAndClient();
         }
 
         [TestMethod]
@@ -40,8 +39,8 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestMethod]
         public void ReturnStatusCodeOk_WhenGivenValidId()
         {
-            _languageId = _testObjectCreator.GetIdForNewLanguage();
-            var skillId = _testObjectCreator.GetIdForNewSkill(_languageId);
+            var languageId = _testObjectCreator.GetIdForNewLanguage();
+            var skillId = _testObjectCreator.GetIdForNewSkill(languageId);
 
             var response = _client.GetAsync($"{ControllerRouteEnum.Skills}/{skillId}").Result;
             
@@ -51,8 +50,8 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestMethod]
         public void ReturnCorrectViewModel()
         {
-            _languageId = _testObjectCreator.GetIdForNewLanguage();
-            var model = TestObjectGetter.GetAddSkillViewModel(_languageId);
+            var languageId = _testObjectCreator.GetIdForNewLanguage();
+            var model = TestObjectGetter.GetAddSkillViewModel(languageId);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
             var response = _client.PostAsync(ControllerRouteEnum.Skills, requestContent).Result;
             var skillId = RequestHelper.GetObjectFromResponseContent<SkillViewModel>(response).Id;

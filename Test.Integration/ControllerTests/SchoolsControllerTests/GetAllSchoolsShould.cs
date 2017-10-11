@@ -13,23 +13,22 @@ namespace Test.Integration.ControllerTests.SchoolsControllerTests
     [TestClass]
     public class GetAllSchoolsShould
     {
-        private TestServer _server;
+        private TestSetupHelper _testSetupHelper;
         private HttpClient _client;
         private TestObjectCreator _testObjectCreator;
-        private int _schoolId;
 
         [TestInitialize]
         public void SetUp()
         {
-            (_server, _client) = new TestSetupHelper().GetTestServerAndClient();
+            _testSetupHelper = new TestSetupHelper();
+            _client = _testSetupHelper.GetTestClient();
             _testObjectCreator = new TestObjectCreator(_client);
         }
 
         [TestCleanup]
         public void TearDown()
         {
-            _client.Dispose();
-            _server.Dispose();
+            _testSetupHelper.DisposeTestServerAndClient();
         }
 
         [TestMethod]
@@ -50,13 +49,13 @@ namespace Test.Integration.ControllerTests.SchoolsControllerTests
         [TestMethod]
         public void ReturnOneSchool_WhenOneSchoolIsCreated()
         {
-            _schoolId = _testObjectCreator.GetIdForNewSchool();
+            var schoolId = _testObjectCreator.GetIdForNewSchool();
 
             var getResponse = _client.GetAsync(ControllerRouteEnum.Schools).Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<SchoolViewModel>>(getResponse);
 
             serializedContent.Should().HaveCount(1);
-            serializedContent.First().Id.Should().Be(_schoolId);
+            serializedContent.First().Id.Should().Be(schoolId);
         }
     }
 }

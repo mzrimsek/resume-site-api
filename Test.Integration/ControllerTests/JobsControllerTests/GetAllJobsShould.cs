@@ -13,23 +13,22 @@ namespace Test.Integration.ControllerTests.JobsControllerTests
     [TestClass]
     public class GetAllJobsShould
     {
-        private TestServer _server;
+        private TestSetupHelper _testSetupHelper;
         private HttpClient _client;
         private TestObjectCreator _testObjectCreator;
-        private int _jobId;
 
         [TestInitialize]
         public void SetUp()
         {
-            (_server, _client) = new TestSetupHelper().GetTestServerAndClient();
+            _testSetupHelper = new TestSetupHelper();
+            _client = _testSetupHelper.GetTestClient();
             _testObjectCreator = new TestObjectCreator(_client);
         }
 
         [TestCleanup]
         public void TearDown()
         {
-            _client.Dispose();
-            _server.Dispose();
+            _testSetupHelper.DisposeTestServerAndClient();
         }
 
         [TestMethod]
@@ -50,13 +49,13 @@ namespace Test.Integration.ControllerTests.JobsControllerTests
         [TestMethod]
         public void ReturnOneJob_WhenOneJobIsCreated()
         {
-            _jobId = _testObjectCreator.GetIdForNewJob();
+            var jobId = _testObjectCreator.GetIdForNewJob();
 
             var response = _client.GetAsync(ControllerRouteEnum.Jobs).Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<JobViewModel>>(response);
 
             serializedContent.Should().HaveCount(1);
-            serializedContent.First().Id.Should().Be(_jobId);
+            serializedContent.First().Id.Should().Be(jobId);
         }
     }
 }

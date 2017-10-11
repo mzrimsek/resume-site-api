@@ -11,23 +11,22 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
     [TestClass]
     public class GetJobProjectShould
     {
-        private TestServer _server;
+        private TestSetupHelper _testSetupHelper;
         private HttpClient _client;
         private TestObjectCreator _testObjectCreator;
-        private int _jobId;
 
         [TestInitialize]
         public void SetUp()
         {
-            (_server, _client) = new TestSetupHelper().GetTestServerAndClient();
+            _testSetupHelper = new TestSetupHelper();
+            _client = _testSetupHelper.GetTestClient();
             _testObjectCreator = new TestObjectCreator(_client);
         }
 
         [TestCleanup]
         public void TearDown()
         {
-            _client.Dispose();
-            _server.Dispose();
+            _testSetupHelper.DisposeTestServerAndClient();
         }
 
         [TestMethod]
@@ -40,8 +39,8 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
         [TestMethod]
         public void ReturnStatusCodeOk_WhenGivenValidId()
         {
-            _jobId = _testObjectCreator.GetIdForNewJob();
-            var jobProjectId = _testObjectCreator.GetIdForNewJobProject(_jobId);
+            var jobId = _testObjectCreator.GetIdForNewJob();
+            var jobProjectId = _testObjectCreator.GetIdForNewJobProject(jobId);
 
             var response = _client.GetAsync($"{ControllerRouteEnum.JobProjects}/{jobProjectId}").Result;
 
@@ -51,8 +50,8 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
         [TestMethod]
         public void ReturnCorrectViewModel()
         {
-            _jobId = _testObjectCreator.GetIdForNewJob();
-            var model = TestObjectGetter.GetAddJobProjectViewModel(_jobId);
+            var jobId = _testObjectCreator.GetIdForNewJob();
+            var model = TestObjectGetter.GetAddJobProjectViewModel(jobId);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
             var response = _client.PostAsync(ControllerRouteEnum.JobProjects, requestContent).Result;
             var jobProjectId = RequestHelper.GetObjectFromResponseContent<JobProjectViewModel>(response).Id;

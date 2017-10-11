@@ -11,30 +11,29 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
     [TestClass]
     public class UpdateSkillShould
     {
-        private TestServer _server;
+        private TestSetupHelper _testSetupHelper;
         private HttpClient _client;
         private TestObjectCreator _testObjectCreator;
-        private int _languageId;
 
         [TestInitialize]
         public void SetUp()
         {
-            (_server, _client) = new TestSetupHelper().GetTestServerAndClient();
+            _testSetupHelper = new TestSetupHelper();
+            _client = _testSetupHelper.GetTestClient();
             _testObjectCreator = new TestObjectCreator(_client);
         }
 
         [TestCleanup]
         public void TearDown()
         {
-            _client.Dispose();
-            _server.Dispose();
+            _testSetupHelper.DisposeTestServerAndClient();
         }
 
         [TestMethod]
         public void ReturnStatusCodeNotFound_WhenGivenInvalidId()
         {
-            _languageId = _testObjectCreator.GetIdForNewLanguage();
-            var model = TestObjectGetter.GetUpdateSkillViewModel(1, _languageId, "A different skill", 2);
+            var languageId = _testObjectCreator.GetIdForNewLanguage();
+            var model = TestObjectGetter.GetUpdateSkillViewModel(1, languageId, "A different skill", 2);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PutAsync($"{ControllerRouteEnum.Skills}/1", requestContent).Result;
@@ -45,9 +44,9 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestMethod]
         public void ReturnStatusCodeBadRequest_WhenGivenInvalidModel_WithInvalidName()
         {
-            _languageId = _testObjectCreator.GetIdForNewLanguage();
-            var skillId = _testObjectCreator.GetIdForNewSkill(_languageId);
-            var model = TestObjectGetter.GetUpdateSkillViewModel(skillId, _languageId, null, 2);
+            var languageId = _testObjectCreator.GetIdForNewLanguage();
+            var skillId = _testObjectCreator.GetIdForNewSkill(languageId);
+            var model = TestObjectGetter.GetUpdateSkillViewModel(skillId, languageId, null, 2);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PutAsync($"{ControllerRouteEnum.Skills}/{skillId}", requestContent).Result;
@@ -58,9 +57,9 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestMethod]
         public void ReturnStatusCodeBadRequest_WhenGivenInvalidModel_WithInvalidRating()
         {
-            _languageId = _testObjectCreator.GetIdForNewLanguage();
-            var skillId = _testObjectCreator.GetIdForNewSkill(_languageId);
-            var model = TestObjectGetter.GetUpdateSkillViewModel(skillId, _languageId, "A different skill", 4);
+            var languageId = _testObjectCreator.GetIdForNewLanguage();
+            var skillId = _testObjectCreator.GetIdForNewSkill(languageId);
+            var model = TestObjectGetter.GetUpdateSkillViewModel(skillId, languageId, "A different skill", 4);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PutAsync($"{ControllerRouteEnum.Skills}/{skillId}", requestContent).Result;
@@ -71,8 +70,8 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestMethod]
         public void ReturnStatusCodeBadRequest_WhenGivenInvalidModel_WithInvalidLanguageId()
         {
-            _languageId = _testObjectCreator.GetIdForNewLanguage();
-            var skillId = _testObjectCreator.GetIdForNewSkill(_languageId);
+            var languageId = _testObjectCreator.GetIdForNewLanguage();
+            var skillId = _testObjectCreator.GetIdForNewSkill(languageId);
             var model = TestObjectGetter.GetUpdateSkillViewModel(skillId, 0, "A different skill", 2);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
@@ -84,9 +83,9 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestMethod]
         public void ReturnStatusCodeBadRequest_WhenGivenValidModel_WithInvalidLanguageId()
         {
-            _languageId = _testObjectCreator.GetIdForNewLanguage();
-            var skillId = _testObjectCreator.GetIdForNewSkill(_languageId);
-            var model = TestObjectGetter.GetUpdateSkillViewModel(skillId, _languageId + 1, "A different skill", 4);
+            var languageId = _testObjectCreator.GetIdForNewLanguage();
+            var skillId = _testObjectCreator.GetIdForNewSkill(languageId);
+            var model = TestObjectGetter.GetUpdateSkillViewModel(skillId, languageId + 1, "A different skill", 4);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PutAsync($"{ControllerRouteEnum.Skills}/{skillId}", requestContent).Result;
@@ -97,9 +96,9 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestMethod]
         public void ReturnStatusCodeNoContent_WhenGivenValidIdAndValidModel()
         {
-            _languageId = _testObjectCreator.GetIdForNewLanguage();
-            var skillId = _testObjectCreator.GetIdForNewSkill(_languageId);
-            var model = TestObjectGetter.GetUpdateSkillViewModel(skillId, _languageId, "A different skill", 2);
+            var languageId = _testObjectCreator.GetIdForNewLanguage();
+            var skillId = _testObjectCreator.GetIdForNewSkill(languageId);
+            var model = TestObjectGetter.GetUpdateSkillViewModel(skillId, languageId, "A different skill", 2);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PutAsync($"{ControllerRouteEnum.Skills}/{skillId}", requestContent).Result;
@@ -110,9 +109,9 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestMethod]
         public void SaveUpdatedViewModel()
         {
-            _languageId = _testObjectCreator.GetIdForNewLanguage();
-            var skillId = _testObjectCreator.GetIdForNewSkill(_languageId);
-            var model = TestObjectGetter.GetUpdateSkillViewModel(skillId, _languageId, "A different skill", 2);
+            var languageId = _testObjectCreator.GetIdForNewLanguage();
+            var skillId = _testObjectCreator.GetIdForNewSkill(languageId);
+            var model = TestObjectGetter.GetUpdateSkillViewModel(skillId, languageId, "A different skill", 2);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var _ = _client.PutAsync($"{ControllerRouteEnum.Skills}/{skillId}", requestContent).Result;

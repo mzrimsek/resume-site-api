@@ -13,23 +13,22 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
     [TestClass]
     public class GetAllLanguagesShould
     {
-        private TestServer _server;
+        private TestSetupHelper _testSetupHelper;
         private HttpClient _client;
         private TestObjectCreator _testObjectCreator;
-        private int _languageId;
 
         [TestInitialize]
         public void SetUp()
         {
-            (_server, _client) = new TestSetupHelper().GetTestServerAndClient();
+            _testSetupHelper = new TestSetupHelper();
+            _client = _testSetupHelper.GetTestClient();
             _testObjectCreator = new TestObjectCreator(_client);
         }
 
         [TestCleanup]
         public void TearDown()
         {
-            _client.Dispose();
-            _server.Dispose();
+            _testSetupHelper.DisposeTestServerAndClient();
         }
 
         [TestMethod]
@@ -50,13 +49,13 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
         [TestMethod]
         public void ReturnOneJob_WhenOneLanguageIsCreated()
         {
-            _languageId = _testObjectCreator.GetIdForNewLanguage();
+            var languageId = _testObjectCreator.GetIdForNewLanguage();
 
             var response = _client.GetAsync(ControllerRouteEnum.Languages).Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<LanguageViewModel>>(response);
 
             serializedContent.Should().HaveCount(1);
-            serializedContent.First().Id.Should().Be(_languageId);
+            serializedContent.First().Id.Should().Be(languageId);
         }
     }
 }

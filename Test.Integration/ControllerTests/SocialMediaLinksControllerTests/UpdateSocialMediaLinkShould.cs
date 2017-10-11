@@ -11,23 +11,22 @@ namespace Test.Integration.ControllerTests.SocialMediaLinksControllerTests
     [TestClass]
     public class UpdateSocialMediaLinkShould
     {
-        private TestServer _server;
+        private TestSetupHelper _testSetupHelper;
         private HttpClient _client;
         private TestObjectCreator _testObjectCreator;
-        private int _socialMediaLinkId;
 
         [TestInitialize]
         public void SetUp()
         {
-            (_server, _client) = new TestSetupHelper().GetTestServerAndClient();
+            _testSetupHelper = new TestSetupHelper();
+            _client = _testSetupHelper.GetTestClient();
             _testObjectCreator = new TestObjectCreator(_client);
         }
 
         [TestCleanup]
         public void TearDown()
         {
-            _client.Dispose();
-            _server.Dispose();
+            _testSetupHelper.DisposeTestServerAndClient();
         }
 
         [TestMethod]
@@ -44,11 +43,11 @@ namespace Test.Integration.ControllerTests.SocialMediaLinksControllerTests
         [TestMethod]
         public void ReturnStatusCodeBadRequest_WhenGivenInvalidModel()
         {
-            _socialMediaLinkId = _testObjectCreator.GetIdForNewSocialMediaLink();
-            var model = TestObjectGetter.GetUpdateSocialMediaLinkViewModel(_socialMediaLinkId, null);
+            var socialMediaLinkId = _testObjectCreator.GetIdForNewSocialMediaLink();
+            var model = TestObjectGetter.GetUpdateSocialMediaLinkViewModel(socialMediaLinkId, null);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PutAsync($"{ControllerRouteEnum.SocialMediaLinks}/{_socialMediaLinkId}", requestContent).Result;
+            var response = _client.PutAsync($"{ControllerRouteEnum.SocialMediaLinks}/{socialMediaLinkId}", requestContent).Result;
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
@@ -56,11 +55,11 @@ namespace Test.Integration.ControllerTests.SocialMediaLinksControllerTests
         [TestMethod]
         public void ReturnStatusCodeBadRequest_WhenGivenValidIdAndValidModel_WithNonMatchingId()
         {
-            _socialMediaLinkId = _testObjectCreator.GetIdForNewSocialMediaLink();
-            var model = TestObjectGetter.GetUpdateSocialMediaLinkViewModel(_socialMediaLinkId + 1, "A different website");
+            var socialMediaLinkId = _testObjectCreator.GetIdForNewSocialMediaLink();
+            var model = TestObjectGetter.GetUpdateSocialMediaLinkViewModel(socialMediaLinkId + 1, "A different website");
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PutAsync($"{ControllerRouteEnum.SocialMediaLinks}/{_socialMediaLinkId}", requestContent).Result;
+            var response = _client.PutAsync($"{ControllerRouteEnum.SocialMediaLinks}/{socialMediaLinkId}", requestContent).Result;
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
@@ -68,11 +67,11 @@ namespace Test.Integration.ControllerTests.SocialMediaLinksControllerTests
         [TestMethod]
         public void ReturnStatusCodeNoContent_WhenGivenValidIdAndValidModel()
         {
-            _socialMediaLinkId = _testObjectCreator.GetIdForNewSocialMediaLink();
-            var model = TestObjectGetter.GetUpdateSocialMediaLinkViewModel(_socialMediaLinkId, "A different website");
+            var socialMediaLinkId = _testObjectCreator.GetIdForNewSocialMediaLink();
+            var model = TestObjectGetter.GetUpdateSocialMediaLinkViewModel(socialMediaLinkId, "A different website");
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PutAsync($"{ControllerRouteEnum.SocialMediaLinks}/{_socialMediaLinkId}", requestContent).Result;
+            var response = _client.PutAsync($"{ControllerRouteEnum.SocialMediaLinks}/{socialMediaLinkId}", requestContent).Result;
 
             response.StatusCode.Should().Be(HttpStatusCode.NoContent);
         }
@@ -80,12 +79,12 @@ namespace Test.Integration.ControllerTests.SocialMediaLinksControllerTests
         [TestMethod]
         public void SaveUpdatedViewModel()
         {
-            _socialMediaLinkId = _testObjectCreator.GetIdForNewSocialMediaLink();
-            var model = TestObjectGetter.GetUpdateSocialMediaLinkViewModel(_socialMediaLinkId, "A different website");
+            var socialMediaLinkId = _testObjectCreator.GetIdForNewSocialMediaLink();
+            var model = TestObjectGetter.GetUpdateSocialMediaLinkViewModel(socialMediaLinkId, "A different website");
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var _ = _client.PutAsync($"{ControllerRouteEnum.SocialMediaLinks}/{_socialMediaLinkId}", requestContent).Result;
-            var response = _client.GetAsync($"{ControllerRouteEnum.SocialMediaLinks}/{_socialMediaLinkId}").Result;
+            var _ = _client.PutAsync($"{ControllerRouteEnum.SocialMediaLinks}/{socialMediaLinkId}", requestContent).Result;
+            var response = _client.GetAsync($"{ControllerRouteEnum.SocialMediaLinks}/{socialMediaLinkId}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<SocialMediaLinkViewModel>(response);
 
             var isCorrectViewModel = AssertHelper.AreTestSocialMediaLinkViewModelsEqual(model, serializedContent);

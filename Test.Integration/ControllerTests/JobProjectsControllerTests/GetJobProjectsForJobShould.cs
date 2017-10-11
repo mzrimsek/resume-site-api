@@ -13,23 +13,22 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
     [TestClass]
     public class GetJobProjectsForJobShould
     {
-        private TestServer _server;
+        private TestSetupHelper _testSetupHelper;
         private HttpClient _client;
         private TestObjectCreator _testObjectCreator;
-        private int _jobId;
 
         [TestInitialize]
         public void SetUp()
         {
-            (_server, _client) = new TestSetupHelper().GetTestServerAndClient();
+            _testSetupHelper = new TestSetupHelper();
+            _client = _testSetupHelper.GetTestClient();
             _testObjectCreator = new TestObjectCreator(_client);
         }
 
         [TestCleanup]
         public void TearDown()
         {
-            _client.Dispose();
-            _server.Dispose();
+            _testSetupHelper.DisposeTestServerAndClient();
         }
 
         [TestMethod]
@@ -42,17 +41,17 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
         [TestMethod]
         public void ReturnStatusCodeOk_WhenGivenValidJobId()
         {
-            _jobId = _testObjectCreator.GetIdForNewJob();
-            var response = _client.GetAsync($"{ControllerRouteEnum.JobProjects}/job/{_jobId}").Result;
+            var jobId = _testObjectCreator.GetIdForNewJob();
+            var response = _client.GetAsync($"{ControllerRouteEnum.JobProjects}/job/{jobId}").Result;
             response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
         [TestMethod]
         public void ReturnEmptyList_WhenJobHasNoJobProjects()
         {
-            _jobId = _testObjectCreator.GetIdForNewJob();
+            var jobId = _testObjectCreator.GetIdForNewJob();
 
-            var response = _client.GetAsync($"{ControllerRouteEnum.JobProjects}/job/{_jobId}").Result;
+            var response = _client.GetAsync($"{ControllerRouteEnum.JobProjects}/job/{jobId}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<JobProjectViewModel>>(response);
 
             serializedContent.Should().BeEmpty();
@@ -61,10 +60,10 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
         [TestMethod]
         public void ReturnOneJobProject_WhenOneJobProjectIsCreatedForJob()
         {
-            _jobId = _testObjectCreator.GetIdForNewJob();
-            var jobProjectId = _testObjectCreator.GetIdForNewJobProject(_jobId);
+            var jobId = _testObjectCreator.GetIdForNewJob();
+            var jobProjectId = _testObjectCreator.GetIdForNewJobProject(jobId);
 
-            var response = _client.GetAsync($"{ControllerRouteEnum.JobProjects}/job/{_jobId}").Result;
+            var response = _client.GetAsync($"{ControllerRouteEnum.JobProjects}/job/{jobId}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<JobProjectViewModel>>(response);
 
             serializedContent.Should().HaveCount(1);

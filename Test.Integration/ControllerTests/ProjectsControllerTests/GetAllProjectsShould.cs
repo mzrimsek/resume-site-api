@@ -13,23 +13,22 @@ namespace Test.Integration.ControllerTests.ProjectsControllerTests
     [TestClass]
     public class GetAllProjectsShould
     {
-        private TestServer _server;
+        private TestSetupHelper _testSetupHelper;
         private HttpClient _client;
         private TestObjectCreator _testObjectCreator;
-        private int _projectId;
 
         [TestInitialize]
         public void SetUp()
         {
-            (_server, _client) = new TestSetupHelper().GetTestServerAndClient();
+            _testSetupHelper = new TestSetupHelper();
+            _client = _testSetupHelper.GetTestClient();
             _testObjectCreator = new TestObjectCreator(_client);
         }
 
         [TestCleanup]
         public void TearDown()
         {
-            _client.Dispose();
-            _server.Dispose();
+            _testSetupHelper.DisposeTestServerAndClient();
         }
 
         [TestMethod]
@@ -50,13 +49,13 @@ namespace Test.Integration.ControllerTests.ProjectsControllerTests
         [TestMethod]
         public void ReturnOneProject_WhenOneProjectIsCreated()
         {
-            _projectId = _testObjectCreator.GetIdForNewProject();
+            var projectId = _testObjectCreator.GetIdForNewProject();
 
             var response = _client.GetAsync(ControllerRouteEnum.Projects).Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<ProjectViewModel>>(response);
 
             serializedContent.Should().HaveCount(1);
-            serializedContent.First().Id.Should().Be(_projectId);
+            serializedContent.First().Id.Should().Be(projectId);
         }
     }
 }

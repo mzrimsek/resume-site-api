@@ -13,23 +13,22 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
     [TestClass]
     public class GetAllSkillsShould
     {
-        private TestServer _server;
+        private TestSetupHelper _testSetupHelper;
         private HttpClient _client;
         private TestObjectCreator _testObjectCreator;
-        private int _languageId;
 
         [TestInitialize]
         public void SetUp()
         {
-            (_server, _client) = new TestSetupHelper().GetTestServerAndClient();
+            _testSetupHelper = new TestSetupHelper();
+            _client = _testSetupHelper.GetTestClient();
             _testObjectCreator = new TestObjectCreator(_client);
         }
 
         [TestCleanup]
         public void TearDown()
         {
-            _client.Dispose();
-            _server.Dispose();
+            _testSetupHelper.DisposeTestServerAndClient();
         }
 
         [TestMethod]
@@ -50,8 +49,8 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestMethod]
         public void ReturnOneSkill_WhenOneSkillIsCreated()
         {
-            _languageId = _testObjectCreator.GetIdForNewLanguage();
-            var skillId = _testObjectCreator.GetIdForNewSkill(_languageId);
+            var languageId = _testObjectCreator.GetIdForNewLanguage();
+            var skillId = _testObjectCreator.GetIdForNewSkill(languageId);
 
             var response = _client.GetAsync(ControllerRouteEnum.Skills).Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<SkillViewModel>>(response);

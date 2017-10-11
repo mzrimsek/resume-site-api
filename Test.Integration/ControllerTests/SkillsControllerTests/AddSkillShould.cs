@@ -11,30 +11,29 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
     [TestClass]
     public class AddSkillShould
     {
-        private TestServer _server;
+        private TestSetupHelper _testSetupHelper;
         private HttpClient _client;
         private TestObjectCreator _testObjectCreator;
-        private int _languageId;
 
         [TestInitialize]
-        public void Setup()
+        public void SetUp()
         {
-            (_server, _client) = new TestSetupHelper().GetTestServerAndClient();
+            _testSetupHelper = new TestSetupHelper();
+            _client = _testSetupHelper.GetTestClient();
             _testObjectCreator = new TestObjectCreator(_client);
         }
 
         [TestCleanup]
         public void TearDown()
         {
-            _client.Dispose();
-            _server.Dispose();
+            _testSetupHelper.DisposeTestServerAndClient();
         }
 
         [TestMethod]
         public void ReturnStatusCodeCreated_WhenGivenValidModel()
         {
-            _languageId = _testObjectCreator.GetIdForNewLanguage();
-            var model = TestObjectGetter.GetAddSkillViewModel(_languageId);
+            var languageId = _testObjectCreator.GetIdForNewLanguage();
+            var model = TestObjectGetter.GetAddSkillViewModel(languageId);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PostAsync(ControllerRouteEnum.Skills, requestContent).Result;
@@ -45,8 +44,8 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestMethod]
         public void ReturnStatusCodeBadRequest_WhenGivenInvalidModel_WithInvalidName()
         {
-            _languageId = _testObjectCreator.GetIdForNewLanguage();
-            var model = TestObjectGetter.GetAddSkillViewModel(_languageId, null, 1);
+            var languageId = _testObjectCreator.GetIdForNewLanguage();
+            var model = TestObjectGetter.GetAddSkillViewModel(languageId, null, 1);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PostAsync(ControllerRouteEnum.Skills, requestContent).Result;
@@ -57,8 +56,8 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestMethod]
         public void ReturnStatusCodeBadRequest_WhenGivenInvalidModel_WithInvalidRating()
         {
-            _languageId = _testObjectCreator.GetIdForNewLanguage();
-            var model = TestObjectGetter.GetAddSkillViewModel(_languageId, "MVC", 4);
+            var languageId = _testObjectCreator.GetIdForNewLanguage();
+            var model = TestObjectGetter.GetAddSkillViewModel(languageId, "MVC", 4);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PostAsync(ControllerRouteEnum.Skills, requestContent).Result;
@@ -91,8 +90,8 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestMethod]
         public void ReturnCorrectViewModel()
         {
-            _languageId = _testObjectCreator.GetIdForNewLanguage();
-            var model = TestObjectGetter.GetAddSkillViewModel(_languageId);
+            var languageId = _testObjectCreator.GetIdForNewLanguage();
+            var model = TestObjectGetter.GetAddSkillViewModel(languageId);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PostAsync(ControllerRouteEnum.Skills, requestContent).Result;
@@ -105,8 +104,8 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestMethod]
         public void SaveCorrectViewModel()
         {
-            _languageId = _testObjectCreator.GetIdForNewLanguage();
-            var model = TestObjectGetter.GetAddSkillViewModel(_languageId);
+            var languageId = _testObjectCreator.GetIdForNewLanguage();
+            var model = TestObjectGetter.GetAddSkillViewModel(languageId);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PostAsync(ControllerRouteEnum.Skills, requestContent).Result;

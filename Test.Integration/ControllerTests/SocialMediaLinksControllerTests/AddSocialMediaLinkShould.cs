@@ -11,21 +11,22 @@ namespace Test.Integration.ControllerTests.SocialMediaLinksControllerTests
     [TestClass]
     public class AddSocialMediaLinkShould
     {
-        private TestServer _server;
+        private TestSetupHelper _testSetupHelper;
         private HttpClient _client;
-        private int _socialMediaLinkId;
+        private TestObjectCreator _testObjectCreator;
 
         [TestInitialize]
         public void SetUp()
         {
-            (_server, _client) = new TestSetupHelper().GetTestServerAndClient();
+            _testSetupHelper = new TestSetupHelper();
+            _client = _testSetupHelper.GetTestClient();
+            _testObjectCreator = new TestObjectCreator(_client);
         }
 
         [TestCleanup]
         public void TearDown()
         {
-            _client.Dispose();
-            _server.Dispose();
+            _testSetupHelper.DisposeTestServerAndClient();
         }
 
         [TestMethod]
@@ -35,7 +36,6 @@ namespace Test.Integration.ControllerTests.SocialMediaLinksControllerTests
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PostAsync(ControllerRouteEnum.SocialMediaLinks, requestContent).Result;
-            _socialMediaLinkId = RequestHelper.GetObjectFromResponseContent<SocialMediaLinkViewModel>(response).Id;
 
             response.StatusCode.Should().Be(HttpStatusCode.Created);
         }
@@ -59,7 +59,6 @@ namespace Test.Integration.ControllerTests.SocialMediaLinksControllerTests
 
             var response = _client.PostAsync(ControllerRouteEnum.SocialMediaLinks, requestContent).Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<SocialMediaLinkViewModel>(response);
-            _socialMediaLinkId = serializedContent.Id;
 
             var isCorrectViewModel = AssertHelper.AreTestSocialMediaLinkViewModelsEqual(model, serializedContent);
             isCorrectViewModel.Should().BeTrue();
@@ -72,8 +71,8 @@ namespace Test.Integration.ControllerTests.SocialMediaLinksControllerTests
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PostAsync(ControllerRouteEnum.SocialMediaLinks, requestContent).Result;
-            _socialMediaLinkId = RequestHelper.GetObjectFromResponseContent<SocialMediaLinkViewModel>(response).Id;
-            response = _client.GetAsync($"{ControllerRouteEnum.SocialMediaLinks}/{_socialMediaLinkId}").Result;
+            var socialMediaLinkId = RequestHelper.GetObjectFromResponseContent<SocialMediaLinkViewModel>(response).Id;
+            response = _client.GetAsync($"{ControllerRouteEnum.SocialMediaLinks}/{socialMediaLinkId}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<SocialMediaLinkViewModel>(response);
             
             var isCorrectViewModel = AssertHelper.AreTestSocialMediaLinkViewModelsEqual(model, serializedContent);

@@ -11,23 +11,22 @@ namespace Test.Integration.ControllerTests.ProjectsControllerTests
     [TestClass]
     public class UpdateProjectShould
     {
-        private TestServer _server;
+        private TestSetupHelper _testSetupHelper;
         private HttpClient _client;
         private TestObjectCreator _testObjectCreator;
-        private int _projectId;
 
         [TestInitialize]
         public void SetUp()
         {
-            (_server, _client) = new TestSetupHelper().GetTestServerAndClient();
+            _testSetupHelper = new TestSetupHelper();
+            _client = _testSetupHelper.GetTestClient();
             _testObjectCreator = new TestObjectCreator(_client);
         }
 
         [TestCleanup]
         public void TearDown()
         {
-            _client.Dispose();
-            _server.Dispose();
+            _testSetupHelper.DisposeTestServerAndClient();
         }
 
         [TestMethod]
@@ -44,11 +43,11 @@ namespace Test.Integration.ControllerTests.ProjectsControllerTests
         [TestMethod]
         public void ReturnStatusCodeBadRequest_WhenGivenInvalidModel()
         {
-            _projectId = _testObjectCreator.GetIdForNewProject();
-            var model = TestObjectGetter.GetUpdateProjectViewModel(_projectId, null);
+            var projectId = _testObjectCreator.GetIdForNewProject();
+            var model = TestObjectGetter.GetUpdateProjectViewModel(projectId, null);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PutAsync($"{ControllerRouteEnum.Projects}/{_projectId}", requestContent).Result;
+            var response = _client.PutAsync($"{ControllerRouteEnum.Projects}/{projectId}", requestContent).Result;
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
@@ -56,11 +55,11 @@ namespace Test.Integration.ControllerTests.ProjectsControllerTests
         [TestMethod]
         public void ReturnStatusCodeBadRequest_WhenGivenValidIdAndValidModel_WithNonMatchingId()
         {
-            _projectId = _testObjectCreator.GetIdForNewProject();
-            var model = TestObjectGetter.GetUpdateProjectViewModel(_projectId + 1, "A different project");
+            var projectId = _testObjectCreator.GetIdForNewProject();
+            var model = TestObjectGetter.GetUpdateProjectViewModel(projectId + 1, "A different project");
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PutAsync($"{ControllerRouteEnum.Projects}/{_projectId}", requestContent).Result;
+            var response = _client.PutAsync($"{ControllerRouteEnum.Projects}/{projectId}", requestContent).Result;
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
@@ -68,11 +67,11 @@ namespace Test.Integration.ControllerTests.ProjectsControllerTests
         [TestMethod]
         public void ReturnStatusCodeNoContent_WhenGivenValidIdAndValidModel()
         {
-            _projectId = _testObjectCreator.GetIdForNewProject();
-            var model = TestObjectGetter.GetUpdateProjectViewModel(_projectId, "A different project");
+            var projectId = _testObjectCreator.GetIdForNewProject();
+            var model = TestObjectGetter.GetUpdateProjectViewModel(projectId, "A different project");
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PutAsync($"{ControllerRouteEnum.Projects}/{_projectId}", requestContent).Result;
+            var response = _client.PutAsync($"{ControllerRouteEnum.Projects}/{projectId}", requestContent).Result;
 
             response.StatusCode.Should().Be(HttpStatusCode.NoContent);
         }
@@ -80,12 +79,12 @@ namespace Test.Integration.ControllerTests.ProjectsControllerTests
         [TestMethod]
         public void SaveUpdatedViewModel()
         {
-            _projectId = _testObjectCreator.GetIdForNewProject();
-            var model = TestObjectGetter.GetUpdateProjectViewModel(_projectId, "A different project");
+            var projectId = _testObjectCreator.GetIdForNewProject();
+            var model = TestObjectGetter.GetUpdateProjectViewModel(projectId, "A different project");
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var _ = _client.PutAsync($"{ControllerRouteEnum.Projects}/{_projectId}", requestContent).Result;
-            var response = _client.GetAsync($"{ControllerRouteEnum.Projects}/{_projectId}").Result;
+            var _ = _client.PutAsync($"{ControllerRouteEnum.Projects}/{projectId}", requestContent).Result;
+            var response = _client.GetAsync($"{ControllerRouteEnum.Projects}/{projectId}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<ProjectViewModel>(response);
 
             var isCorrectViewModel = AssertHelper.AreTestProjectViewModelsEqual(model, serializedContent);

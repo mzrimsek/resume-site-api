@@ -13,23 +13,22 @@ namespace Test.Integration.ControllerTests.SocialMediaLinksControllerTests
     [TestClass]
     public class GetAllSocialMediaLinksShould
     {
-        private TestServer _server;
+        private TestSetupHelper _testSetupHelper;
         private HttpClient _client;
         private TestObjectCreator _testObjectCreator;
-        private int _socialMediaLinkId;
 
         [TestInitialize]
         public void SetUp()
         {
-            (_server, _client) = new TestSetupHelper().GetTestServerAndClient();
+            _testSetupHelper = new TestSetupHelper();
+            _client = _testSetupHelper.GetTestClient();
             _testObjectCreator = new TestObjectCreator(_client);
         }
 
         [TestCleanup]
         public void TearDown()
         {
-            _client.Dispose();
-            _server.Dispose();
+            _testSetupHelper.DisposeTestServerAndClient();
         }
 
         [TestMethod]
@@ -50,13 +49,13 @@ namespace Test.Integration.ControllerTests.SocialMediaLinksControllerTests
         [TestMethod]
         public void ReturnOneSocialMediaLink_WhenOneSocialMediaLinkIsCreated()
         {
-            _socialMediaLinkId = _testObjectCreator.GetIdForNewSocialMediaLink();
+            var socialMediaLinkId = _testObjectCreator.GetIdForNewSocialMediaLink();
             
             var response = _client.GetAsync(ControllerRouteEnum.SocialMediaLinks).Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<SocialMediaLinkViewModel>>(response);
             
             serializedContent.Should().HaveCount(1);
-            serializedContent.First().Id.Should().Be(_socialMediaLinkId);
+            serializedContent.First().Id.Should().Be(socialMediaLinkId);
         }
     }
 }

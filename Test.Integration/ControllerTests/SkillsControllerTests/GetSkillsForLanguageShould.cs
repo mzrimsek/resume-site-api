@@ -13,23 +13,22 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
     [TestClass]
     public class GetSkillsForLanguageShould
     {
-        private TestServer _server;
+        private TestSetupHelper _testSetupHelper;
         private HttpClient _client;
         private TestObjectCreator _testObjectCreator;
-        private int _languageId;
 
         [TestInitialize]
         public void SetUp()
         {
-            (_server, _client) = new TestSetupHelper().GetTestServerAndClient();
+            _testSetupHelper = new TestSetupHelper();
+            _client = _testSetupHelper.GetTestClient();
             _testObjectCreator = new TestObjectCreator(_client);
         }
 
         [TestCleanup]
         public void TearDown()
         {
-            _client.Dispose();
-            _server.Dispose();
+            _testSetupHelper.DisposeTestServerAndClient();
         }
 
         [TestMethod]
@@ -42,17 +41,17 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestMethod]
         public void ReturnStatusCodeOk_WhenGivenValidLanguageId()
         {
-            _languageId = _testObjectCreator.GetIdForNewLanguage();
-            var response = _client.GetAsync($"{ControllerRouteEnum.Skills}/language/{_languageId}").Result;
+            var languageId = _testObjectCreator.GetIdForNewLanguage();
+            var response = _client.GetAsync($"{ControllerRouteEnum.Skills}/language/{languageId}").Result;
             response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
         [TestMethod]
         public void ReturnEmptyList_WhenLanguageHasNoSkills()
         {
-            _languageId = _testObjectCreator.GetIdForNewLanguage();
+            var languageId = _testObjectCreator.GetIdForNewLanguage();
             
-            var response = _client.GetAsync($"{ControllerRouteEnum.Skills}/language/{_languageId}").Result;
+            var response = _client.GetAsync($"{ControllerRouteEnum.Skills}/language/{languageId}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<SkillViewModel>>(response);
             
             serializedContent.Should().BeEmpty();
@@ -61,10 +60,10 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestMethod]
         public void ReturnOneSkill_WhenOneSkillCreatedForLanguage()
         {
-            _languageId = _testObjectCreator.GetIdForNewLanguage();
-            var skillId = _testObjectCreator.GetIdForNewSkill(_languageId);
+            var languageId = _testObjectCreator.GetIdForNewLanguage();
+            var skillId = _testObjectCreator.GetIdForNewSkill(languageId);
             
-            var response = _client.GetAsync($"{ControllerRouteEnum.Skills}/language/{_languageId}").Result;
+            var response = _client.GetAsync($"{ControllerRouteEnum.Skills}/language/{languageId}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<SkillViewModel>>(response);
 
             serializedContent.Should().HaveCount(1);

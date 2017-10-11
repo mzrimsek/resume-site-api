@@ -11,21 +11,22 @@ namespace Test.Integration.ControllerTests.ProjectsControllerTests
     [TestClass]
     public class AddProjectShould
     {
-        private TestServer _server;
+        private TestSetupHelper _testSetupHelper;
         private HttpClient _client;
-        private int _projectId;
+        private TestObjectCreator _testObjectCreator;
 
         [TestInitialize]
         public void SetUp()
         {
-            (_server, _client) = new TestSetupHelper().GetTestServerAndClient();
+            _testSetupHelper = new TestSetupHelper();
+            _client = _testSetupHelper.GetTestClient();
+            _testObjectCreator = new TestObjectCreator(_client);
         }
 
         [TestCleanup]
         public void TearDown()
         {
-            _client.Dispose();
-            _server.Dispose();
+            _testSetupHelper.DisposeTestServerAndClient();
         }
 
         [TestMethod]
@@ -35,7 +36,6 @@ namespace Test.Integration.ControllerTests.ProjectsControllerTests
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PostAsync(ControllerRouteEnum.Projects, requestContent).Result;
-            _projectId = RequestHelper.GetObjectFromResponseContent<ProjectViewModel>(response).Id;
 
             response.StatusCode.Should().Be(HttpStatusCode.Created);
         }
@@ -59,7 +59,6 @@ namespace Test.Integration.ControllerTests.ProjectsControllerTests
 
             var response = _client.PostAsync(ControllerRouteEnum.Projects, requestContent).Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<ProjectViewModel>(response);
-            _projectId = serializedContent.Id;
 
             var isCorrectViewModel = AssertHelper.AreTestProjectViewModelsEqual(model, serializedContent);
             isCorrectViewModel.Should().BeTrue();
@@ -72,8 +71,8 @@ namespace Test.Integration.ControllerTests.ProjectsControllerTests
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PostAsync(ControllerRouteEnum.Projects, requestContent).Result;
-            _projectId = RequestHelper.GetObjectFromResponseContent<ProjectViewModel>(response).Id;
-            response = _client.GetAsync($"{ControllerRouteEnum.Projects}/{_projectId}").Result;
+            var projectId = RequestHelper.GetObjectFromResponseContent<ProjectViewModel>(response).Id;
+            response = _client.GetAsync($"{ControllerRouteEnum.Projects}/{projectId}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<ProjectViewModel>(response);
 
             var isCorrectViewModel = AssertHelper.AreTestProjectViewModelsEqual(model, serializedContent);

@@ -11,21 +11,22 @@ namespace Test.Integration.ControllerTests.SchoolsControllerTests
     [TestClass]
     public class AddSchoolShould
     {
-        private TestServer _server;
+        private TestSetupHelper _testSetupHelper;
         private HttpClient _client;
-        private int _schoolId;
+        private TestObjectCreator _testObjectCreator;
 
         [TestInitialize]
         public void SetUp()
         {
-            (_server, _client) = new TestSetupHelper().GetTestServerAndClient();
+            _testSetupHelper = new TestSetupHelper();
+            _client = _testSetupHelper.GetTestClient();
+            _testObjectCreator = new TestObjectCreator(_client);
         }
 
         [TestCleanup]
         public void TearDown()
         {
-            _client.Dispose();
-            _server.Dispose();
+            _testSetupHelper.DisposeTestServerAndClient();
         }
 
         [TestMethod]
@@ -35,7 +36,6 @@ namespace Test.Integration.ControllerTests.SchoolsControllerTests
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PostAsync(ControllerRouteEnum.Schools, requestContent).Result;
-            _schoolId = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(response).Id;
 
             response.StatusCode.Should().Be(HttpStatusCode.Created);
         }
@@ -59,7 +59,6 @@ namespace Test.Integration.ControllerTests.SchoolsControllerTests
 
             var response = _client.PostAsync(ControllerRouteEnum.Schools, requestContent).Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(response);
-            _schoolId = serializedContent.Id;
 
             var isCorrectViewModel = AssertHelper.AreTestSchoolViewModelsEqual(model, serializedContent);
             isCorrectViewModel.Should().BeTrue();
@@ -72,8 +71,8 @@ namespace Test.Integration.ControllerTests.SchoolsControllerTests
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PostAsync(ControllerRouteEnum.Schools, requestContent).Result;
-            _schoolId = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(response).Id;
-            response = _client.GetAsync($"{ControllerRouteEnum.Schools}/{_schoolId}").Result;
+            var schoolId = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(response).Id;
+            response = _client.GetAsync($"{ControllerRouteEnum.Schools}/{schoolId}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(response);
 
             var isCorrectViewModel = AssertHelper.AreTestSchoolViewModelsEqual(model, serializedContent);

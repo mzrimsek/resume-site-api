@@ -6,12 +6,24 @@ namespace Test.Integration.TestHelpers
 {
     public class TestSetupHelper
     {
-        public (TestServer server, HttpClient client) GetTestServerAndClient()
-        {
-            var testServer = new TestServer(new WebHostBuilder().UseStartup<Startup>());
-            var testClient = testServer.CreateClient();
+        private readonly TestServer _testServer;
+        private readonly HttpClient _testClient;
 
-            return (testServer, testClient);
+        public TestSetupHelper()
+        {
+            _testServer = new TestServer(new WebHostBuilder().UseStartup<Startup>());
+            _testClient = _testServer.CreateClient();
+        }
+        
+        public HttpClient GetTestClient()
+        {
+            return _testClient;
+        }
+
+        public void DisposeTestServerAndClient()
+        {
+            _testClient.Dispose();
+            _testServer.Dispose();
         }
     }
 }

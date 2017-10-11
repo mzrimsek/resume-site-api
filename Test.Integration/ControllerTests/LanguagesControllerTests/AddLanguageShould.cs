@@ -11,23 +11,22 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
     [TestClass]
     public class AddLanguageShould
     {
-        private TestServer _server;
+        private TestSetupHelper _testSetupHelper;
         private HttpClient _client;
         private TestObjectCreator _testObjectCreator;
-        private int _languageId;
 
         [TestInitialize]
         public void SetUp()
         {
-            (_server, _client) = new TestSetupHelper().GetTestServerAndClient();
+            _testSetupHelper = new TestSetupHelper();
+            _client = _testSetupHelper.GetTestClient();
             _testObjectCreator = new TestObjectCreator(_client);
         }
 
         [TestCleanup]
         public void TearDown()
         {
-            _client.Dispose();
-            _server.Dispose();
+            _testSetupHelper.DisposeTestServerAndClient();
         }
 
         [TestMethod]
@@ -37,7 +36,6 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PostAsync(ControllerRouteEnum.Languages, requestContent).Result;
-            _languageId = RequestHelper.GetObjectFromResponseContent<LanguageViewModel>(response).Id;
 
             response.StatusCode.Should().Be(HttpStatusCode.Created);
         }
@@ -72,7 +70,6 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
 
             var response = _client.PostAsync(ControllerRouteEnum.Languages, requestContent).Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<LanguageViewModel>(response);
-            _languageId = serializedContent.Id;
 
             var isCorrectViewModel = AssertHelper.AreTestLanguageViewModelsEqual(model, serializedContent);
             isCorrectViewModel.Should().BeTrue();
@@ -85,8 +82,8 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
             var response = _client.PostAsync(ControllerRouteEnum.Languages, requestContent).Result;
-            _languageId = RequestHelper.GetObjectFromResponseContent<LanguageViewModel>(response).Id;
-            response = _client.GetAsync($"{ControllerRouteEnum.Languages}/{_languageId}").Result;
+            var languageId = RequestHelper.GetObjectFromResponseContent<LanguageViewModel>(response).Id;
+            response = _client.GetAsync($"{ControllerRouteEnum.Languages}/{languageId}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<LanguageViewModel>(response);
 
             var isCorrectViewModel = AssertHelper.AreTestLanguageViewModelsEqual(model, serializedContent);
