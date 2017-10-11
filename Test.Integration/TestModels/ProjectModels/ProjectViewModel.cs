@@ -1,6 +1,6 @@
 ﻿using Core.Interfaces;
 
-namespace Web.Models.ProjectModels
+namespace Test.Integration.TestModels.ProjectModels
 {
     public class ProjectViewModel : IHasId
     {

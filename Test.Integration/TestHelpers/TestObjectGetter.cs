@@ -1,6 +1,7 @@
 using Test.Integration.TestModels.JobModels;
 using Test.Integration.TestModels.JobProjectModels;
 using Test.Integration.TestModels.LanguageModels;
+using Test.Integration.TestModels.ProjectModels;
 using Test.Integration.TestModels.SchoolModels;
 using Test.Integration.TestModels.SkillModels;
 using Test.Integration.TestModels.SocialMediaLinkModels;
@@ -100,11 +101,12 @@ namespace Test.Integration.TestHelpers
 
         public static UpdateLanguageViewModel GetUpdateLanguageViewModel(int id, string name, int rating)
         {
+            var viewModel = GetAddLanguageViewModel(name, rating);
             return new UpdateLanguageViewModel
             {
                 Id = id,
-                Name = name,
-                Rating = rating
+                Name = viewModel.Name,
+                Rating = viewModel.Rating
             };
         }
 
@@ -120,12 +122,13 @@ namespace Test.Integration.TestHelpers
 
         public static UpdateSkillViewModel GetUpdateSkillViewModel(int id, int languageId, string name, int rating)
         {
+            var viewModel = GetAddSkillViewModel(languageId, name, rating);
             return new UpdateSkillViewModel
             {
                 Id = id,
-                LanguageId = languageId,
-                Name = name,
-                Rating = rating
+                LanguageId = viewModel.LanguageId,
+                Name = viewModel.Name,
+                Rating = viewModel.Rating
             };
         }
 
@@ -140,11 +143,36 @@ namespace Test.Integration.TestHelpers
 
         public static UpdateSocialMediaLinkViewModel GetUpdateSocialMediaLinkViewModel(int id, string name)
         {
+            var viewModel = GetAddSocialMediaLinkViewModel(name);
             return new UpdateSocialMediaLinkViewModel
             {
                 Id = id,
+                Name = viewModel.Name,
+                Url = viewModel.Url
+            };
+        }
+
+        public static AddProjectViewModel GetAddProjectViewModel(string name = "Resume Site")
+        {
+            return new AddProjectViewModel
+            {
                 Name = name,
-                Url = "https://github.com/mzrimsek"
+                Description = "My awesome website",
+                Url = "http://zrimsek.com",
+                Source = "https://github.com/mzrimsek"
+            };
+        }
+
+        public static UpdateProjectViewModel GetUpdateProjectViewModel(int id, string name)
+        {
+            var viewModel = GetAddProjectViewModel(name);
+            return new UpdateProjectViewModel
+            {
+                Id = id,
+                Name = viewModel.Name,
+                Description = viewModel.Description,
+                Url = viewModel.Url,
+                Source = viewModel.Source
             };
         }
     }

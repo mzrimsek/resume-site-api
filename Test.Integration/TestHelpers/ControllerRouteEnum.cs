@@ -8,6 +8,7 @@ namespace Test.Integration.TestHelpers
         public static readonly string Languages = new ControllerRouteEnum("languages").Route;
         public static readonly string Skills = new ControllerRouteEnum("skills").Route;
         public static readonly string SocialMediaLinks = new ControllerRouteEnum("socialMediaLinks").Route;
+        public static readonly string Projects = new ControllerRouteEnum("projects").Route;
 
         private string Route { get; set; }
         private ControllerRouteEnum(string route)

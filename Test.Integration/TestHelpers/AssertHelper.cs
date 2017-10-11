@@ -1,6 +1,7 @@
 using Test.Integration.TestModels.JobModels;
 using Test.Integration.TestModels.JobProjectModels;
 using Test.Integration.TestModels.LanguageModels;
+using Test.Integration.TestModels.ProjectModels;
 using Test.Integration.TestModels.SchoolModels;
 using Test.Integration.TestModels.SkillModels;
 using Test.Integration.TestModels.SocialMediaLinkModels;
@@ -54,6 +55,14 @@ namespace Test.Integration.TestHelpers
         {
             return expected.Name == actual.Name
                 && expected.Url == actual.Url;
+        }
+
+        public static bool AreTestProjectViewModelsEqual(AddProjectViewModel expected, ProjectViewModel actual)
+        {
+            return expected.Name == actual.Name
+                && expected.Description == actual.Description
+                && expected.Url == actual.Url
+                && expected.Source == actual.Source;
         }
     }
 }

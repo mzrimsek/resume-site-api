@@ -3,6 +3,7 @@ using Core.Interfaces;
 using Test.Integration.TestModels.JobModels;
 using Test.Integration.TestModels.JobProjectModels;
 using Test.Integration.TestModels.LanguageModels;
+using Test.Integration.TestModels.ProjectModels;
 using Test.Integration.TestModels.SchoolModels;
 using Test.Integration.TestModels.SkillModels;
 using Test.Integration.TestModels.SocialMediaLinkModels;
@@ -53,10 +54,16 @@ namespace Test.Integration.TestHelpers
             return GetIdFromNewTestObject<SocialMediaLinkViewModel>(model, ControllerRouteEnum.SocialMediaLinks);
         }
 
+        public int GetIdFromNewProject()
+        {
+            var model = TestObjectGetter.GetAddProjectViewModel();
+            return GetIdFromNewTestObject<ProjectViewModel>(model, ControllerRouteEnum.Projects);
+        }
+
         private int GetIdFromNewTestObject<T>(object model, string route) where T : IHasId
         {
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
-            var response = _client.PostAsync($"{route}", requestContent).Result;
+            var response = _client.PostAsync(route, requestContent).Result;
             return RequestHelper.GetObjectFromResponseContent<T>(response).Id;
         }
     }

@@ -1,13 +1,14 @@
-﻿using Core.Interfaces;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Web.Models.ProjectModels
+namespace Test.Integration.TestModels.ProjectModels
 {
-    public class ProjectViewModel : IHasId
+    public class AddProjectViewModel
     {
-        public int Id { get; set; }
+        [Required]
         public string Name { get; set; }
         public string Description { get; set; }
         public string Url { get; set; }
+        [Required]
         public string Source { get; set; }
     }
 }
