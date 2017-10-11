@@ -10,6 +10,7 @@ namespace Integration.EntityFramework.Models
         public DbSet<LanguageDatabaseModel> Languages { get; set; }
         public DbSet<SkillDatabaseModel> Skills { get; set; }
         public DbSet<SocialMediaLinkDatabaseModel> SocialMediaLinks { get; set; }
+        public DbSet<ProjectDatabaseModel> Projects { get; set; }
 
         public DatabaseContext(DbContextOptions options) : base(options) { }
 
