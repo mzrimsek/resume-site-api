@@ -61,7 +61,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
             response = _client.GetAsync($"{ControllerRouteEnum.Skills}/{skillId}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<SkillViewModel>(response);
 
-            var isCorrectViewModel = AssertHelper.AreSkillViewModelsEqual(model, serializedContent);
+            var isCorrectViewModel = AssertHelper.AreTestSkillViewModelsEqual(model, serializedContent);
             isCorrectViewModel.Should().BeTrue();
         }
     }

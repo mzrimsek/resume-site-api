@@ -57,7 +57,7 @@ namespace Test.Integration.ControllerTests.SchoolsControllerTests
             response = _client.GetAsync($"{ControllerRouteEnum.Schools}/{_schoolId}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(response);
 
-            var isCorrectViewModel = AssertHelper.AreSchoolViewModelsEqual(model, serializedContent);
+            var isCorrectViewModel = AssertHelper.AreTestSchoolViewModelsEqual(model, serializedContent);
             isCorrectViewModel.Should().BeTrue();
         }
     }

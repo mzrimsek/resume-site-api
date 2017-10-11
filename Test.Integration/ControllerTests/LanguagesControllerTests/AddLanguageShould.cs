@@ -75,7 +75,7 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
             var serializedContent = RequestHelper.GetObjectFromResponseContent<LanguageViewModel>(response);
             _languageId = serializedContent.Id;
 
-            var isCorrectViewModel = AssertHelper.AreLanguageViewModelsEqual(model, serializedContent);
+            var isCorrectViewModel = AssertHelper.AreTestLanguageViewModelsEqual(model, serializedContent);
             isCorrectViewModel.Should().BeTrue();
         }
 
@@ -90,7 +90,7 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
             response = _client.GetAsync($"{ControllerRouteEnum.Languages}/{_languageId}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<LanguageViewModel>(response);
 
-            var isCorrectViewModel = AssertHelper.AreLanguageViewModelsEqual(model, serializedContent);
+            var isCorrectViewModel = AssertHelper.AreTestLanguageViewModelsEqual(model, serializedContent);
             isCorrectViewModel.Should().BeTrue();
         }
     }

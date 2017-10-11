@@ -20,7 +20,7 @@ namespace Test.Integration.TestHelpers
                 && expected.EndDate == actual.EndDate;
         }
 
-        public static bool AreSchoolViewModelsEqual(AddSchoolViewModel expected, SchoolViewModel actual)
+        public static bool AreTestSchoolViewModelsEqual(AddSchoolViewModel expected, SchoolViewModel actual)
         {
             return expected.Name == actual.Name
                 && expected.City == actual.City
@@ -31,20 +31,20 @@ namespace Test.Integration.TestHelpers
                 && expected.EndDate == actual.EndDate;
         }
 
-        public static bool AreJobProjectViewModelsEqual(AddJobProjectViewModel expected, JobProjectViewModel actual)
+        public static bool AreTestJobProjectViewModelsEqual(AddJobProjectViewModel expected, JobProjectViewModel actual)
         {
             return expected.JobId == actual.JobId
                 && expected.Name == actual.Name
                 && expected.Description == actual.Description;
         }
 
-        public static bool AreLanguageViewModelsEqual(AddLanguageViewModel expected, LanguageViewModel actual)
+        public static bool AreTestLanguageViewModelsEqual(AddLanguageViewModel expected, LanguageViewModel actual)
         {
             return expected.Name == actual.Name
                 && expected.Rating == actual.Rating;
         }
 
-        public static bool AreSkillViewModelsEqual(AddSkillViewModel expected, SkillViewModel actual)
+        public static bool AreTestSkillViewModelsEqual(AddSkillViewModel expected, SkillViewModel actual)
         {
             return expected.LanguageId == actual.LanguageId
                 && expected.Name == actual.Name

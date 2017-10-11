@@ -120,7 +120,7 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
             var response = _client.GetAsync($"{ControllerRouteEnum.JobProjects}/{jobProjectId}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<JobProjectViewModel>(response);
 
-            var isCorrectViewModel = AssertHelper.AreJobProjectViewModelsEqual(model, serializedContent);
+            var isCorrectViewModel = AssertHelper.AreTestJobProjectViewModelsEqual(model, serializedContent);
             isCorrectViewModel.Should().BeTrue();
         }
     }
