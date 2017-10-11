@@ -14,6 +14,7 @@ namespace Web.Configuration
             services.AddScoped<ILanguageRepository, LanguageRepository>();
             services.AddScoped<ISkillRepository, SkillRepository>();
             services.AddScoped<ISocialMediaLinkRepository, SocialMediaLinkRepository>();
+            services.AddScoped<IProjectRepository, ProjectRepository>();
         }
     }
 }
