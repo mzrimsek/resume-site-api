@@ -51,7 +51,7 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
         {
             var model = TestObjectGetter.GetAddLanguageViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
-            var response = _client.PostAsync($"{ControllerRouteEnum.Languages}", requestContent).Result;
+            var response = _client.PostAsync(ControllerRouteEnum.Languages, requestContent).Result;
             _languageId = RequestHelper.GetObjectFromResponseContent<LanguageViewModel>(response).Id;
 
             response = _client.GetAsync($"{ControllerRouteEnum.Languages}/{_languageId}").Result;

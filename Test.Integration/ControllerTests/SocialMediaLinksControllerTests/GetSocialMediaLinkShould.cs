@@ -51,7 +51,7 @@ namespace Test.Integration.ControllerTests.SocialMediaLinksControllerTests
         {
             var model = TestObjectGetter.GetAddSocialMediaLinkViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
-            var response = _client.PostAsync($"{ControllerRouteEnum.SocialMediaLinks}", requestContent).Result;
+            var response = _client.PostAsync(ControllerRouteEnum.SocialMediaLinks, requestContent).Result;
             _socialMediaLinkId = RequestHelper.GetObjectFromResponseContent<SocialMediaLinkViewModel>(response).Id;
 
             response = _client.GetAsync($"{ControllerRouteEnum.SocialMediaLinks}/{_socialMediaLinkId}").Result;

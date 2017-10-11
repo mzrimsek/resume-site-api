@@ -36,14 +36,14 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
         [TestMethod]
         public void ReturnStatusCodeOk()
         {
-            var response = _client.GetAsync($"{ControllerRouteEnum.JobProjects}").Result;
+            var response = _client.GetAsync(ControllerRouteEnum.JobProjects).Result;
             response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
         [TestMethod]
         public void ReturnEmptyList_WhenNoJobProjectsAreCreated()
         {
-            var response = _client.GetAsync($"{ControllerRouteEnum.JobProjects}").Result;
+            var response = _client.GetAsync(ControllerRouteEnum.JobProjects).Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<JobProjectViewModel>>(response);
             serializedContent.Should().BeEmpty();
         }
@@ -54,7 +54,7 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
             _jobId = _testObjectCreator.GetIdForNewJob();
             var jobProjectId = _testObjectCreator.GetIdFromNewJobProject(_jobId);
 
-            var response = _client.GetAsync($"{ControllerRouteEnum.JobProjects}").Result;
+            var response = _client.GetAsync(ControllerRouteEnum.JobProjects).Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<JobProjectViewModel>>(response);
 
             serializedContent.Should().HaveCount(1);

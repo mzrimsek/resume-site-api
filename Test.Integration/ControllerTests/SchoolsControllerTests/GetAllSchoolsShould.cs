@@ -36,14 +36,14 @@ namespace Test.Integration.ControllerTests.SchoolsControllerTests
         [TestMethod]
         public void ReturnStatusCodeOk()
         {
-            var response = _client.GetAsync($"{ControllerRouteEnum.Schools}").Result;
+            var response = _client.GetAsync(ControllerRouteEnum.Schools).Result;
             response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
         [TestMethod]
         public void ReturnEmptyList_WhenNoSchoolsAreCreated()
         {
-            var response = _client.GetAsync($"{ControllerRouteEnum.Schools}").Result;
+            var response = _client.GetAsync(ControllerRouteEnum.Schools).Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<SchoolViewModel>>(response);
             serializedContent.Should().BeEmpty();
         }
@@ -53,7 +53,7 @@ namespace Test.Integration.ControllerTests.SchoolsControllerTests
         {
             _schoolId = _testObjectCreator.GetIdFromNewSchool();
 
-            var getResponse = _client.GetAsync($"{ControllerRouteEnum.Schools}").Result;
+            var getResponse = _client.GetAsync(ControllerRouteEnum.Schools).Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<SchoolViewModel>>(getResponse);
 
             serializedContent.Should().HaveCount(1);

@@ -36,14 +36,14 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestMethod]
         public void ReturnStatusCodeOk()
         {
-            var response = _client.GetAsync($"{ControllerRouteEnum.Skills}").Result;
+            var response = _client.GetAsync(ControllerRouteEnum.Skills).Result;
             response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
         [TestMethod]
         public void ReturnEmptyList_WhenNoSkillsAreCreated()
         {
-            var response = _client.GetAsync($"{ControllerRouteEnum.Skills}").Result;
+            var response = _client.GetAsync(ControllerRouteEnum.Skills).Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<SkillViewModel>>(response);
             serializedContent.Should().BeEmpty();
         }
@@ -54,7 +54,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
             _languageId = _testObjectCreator.GetIdFromNewLanguage();
             var skillId = _testObjectCreator.GetIdFromNewSkill(_languageId);
 
-            var response = _client.GetAsync($"{ControllerRouteEnum.Skills}").Result;
+            var response = _client.GetAsync(ControllerRouteEnum.Skills).Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<SkillViewModel>>(response);
 
             serializedContent.Should().HaveCount(1);

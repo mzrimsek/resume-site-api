@@ -38,7 +38,7 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
             var model = TestObjectGetter.GetAddJobProjectViewModel(_jobId);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.JobProjects}", requestContent).Result;
+            var response = _client.PostAsync(ControllerRouteEnum.JobProjects, requestContent).Result;
 
             response.StatusCode.Should().Be(HttpStatusCode.Created);
         }
@@ -50,7 +50,7 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
             var model = TestObjectGetter.GetAddJobProjectViewModel(_jobId, null);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.JobProjects}", requestContent).Result;
+            var response = _client.PostAsync(ControllerRouteEnum.JobProjects, requestContent).Result;
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
@@ -61,7 +61,7 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
             var model = TestObjectGetter.GetAddJobProjectViewModel(0);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.JobProjects}", requestContent).Result;
+            var response = _client.PostAsync(ControllerRouteEnum.JobProjects, requestContent).Result;
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
@@ -72,7 +72,7 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
             var model = TestObjectGetter.GetAddJobProjectViewModel(1);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.JobProjects}", requestContent).Result;
+            var response = _client.PostAsync(ControllerRouteEnum.JobProjects, requestContent).Result;
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
@@ -84,7 +84,7 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
             var model = TestObjectGetter.GetAddJobProjectViewModel(_jobId);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.JobProjects}", requestContent).Result;
+            var response = _client.PostAsync(ControllerRouteEnum.JobProjects, requestContent).Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<JobProjectViewModel>(response);
 
             var isCorrectViewModel = AssertHelper.AreJobProjectViewModelsEqual(model, serializedContent);
@@ -98,7 +98,7 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
             var model = TestObjectGetter.GetAddJobProjectViewModel(_jobId);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.JobProjects}", requestContent).Result;
+            var response = _client.PostAsync(ControllerRouteEnum.JobProjects, requestContent).Result;
             var jobProjectId = RequestHelper.GetObjectFromResponseContent<JobProjectViewModel>(response).Id;
             response = _client.GetAsync($"{ControllerRouteEnum.JobProjects}/{jobProjectId}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<JobProjectViewModel>(response);

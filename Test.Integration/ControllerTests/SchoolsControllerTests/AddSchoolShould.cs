@@ -35,7 +35,7 @@ namespace Test.Integration.ControllerTests.SchoolsControllerTests
             var model = TestObjectGetter.GetAddSchoolViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.Schools}", requestContent).Result;
+            var response = _client.PostAsync(ControllerRouteEnum.Schools, requestContent).Result;
             _schoolId = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(response).Id;
 
             response.StatusCode.Should().Be(HttpStatusCode.Created);
@@ -47,7 +47,7 @@ namespace Test.Integration.ControllerTests.SchoolsControllerTests
             var model = TestObjectGetter.GetAddSchoolViewModel(null);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.Schools}", requestContent).Result;
+            var response = _client.PostAsync(ControllerRouteEnum.Schools, requestContent).Result;
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
@@ -58,7 +58,7 @@ namespace Test.Integration.ControllerTests.SchoolsControllerTests
             var model = TestObjectGetter.GetAddSchoolViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.Schools}", requestContent).Result;
+            var response = _client.PostAsync(ControllerRouteEnum.Schools, requestContent).Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(response);
             _schoolId = serializedContent.Id;
 
@@ -72,7 +72,7 @@ namespace Test.Integration.ControllerTests.SchoolsControllerTests
             var model = TestObjectGetter.GetAddSchoolViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.Schools}", requestContent).Result;
+            var response = _client.PostAsync(ControllerRouteEnum.Schools, requestContent).Result;
             _schoolId = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(response).Id;
             response = _client.GetAsync($"{ControllerRouteEnum.Schools}/{_schoolId}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(response);

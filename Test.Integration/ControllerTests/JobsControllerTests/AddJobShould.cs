@@ -35,7 +35,7 @@ namespace Test.Integration.ControllerTests.JobsControllerTests
             var model = TestObjectGetter.GetAddJobViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.Jobs}", requestContent).Result;
+            var response = _client.PostAsync(ControllerRouteEnum.Jobs, requestContent).Result;
             _jobId = RequestHelper.GetObjectFromResponseContent<JobViewModel>(response).Id;
 
             response.StatusCode.Should().Be(HttpStatusCode.Created);
@@ -47,7 +47,7 @@ namespace Test.Integration.ControllerTests.JobsControllerTests
             var model = TestObjectGetter.GetAddJobViewModel(null);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.Jobs}", requestContent).Result;
+            var response = _client.PostAsync(ControllerRouteEnum.Jobs, requestContent).Result;
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
@@ -58,7 +58,7 @@ namespace Test.Integration.ControllerTests.JobsControllerTests
             var model = TestObjectGetter.GetAddJobViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.Jobs}", requestContent).Result;
+            var response = _client.PostAsync(ControllerRouteEnum.Jobs, requestContent).Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<JobViewModel>(response);
             _jobId = serializedContent.Id;
 
@@ -72,7 +72,7 @@ namespace Test.Integration.ControllerTests.JobsControllerTests
             var model = TestObjectGetter.GetAddJobViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.Jobs}", requestContent).Result;
+            var response = _client.PostAsync(ControllerRouteEnum.Jobs, requestContent).Result;
             _jobId = RequestHelper.GetObjectFromResponseContent<JobViewModel>(response).Id;
             response = _client.GetAsync($"{ControllerRouteEnum.Jobs}/{_jobId}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<JobViewModel>(response);

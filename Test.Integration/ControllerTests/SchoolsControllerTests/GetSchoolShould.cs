@@ -51,7 +51,7 @@ namespace Test.Integration.ControllerTests.SchoolsControllerTests
         {
             var model = TestObjectGetter.GetAddSchoolViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
-            var response = _client.PostAsync($"{ControllerRouteEnum.Schools}", requestContent).Result;
+            var response = _client.PostAsync(ControllerRouteEnum.Schools, requestContent).Result;
             _schoolId = RequestHelper.GetObjectFromResponseContent<SchoolViewModel>(response).Id;
 
             response = _client.GetAsync($"{ControllerRouteEnum.Schools}/{_schoolId}").Result;

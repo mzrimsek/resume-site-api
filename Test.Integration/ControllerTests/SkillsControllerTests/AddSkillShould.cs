@@ -38,7 +38,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
             var model = TestObjectGetter.GetAddSkillViewModel(_languageId);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.Skills}", requestContent).Result;
+            var response = _client.PostAsync(ControllerRouteEnum.Skills, requestContent).Result;
 
             response.StatusCode.Should().Be(HttpStatusCode.Created);
         }
@@ -50,7 +50,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
             var model = TestObjectGetter.GetAddSkillViewModel(_languageId, null, 1);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.Skills}", requestContent).Result;
+            var response = _client.PostAsync(ControllerRouteEnum.Skills, requestContent).Result;
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
@@ -62,7 +62,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
             var model = TestObjectGetter.GetAddSkillViewModel(_languageId, "MVC", 4);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.Skills}", requestContent).Result;
+            var response = _client.PostAsync(ControllerRouteEnum.Skills, requestContent).Result;
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
@@ -73,7 +73,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
             var model = TestObjectGetter.GetAddSkillViewModel(0);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.Skills}", requestContent).Result;
+            var response = _client.PostAsync(ControllerRouteEnum.Skills, requestContent).Result;
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
@@ -84,7 +84,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
             var model = TestObjectGetter.GetAddSkillViewModel(1);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.Skills}", requestContent).Result;
+            var response = _client.PostAsync(ControllerRouteEnum.Skills, requestContent).Result;
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
@@ -96,7 +96,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
             var model = TestObjectGetter.GetAddSkillViewModel(_languageId);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.Skills}", requestContent).Result;
+            var response = _client.PostAsync(ControllerRouteEnum.Skills, requestContent).Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<SkillViewModel>(response);
 
             var isCorrectViewModel = AssertHelper.AreSkillViewModelsEqual(model, serializedContent);
@@ -110,7 +110,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
             var model = TestObjectGetter.GetAddSkillViewModel(_languageId);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.Skills}", requestContent).Result;
+            var response = _client.PostAsync(ControllerRouteEnum.Skills, requestContent).Result;
             var skillId = RequestHelper.GetObjectFromResponseContent<SkillViewModel>(response).Id;
             response = _client.GetAsync($"{ControllerRouteEnum.Skills}/{skillId}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<SkillViewModel>(response);

@@ -37,7 +37,7 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
             var model = TestObjectGetter.GetAddLanguageViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.Languages}", requestContent).Result;
+            var response = _client.PostAsync(ControllerRouteEnum.Languages, requestContent).Result;
             _languageId = RequestHelper.GetObjectFromResponseContent<LanguageViewModel>(response).Id;
 
             response.StatusCode.Should().Be(HttpStatusCode.Created);
@@ -49,7 +49,7 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
             var model = TestObjectGetter.GetAddLanguageViewModel(null, 1);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.Languages}", requestContent).Result;
+            var response = _client.PostAsync(ControllerRouteEnum.Languages, requestContent).Result;
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
@@ -60,7 +60,7 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
             var model = TestObjectGetter.GetAddLanguageViewModel("Java", 0);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.Languages}", requestContent).Result;
+            var response = _client.PostAsync(ControllerRouteEnum.Languages, requestContent).Result;
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
@@ -71,7 +71,7 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
             var model = TestObjectGetter.GetAddLanguageViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.Languages}", requestContent).Result;
+            var response = _client.PostAsync(ControllerRouteEnum.Languages, requestContent).Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<LanguageViewModel>(response);
             _languageId = serializedContent.Id;
 
@@ -85,7 +85,7 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
             var model = TestObjectGetter.GetAddLanguageViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.Languages}", requestContent).Result;
+            var response = _client.PostAsync(ControllerRouteEnum.Languages, requestContent).Result;
             _languageId = RequestHelper.GetObjectFromResponseContent<LanguageViewModel>(response).Id;
             response = _client.GetAsync($"{ControllerRouteEnum.Languages}/{_languageId}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<LanguageViewModel>(response);

@@ -51,7 +51,7 @@ namespace Test.Integration.ControllerTests.JobsControllerTests
         {
             var model = TestObjectGetter.GetAddJobViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
-            var response = _client.PostAsync($"{ControllerRouteEnum.Jobs}", requestContent).Result;
+            var response = _client.PostAsync(ControllerRouteEnum.Jobs, requestContent).Result;
             _jobId = RequestHelper.GetObjectFromResponseContent<JobViewModel>(response).Id;
 
             response = _client.GetAsync($"{ControllerRouteEnum.Jobs}/{_jobId}").Result;

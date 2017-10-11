@@ -36,14 +36,14 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
         [TestMethod]
         public void ReturnStatusCodeOk()
         {
-            var response = _client.GetAsync($"{ControllerRouteEnum.Languages}").Result;
+            var response = _client.GetAsync(ControllerRouteEnum.Languages).Result;
             response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
         [TestMethod]
         public void ReturnEmptyList_WhenNoLanguagesAreCreated()
         {
-            var response = _client.GetAsync($"{ControllerRouteEnum.Languages}").Result;
+            var response = _client.GetAsync(ControllerRouteEnum.Languages).Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<LanguageViewModel>>(response);
             serializedContent.Should().BeEmpty();
         }
@@ -53,7 +53,7 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
         {
             _languageId = _testObjectCreator.GetIdFromNewLanguage();
 
-            var response = _client.GetAsync($"{ControllerRouteEnum.Languages}").Result;
+            var response = _client.GetAsync(ControllerRouteEnum.Languages).Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<LanguageViewModel>>(response);
 
             serializedContent.Should().HaveCount(1);

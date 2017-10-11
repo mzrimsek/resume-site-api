@@ -55,7 +55,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
             _languageId = _testObjectCreator.GetIdFromNewLanguage();
             var model = TestObjectGetter.GetAddSkillViewModel(_languageId);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
-            var response = _client.PostAsync($"{ControllerRouteEnum.Skills}", requestContent).Result;
+            var response = _client.PostAsync(ControllerRouteEnum.Skills, requestContent).Result;
             var skillId = RequestHelper.GetObjectFromResponseContent<SkillViewModel>(response).Id;
 
             response = _client.GetAsync($"{ControllerRouteEnum.Skills}/{skillId}").Result;

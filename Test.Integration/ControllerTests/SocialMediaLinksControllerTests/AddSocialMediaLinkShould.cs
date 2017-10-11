@@ -35,7 +35,7 @@ namespace Test.Integration.ControllerTests.SocialMediaLinksControllerTests
             var model = TestObjectGetter.GetAddSocialMediaLinkViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.SocialMediaLinks}", requestContent).Result;
+            var response = _client.PostAsync(ControllerRouteEnum.SocialMediaLinks, requestContent).Result;
             _socialMediaLinkId = RequestHelper.GetObjectFromResponseContent<SocialMediaLinkViewModel>(response).Id;
 
             response.StatusCode.Should().Be(HttpStatusCode.Created);
@@ -47,7 +47,7 @@ namespace Test.Integration.ControllerTests.SocialMediaLinksControllerTests
             var model = TestObjectGetter.GetAddSocialMediaLinkViewModel(null);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.SocialMediaLinks}", requestContent).Result;
+            var response = _client.PostAsync(ControllerRouteEnum.SocialMediaLinks, requestContent).Result;
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
@@ -58,7 +58,7 @@ namespace Test.Integration.ControllerTests.SocialMediaLinksControllerTests
             var model = TestObjectGetter.GetAddSocialMediaLinkViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.SocialMediaLinks}", requestContent).Result;
+            var response = _client.PostAsync(ControllerRouteEnum.SocialMediaLinks, requestContent).Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<SocialMediaLinkViewModel>(response);
             _socialMediaLinkId = serializedContent.Id;
 
@@ -72,7 +72,7 @@ namespace Test.Integration.ControllerTests.SocialMediaLinksControllerTests
             var model = TestObjectGetter.GetAddSocialMediaLinkViewModel();
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
-            var response = _client.PostAsync($"{ControllerRouteEnum.SocialMediaLinks}", requestContent).Result;
+            var response = _client.PostAsync(ControllerRouteEnum.SocialMediaLinks, requestContent).Result;
             _socialMediaLinkId = RequestHelper.GetObjectFromResponseContent<SocialMediaLinkViewModel>(response).Id;
             response = _client.GetAsync($"{ControllerRouteEnum.SocialMediaLinks}/{_socialMediaLinkId}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<SocialMediaLinkViewModel>(response);

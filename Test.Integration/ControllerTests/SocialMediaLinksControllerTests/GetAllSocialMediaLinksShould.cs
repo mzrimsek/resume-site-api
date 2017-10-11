@@ -36,14 +36,14 @@ namespace Test.Integration.ControllerTests.SocialMediaLinksControllerTests
         [TestMethod]
         public void ReturnStatusCodeOk()
         {
-            var response = _client.GetAsync($"{ControllerRouteEnum.SocialMediaLinks}").Result;
+            var response = _client.GetAsync(ControllerRouteEnum.SocialMediaLinks).Result;
             response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
         [TestMethod]
         public void ReturnEmptyList_WhenNoSocialMediaLinksAreCreated()
         {
-            var response = _client.GetAsync($"{ControllerRouteEnum.SocialMediaLinks}").Result;
+            var response = _client.GetAsync(ControllerRouteEnum.SocialMediaLinks).Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<SocialMediaLinkViewModel>>(response);
             serializedContent.Should().BeEmpty();
         }
@@ -53,7 +53,7 @@ namespace Test.Integration.ControllerTests.SocialMediaLinksControllerTests
         {
             _socialMediaLinkId = _testObjectCreator.GetIdFromNewSocialMediaLink();
             
-            var response = _client.GetAsync($"{ControllerRouteEnum.SocialMediaLinks}").Result;
+            var response = _client.GetAsync(ControllerRouteEnum.SocialMediaLinks).Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<SocialMediaLinkViewModel>>(response);
             
             serializedContent.Should().HaveCount(1);
