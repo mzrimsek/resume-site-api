@@ -41,7 +41,7 @@ namespace Test.Integration.ControllerTests.SchoolsControllerTests
         [TestMethod]
         public void ReturnStatusCodeOk_WhenGivenValidId()
         {
-            _schoolId = _testObjectCreator.GetIdFromNewSchool();
+            _schoolId = _testObjectCreator.GetIdForNewSchool();
             var response = _client.GetAsync($"{ControllerRouteEnum.Schools}/{_schoolId}").Result;
             response.StatusCode.Should().Be(HttpStatusCode.OK);
         }

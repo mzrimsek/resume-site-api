@@ -34,7 +34,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestMethod]
         public void ReturnStatusCodeNotFound_WhenGivenInvalidId()
         {
-            _languageId = _testObjectCreator.GetIdFromNewLanguage();
+            _languageId = _testObjectCreator.GetIdForNewLanguage();
             var model = TestObjectGetter.GetUpdateSkillViewModel(1, _languageId, "A different skill", 2);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
@@ -46,8 +46,8 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestMethod]
         public void ReturnStatusCodeBadRequest_WhenGivenInvalidModel_WithInvalidName()
         {
-            _languageId = _testObjectCreator.GetIdFromNewLanguage();
-            var skillId = _testObjectCreator.GetIdFromNewSkill(_languageId);
+            _languageId = _testObjectCreator.GetIdForNewLanguage();
+            var skillId = _testObjectCreator.GetIdForNewSkill(_languageId);
             var model = TestObjectGetter.GetUpdateSkillViewModel(skillId, _languageId, null, 2);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
@@ -59,8 +59,8 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestMethod]
         public void ReturnStatusCodeBadRequest_WhenGivenInvalidModel_WithInvalidRating()
         {
-            _languageId = _testObjectCreator.GetIdFromNewLanguage();
-            var skillId = _testObjectCreator.GetIdFromNewSkill(_languageId);
+            _languageId = _testObjectCreator.GetIdForNewLanguage();
+            var skillId = _testObjectCreator.GetIdForNewSkill(_languageId);
             var model = TestObjectGetter.GetUpdateSkillViewModel(skillId, _languageId, "A different skill", 4);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
@@ -72,8 +72,8 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestMethod]
         public void ReturnStatusCodeBadRequest_WhenGivenInvalidModel_WithInvalidLanguageId()
         {
-            _languageId = _testObjectCreator.GetIdFromNewLanguage();
-            var skillId = _testObjectCreator.GetIdFromNewSkill(_languageId);
+            _languageId = _testObjectCreator.GetIdForNewLanguage();
+            var skillId = _testObjectCreator.GetIdForNewSkill(_languageId);
             var model = TestObjectGetter.GetUpdateSkillViewModel(skillId, 0, "A different skill", 2);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
@@ -85,8 +85,8 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestMethod]
         public void ReturnStatusCodeBadRequest_WhenGivenValidModel_WithInvalidLanguageId()
         {
-            _languageId = _testObjectCreator.GetIdFromNewLanguage();
-            var skillId = _testObjectCreator.GetIdFromNewSkill(_languageId);
+            _languageId = _testObjectCreator.GetIdForNewLanguage();
+            var skillId = _testObjectCreator.GetIdForNewSkill(_languageId);
             var model = TestObjectGetter.GetUpdateSkillViewModel(skillId, _languageId + 1, "A different skill", 4);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
@@ -98,8 +98,8 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestMethod]
         public void ReturnStatusCodeNoContent_WhenGivenValidIdAndValidModel()
         {
-            _languageId = _testObjectCreator.GetIdFromNewLanguage();
-            var skillId = _testObjectCreator.GetIdFromNewSkill(_languageId);
+            _languageId = _testObjectCreator.GetIdForNewLanguage();
+            var skillId = _testObjectCreator.GetIdForNewSkill(_languageId);
             var model = TestObjectGetter.GetUpdateSkillViewModel(skillId, _languageId, "A different skill", 2);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
@@ -111,8 +111,8 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestMethod]
         public void SaveUpdatedViewModel()
         {
-            _languageId = _testObjectCreator.GetIdFromNewLanguage();
-            var skillId = _testObjectCreator.GetIdFromNewSkill(_languageId);
+            _languageId = _testObjectCreator.GetIdForNewLanguage();
+            var skillId = _testObjectCreator.GetIdForNewSkill(_languageId);
             var model = TestObjectGetter.GetUpdateSkillViewModel(skillId, _languageId, "A different skill", 2);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 

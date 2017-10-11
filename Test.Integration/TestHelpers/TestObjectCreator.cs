@@ -24,37 +24,37 @@ namespace Test.Integration.TestHelpers
             return GetIdFromNewTestObject<JobViewModel>(model, ControllerRouteEnum.Jobs);
         }
 
-        public int GetIdFromNewJobProject(int jobId)
+        public int GetIdForNewJobProject(int jobId)
         {
             var model = TestObjectGetter.GetAddJobProjectViewModel(jobId);
             return GetIdFromNewTestObject<JobProjectViewModel>(model, ControllerRouteEnum.JobProjects);
         }
 
-        public int GetIdFromNewSchool()
+        public int GetIdForNewSchool()
         {
             var model = TestObjectGetter.GetAddSchoolViewModel();
             return GetIdFromNewTestObject<SchoolViewModel>(model, ControllerRouteEnum.Schools);
         }
 
-        public int GetIdFromNewLanguage()
+        public int GetIdForNewLanguage()
         {
             var model = TestObjectGetter.GetAddLanguageViewModel();
             return GetIdFromNewTestObject<LanguageViewModel>(model, ControllerRouteEnum.Languages);
         }
 
-        public int GetIdFromNewSkill(int languageId)
+        public int GetIdForNewSkill(int languageId)
         {
             var model = TestObjectGetter.GetAddSkillViewModel(languageId);
             return GetIdFromNewTestObject<SkillViewModel>(model, ControllerRouteEnum.Skills);
         }
 
-        public int GetIdFromNewSocialMediaLink()
+        public int GetIdForNewSocialMediaLink()
         {
             var model = TestObjectGetter.GetAddSocialMediaLinkViewModel();
             return GetIdFromNewTestObject<SocialMediaLinkViewModel>(model, ControllerRouteEnum.SocialMediaLinks);
         }
 
-        public int GetIdFromNewProject()
+        public int GetIdForNewProject()
         {
             var model = TestObjectGetter.GetAddProjectViewModel();
             return GetIdFromNewTestObject<ProjectViewModel>(model, ControllerRouteEnum.Projects);

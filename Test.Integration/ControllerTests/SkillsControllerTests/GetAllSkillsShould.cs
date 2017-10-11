@@ -51,8 +51,8 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestMethod]
         public void ReturnOneSkill_WhenOneSkillIsCreated()
         {
-            _languageId = _testObjectCreator.GetIdFromNewLanguage();
-            var skillId = _testObjectCreator.GetIdFromNewSkill(_languageId);
+            _languageId = _testObjectCreator.GetIdForNewLanguage();
+            var skillId = _testObjectCreator.GetIdForNewSkill(_languageId);
 
             var response = _client.GetAsync(ControllerRouteEnum.Skills).Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<SkillViewModel>>(response);

@@ -63,7 +63,7 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
         public void ReturnOneJobProject_WhenOneJobProjectIsCreatedForJob()
         {
             _jobId = _testObjectCreator.GetIdForNewJob();
-            var jobProjectId = _testObjectCreator.GetIdFromNewJobProject(_jobId);
+            var jobProjectId = _testObjectCreator.GetIdForNewJobProject(_jobId);
 
             var response = _client.GetAsync($"{ControllerRouteEnum.JobProjects}/job/{_jobId}").Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<JobProjectViewModel>>(response);

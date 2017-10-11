@@ -38,7 +38,7 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
         [TestMethod]
         public void ReturnStatusCodeNoContent_WhenGivenValidId()
         {
-            var languageId = _testObjectCreator.GetIdFromNewLanguage();
+            var languageId = _testObjectCreator.GetIdForNewLanguage();
             var response = _client.DeleteAsync($"{ControllerRouteEnum.Languages}/{languageId}").Result;
             response.StatusCode.Should().Be(HttpStatusCode.NoContent);
         }
@@ -46,7 +46,7 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
         [TestMethod]
         public void DeleteLanguage()
         {
-            var languageId = _testObjectCreator.GetIdFromNewLanguage();
+            var languageId = _testObjectCreator.GetIdForNewLanguage();
 
             var _ = _client.DeleteAsync($"{ControllerRouteEnum.Languages}/{languageId}").Result;
             var response = _client.GetAsync($"{ControllerRouteEnum.Languages}/{languageId}").Result;
@@ -57,8 +57,8 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
         [TestMethod]
         public void DeleteSkillsForLanguage()
         {
-            var languageId = _testObjectCreator.GetIdFromNewLanguage();
-            var skillId = _testObjectCreator.GetIdFromNewSkill(languageId);
+            var languageId = _testObjectCreator.GetIdForNewLanguage();
+            var skillId = _testObjectCreator.GetIdForNewSkill(languageId);
 
             var _ = _client.DeleteAsync($"{ControllerRouteEnum.Languages}/{languageId}").Result;
             var response = _client.GetAsync($"{ControllerRouteEnum.Skills}/{skillId}").Result;

@@ -34,7 +34,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestMethod]
         public void ReturnStatusCodeCreated_WhenGivenValidModel()
         {
-            _languageId = _testObjectCreator.GetIdFromNewLanguage();
+            _languageId = _testObjectCreator.GetIdForNewLanguage();
             var model = TestObjectGetter.GetAddSkillViewModel(_languageId);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
@@ -46,7 +46,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestMethod]
         public void ReturnStatusCodeBadRequest_WhenGivenInvalidModel_WithInvalidName()
         {
-            _languageId = _testObjectCreator.GetIdFromNewLanguage();
+            _languageId = _testObjectCreator.GetIdForNewLanguage();
             var model = TestObjectGetter.GetAddSkillViewModel(_languageId, null, 1);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
@@ -58,7 +58,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestMethod]
         public void ReturnStatusCodeBadRequest_WhenGivenInvalidModel_WithInvalidRating()
         {
-            _languageId = _testObjectCreator.GetIdFromNewLanguage();
+            _languageId = _testObjectCreator.GetIdForNewLanguage();
             var model = TestObjectGetter.GetAddSkillViewModel(_languageId, "MVC", 4);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
@@ -92,7 +92,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestMethod]
         public void ReturnCorrectViewModel()
         {
-            _languageId = _testObjectCreator.GetIdFromNewLanguage();
+            _languageId = _testObjectCreator.GetIdForNewLanguage();
             var model = TestObjectGetter.GetAddSkillViewModel(_languageId);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
@@ -106,7 +106,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestMethod]
         public void SaveCorrectViewModel()
         {
-            _languageId = _testObjectCreator.GetIdFromNewLanguage();
+            _languageId = _testObjectCreator.GetIdForNewLanguage();
             var model = TestObjectGetter.GetAddSkillViewModel(_languageId);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 

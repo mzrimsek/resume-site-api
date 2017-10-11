@@ -38,7 +38,7 @@ namespace Test.Integration.ControllerTests.SchoolsControllerTests
         [TestMethod]
         public void ReturnStatusCodeNoContent_WhenGivenValidId()
         {
-            var schoolId = _testObjectCreator.GetIdFromNewSchool();
+            var schoolId = _testObjectCreator.GetIdForNewSchool();
             var response = _client.DeleteAsync($"{ControllerRouteEnum.Schools}/{schoolId}").Result;
             response.StatusCode.Should().Be(HttpStatusCode.NoContent);
         }
@@ -46,7 +46,7 @@ namespace Test.Integration.ControllerTests.SchoolsControllerTests
         [TestMethod]
         public void DeleteSchool()
         {
-            var schoolId = _testObjectCreator.GetIdFromNewSchool();
+            var schoolId = _testObjectCreator.GetIdForNewSchool();
 
             var _ = _client.DeleteAsync($"{ControllerRouteEnum.Schools}/{schoolId}").Result;
             var response = _client.GetAsync($"{ControllerRouteEnum.Schools}/{schoolId}").Result;

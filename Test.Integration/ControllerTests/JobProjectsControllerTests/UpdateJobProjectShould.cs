@@ -47,7 +47,7 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
         public void ReturnStatusCodeBadRequest_WhenGivenInvalidModel_WithInvalidName()
         {
             _jobId = _testObjectCreator.GetIdForNewJob();
-            var jobProjectId = _testObjectCreator.GetIdFromNewJobProject(_jobId);
+            var jobProjectId = _testObjectCreator.GetIdForNewJobProject(_jobId);
             var model = TestObjectGetter.GetUpdateJobProjectViewModel(jobProjectId, _jobId, null);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
@@ -60,7 +60,7 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
         public void ReturnStatusCodeBadRequest_WhenGivenInvalidModel_WithInvalidJobId()
         {
             _jobId = _testObjectCreator.GetIdForNewJob();
-            var jobProjectId = _testObjectCreator.GetIdFromNewJobProject(_jobId);
+            var jobProjectId = _testObjectCreator.GetIdForNewJobProject(_jobId);
             var model = TestObjectGetter.GetUpdateJobProjectViewModel(jobProjectId, 0, "A different project");
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
@@ -73,7 +73,7 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
         public void ReturnStatusCodeBadRequest_WhenGivenValidModel_WithInvalidJobId()
         {
             _jobId = _testObjectCreator.GetIdForNewJob();
-            var jobProjectId = _testObjectCreator.GetIdFromNewJobProject(_jobId);
+            var jobProjectId = _testObjectCreator.GetIdForNewJobProject(_jobId);
             var model = TestObjectGetter.GetUpdateJobProjectViewModel(jobProjectId, _jobId + 1, "A different project");
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
@@ -86,7 +86,7 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
         public void ReturnStatusCodeBadRequest_WhenGivenValidIdAndValidModel_WithNonMatchingId()
         {
             _jobId = _testObjectCreator.GetIdForNewJob();
-            var jobProjectId = _testObjectCreator.GetIdFromNewJobProject(_jobId);
+            var jobProjectId = _testObjectCreator.GetIdForNewJobProject(_jobId);
             var model = TestObjectGetter.GetUpdateJobProjectViewModel(jobProjectId + 1, _jobId, "A different project");
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
@@ -99,7 +99,7 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
         public void ReturnStatusCodeNoContent_WhenGivenValidIdAndValidModel()
         {
             _jobId = _testObjectCreator.GetIdForNewJob();
-            var jobProjectId = _testObjectCreator.GetIdFromNewJobProject(_jobId);
+            var jobProjectId = _testObjectCreator.GetIdForNewJobProject(_jobId);
             var model = TestObjectGetter.GetUpdateJobProjectViewModel(jobProjectId, _jobId, "A different project");
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
@@ -112,7 +112,7 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
         public void SaveUpdatedViewModel()
         {
             _jobId = _testObjectCreator.GetIdForNewJob();
-            var jobProjectId = _testObjectCreator.GetIdFromNewJobProject(_jobId);
+            var jobProjectId = _testObjectCreator.GetIdForNewJobProject(_jobId);
             var model = TestObjectGetter.GetUpdateJobProjectViewModel(jobProjectId, _jobId, "A different project");
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 

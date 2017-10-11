@@ -41,7 +41,7 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
         public void ReturnStatusCodeNoContent_WhenGivenValidId()
         {
             _jobId = _testObjectCreator.GetIdForNewJob();
-            var jobProjectId = _testObjectCreator.GetIdFromNewJobProject(_jobId);
+            var jobProjectId = _testObjectCreator.GetIdForNewJobProject(_jobId);
 
             var response = _client.DeleteAsync($"{ControllerRouteEnum.JobProjects}/{jobProjectId}").Result;
 
@@ -52,7 +52,7 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
         public void DeleteJobProject()
         {
             _jobId = _testObjectCreator.GetIdForNewJob();
-            var jobProjectId = _testObjectCreator.GetIdFromNewJobProject(_jobId);
+            var jobProjectId = _testObjectCreator.GetIdForNewJobProject(_jobId);
 
             var _ = _client.DeleteAsync($"{ControllerRouteEnum.JobProjects}/{jobProjectId}").Result;
             var response = _client.GetAsync($"{ControllerRouteEnum.JobProjects}/{jobProjectId}").Result;

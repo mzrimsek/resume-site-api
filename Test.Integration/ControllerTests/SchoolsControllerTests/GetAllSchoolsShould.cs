@@ -51,7 +51,7 @@ namespace Test.Integration.ControllerTests.SchoolsControllerTests
         [TestMethod]
         public void ReturnOneSchool_WhenOneSchoolIsCreated()
         {
-            _schoolId = _testObjectCreator.GetIdFromNewSchool();
+            _schoolId = _testObjectCreator.GetIdForNewSchool();
 
             var getResponse = _client.GetAsync(ControllerRouteEnum.Schools).Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<SchoolViewModel>>(getResponse);

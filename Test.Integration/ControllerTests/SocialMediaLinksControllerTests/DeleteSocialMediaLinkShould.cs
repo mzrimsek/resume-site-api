@@ -38,7 +38,7 @@ namespace Test.Integration.ControllerTests.SocialMediaLinksControllerTests
         [TestMethod]
         public void ReturnStatusCodeNoContent_WhenGivenValidId()
         {
-            var socialMediaLinkId = _testObjectCreator.GetIdFromNewSocialMediaLink();
+            var socialMediaLinkId = _testObjectCreator.GetIdForNewSocialMediaLink();
             var response = _client.DeleteAsync($"{ControllerRouteEnum.SocialMediaLinks}/{socialMediaLinkId}").Result;
             response.StatusCode.Should().Be(HttpStatusCode.NoContent);
         }
@@ -46,7 +46,7 @@ namespace Test.Integration.ControllerTests.SocialMediaLinksControllerTests
         [TestMethod]
         public void DeleteSocialMediaLink()
         {
-            var socialMediaLinkId = _testObjectCreator.GetIdFromNewSocialMediaLink();
+            var socialMediaLinkId = _testObjectCreator.GetIdForNewSocialMediaLink();
             
             var _ = _client.DeleteAsync($"{ControllerRouteEnum.SocialMediaLinks}/{socialMediaLinkId}").Result;
             var response = _client.GetAsync($"{ControllerRouteEnum.SocialMediaLinks}/{socialMediaLinkId}").Result;

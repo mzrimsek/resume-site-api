@@ -41,8 +41,8 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestMethod]
         public void ReturnStatusCodeOk_WhenGivenValidId()
         {
-            _languageId = _testObjectCreator.GetIdFromNewLanguage();
-            var skillId = _testObjectCreator.GetIdFromNewSkill(_languageId);
+            _languageId = _testObjectCreator.GetIdForNewLanguage();
+            var skillId = _testObjectCreator.GetIdForNewSkill(_languageId);
 
             var response = _client.GetAsync($"{ControllerRouteEnum.Skills}/{skillId}").Result;
             
@@ -52,7 +52,7 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestMethod]
         public void ReturnCorrectViewModel()
         {
-            _languageId = _testObjectCreator.GetIdFromNewLanguage();
+            _languageId = _testObjectCreator.GetIdForNewLanguage();
             var model = TestObjectGetter.GetAddSkillViewModel(_languageId);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
             var response = _client.PostAsync(ControllerRouteEnum.Skills, requestContent).Result;

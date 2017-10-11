@@ -58,7 +58,7 @@ namespace Test.Integration.ControllerTests.JobsControllerTests
         public void DeleteJobProjectsForJob()
         {
             var jobId = _testObjectCreator.GetIdForNewJob();
-            var jobProjectId = _testObjectCreator.GetIdFromNewJobProject(jobId);
+            var jobProjectId = _testObjectCreator.GetIdForNewJobProject(jobId);
 
             var _ = _client.DeleteAsync($"{ControllerRouteEnum.Jobs}/{jobId}").Result;
             var response = _client.GetAsync($"{ControllerRouteEnum.JobProjects}/{jobProjectId}").Result;

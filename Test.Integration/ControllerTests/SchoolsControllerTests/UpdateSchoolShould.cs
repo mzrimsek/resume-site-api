@@ -45,7 +45,7 @@ namespace Test.Integration.ControllerTests.SchoolsControllerTests
         [TestMethod]
         public void ReturnStatusCodeBadRequest_WhenGivenInvalidModel()
         {
-            _schoolId = _testObjectCreator.GetIdFromNewSchool();
+            _schoolId = _testObjectCreator.GetIdForNewSchool();
             var model = TestObjectGetter.GetUpdateSchoolViewModel(_schoolId, null);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
@@ -57,7 +57,7 @@ namespace Test.Integration.ControllerTests.SchoolsControllerTests
         [TestMethod]
         public void ReturnStatusCodeBadRequest_WhenGivenValidIdAndValidModel_WithNonMatchingId()
         {
-            _schoolId = _testObjectCreator.GetIdFromNewSchool();
+            _schoolId = _testObjectCreator.GetIdForNewSchool();
             var model = TestObjectGetter.GetUpdateSchoolViewModel(_schoolId + 1, "A Different School");
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
@@ -69,7 +69,7 @@ namespace Test.Integration.ControllerTests.SchoolsControllerTests
         [TestMethod]
         public void ReturnStatusCodeNoContent_WhenGivenValidIdAndValidModel()
         {
-            _schoolId = _testObjectCreator.GetIdFromNewSchool();
+            _schoolId = _testObjectCreator.GetIdForNewSchool();
             var model = TestObjectGetter.GetUpdateSchoolViewModel(_schoolId, "A Different School");
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
@@ -81,7 +81,7 @@ namespace Test.Integration.ControllerTests.SchoolsControllerTests
         [TestMethod]
         public void SaveUpdatedViewModel()
         {
-            _schoolId = _testObjectCreator.GetIdFromNewSchool();
+            _schoolId = _testObjectCreator.GetIdForNewSchool();
             var model = TestObjectGetter.GetUpdateSchoolViewModel(_schoolId, "A Different School");
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 

@@ -51,7 +51,7 @@ namespace Test.Integration.ControllerTests.SocialMediaLinksControllerTests
         [TestMethod]
         public void ReturnOneSocialMediaLink_WhenOneSocialMediaLinkIsCreated()
         {
-            _socialMediaLinkId = _testObjectCreator.GetIdFromNewSocialMediaLink();
+            _socialMediaLinkId = _testObjectCreator.GetIdForNewSocialMediaLink();
             
             var response = _client.GetAsync(ControllerRouteEnum.SocialMediaLinks).Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<SocialMediaLinkViewModel>>(response);

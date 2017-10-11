@@ -41,7 +41,7 @@ namespace Test.Integration.ControllerTests.SocialMediaLinksControllerTests
         [TestMethod]
         public void ReturnStatusCodeOk_WhenGivenValidId()
         {
-            _socialMediaLinkId = _testObjectCreator.GetIdFromNewSocialMediaLink();
+            _socialMediaLinkId = _testObjectCreator.GetIdForNewSocialMediaLink();
             var response = _client.GetAsync($"{ControllerRouteEnum.SocialMediaLinks}/{_socialMediaLinkId}").Result;
             response.StatusCode.Should().Be(HttpStatusCode.OK);
         }

@@ -51,7 +51,7 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
         [TestMethod]
         public void ReturnOneJob_WhenOneLanguageIsCreated()
         {
-            _languageId = _testObjectCreator.GetIdFromNewLanguage();
+            _languageId = _testObjectCreator.GetIdForNewLanguage();
 
             var response = _client.GetAsync(ControllerRouteEnum.Languages).Result;
             var serializedContent = RequestHelper.GetObjectFromResponseContent<List<LanguageViewModel>>(response);

@@ -41,7 +41,7 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
         [TestMethod]
         public void ReturnStatusCodeOk_WhenGivenValidId()
         {
-            _languageId = _testObjectCreator.GetIdFromNewLanguage();
+            _languageId = _testObjectCreator.GetIdForNewLanguage();
             var response = _client.GetAsync($"{ControllerRouteEnum.Languages}/{_languageId}").Result;
             response.StatusCode.Should().Be(HttpStatusCode.OK);
         }

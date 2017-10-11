@@ -45,7 +45,7 @@ namespace Test.Integration.ControllerTests.SocialMediaLinksControllerTests
         [TestMethod]
         public void ReturnStatusCodeBadRequest_WhenGivenInvalidModel()
         {
-            _socialMediaLinkId = _testObjectCreator.GetIdFromNewSocialMediaLink();
+            _socialMediaLinkId = _testObjectCreator.GetIdForNewSocialMediaLink();
             var model = TestObjectGetter.GetUpdateSocialMediaLinkViewModel(_socialMediaLinkId, null);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
@@ -57,7 +57,7 @@ namespace Test.Integration.ControllerTests.SocialMediaLinksControllerTests
         [TestMethod]
         public void ReturnStatusCodeBadRequest_WhenGivenValidIdAndValidModel_WithNonMatchingId()
         {
-            _socialMediaLinkId = _testObjectCreator.GetIdFromNewSocialMediaLink();
+            _socialMediaLinkId = _testObjectCreator.GetIdForNewSocialMediaLink();
             var model = TestObjectGetter.GetUpdateSocialMediaLinkViewModel(_socialMediaLinkId + 1, "A different website");
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
@@ -69,7 +69,7 @@ namespace Test.Integration.ControllerTests.SocialMediaLinksControllerTests
         [TestMethod]
         public void ReturnStatusCodeNoContent_WhenGivenValidIdAndValidModel()
         {
-            _socialMediaLinkId = _testObjectCreator.GetIdFromNewSocialMediaLink();
+            _socialMediaLinkId = _testObjectCreator.GetIdForNewSocialMediaLink();
             var model = TestObjectGetter.GetUpdateSocialMediaLinkViewModel(_socialMediaLinkId, "A different website");
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
@@ -81,7 +81,7 @@ namespace Test.Integration.ControllerTests.SocialMediaLinksControllerTests
         [TestMethod]
         public void SaveUpdatedViewModel()
         {
-            _socialMediaLinkId = _testObjectCreator.GetIdFromNewSocialMediaLink();
+            _socialMediaLinkId = _testObjectCreator.GetIdForNewSocialMediaLink();
             var model = TestObjectGetter.GetUpdateSocialMediaLinkViewModel(_socialMediaLinkId, "A different website");
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 

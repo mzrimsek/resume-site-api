@@ -42,7 +42,7 @@ namespace Test.Integration.ControllerTests.JobProjectsControllerTests
         public void ReturnStatusCodeOk_WhenGivenValidId()
         {
             _jobId = _testObjectCreator.GetIdForNewJob();
-            var jobProjectId = _testObjectCreator.GetIdFromNewJobProject(_jobId);
+            var jobProjectId = _testObjectCreator.GetIdForNewJobProject(_jobId);
 
             var response = _client.GetAsync($"{ControllerRouteEnum.JobProjects}/{jobProjectId}").Result;
 

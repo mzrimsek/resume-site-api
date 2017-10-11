@@ -45,7 +45,7 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
         [TestMethod]
         public void ReturnStatusCodeBadRequest_WhenGivenInvalidModel_WithInvalidName()
         {
-            _languageId = _testObjectCreator.GetIdFromNewLanguage();
+            _languageId = _testObjectCreator.GetIdForNewLanguage();
             var model = TestObjectGetter.GetUpdateLanguageViewModel(_languageId, null, 1);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
@@ -57,7 +57,7 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
         [TestMethod]
         public void ReturnStatusCodeBadRequest_WhenGivenInvalidModel_WithInvalidRating()
         {
-            _languageId = _testObjectCreator.GetIdFromNewLanguage();
+            _languageId = _testObjectCreator.GetIdForNewLanguage();
             var model = TestObjectGetter.GetUpdateLanguageViewModel(_languageId, "A different language", 4);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
@@ -69,7 +69,7 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
         [TestMethod]
         public void ReturnStatusCodeBadRequest_WhenGivenValidIdAndValidModel_WithNonMatchingId()
         {
-            _languageId = _testObjectCreator.GetIdFromNewLanguage();
+            _languageId = _testObjectCreator.GetIdForNewLanguage();
             var model = TestObjectGetter.GetUpdateLanguageViewModel(_languageId + 1, "A different language", 2);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
@@ -81,7 +81,7 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
         [TestMethod]
         public void ReturnStatusCodeNoContent_WhenGivenValidIdAndValidModel()
         {
-            _languageId = _testObjectCreator.GetIdFromNewLanguage();
+            _languageId = _testObjectCreator.GetIdForNewLanguage();
             var model = TestObjectGetter.GetUpdateLanguageViewModel(_languageId, "A different language", 2);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 
@@ -93,7 +93,7 @@ namespace Test.Integration.ControllerTests.LanguagesControllerTests
         [TestMethod]
         public void SaveUpdatedViewModel()
         {
-            _languageId = _testObjectCreator.GetIdFromNewLanguage();
+            _languageId = _testObjectCreator.GetIdForNewLanguage();
             var model = TestObjectGetter.GetUpdateLanguageViewModel(_languageId, "A different language", 2);
             var requestContent = RequestHelper.GetRequestContentFromObject(model);
 

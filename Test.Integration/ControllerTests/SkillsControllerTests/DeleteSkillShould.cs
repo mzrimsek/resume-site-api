@@ -40,8 +40,8 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestMethod]
         public void ReturnStatusCodeNoContent_WhenGivenValidId()
         {
-            _languageId = _testObjectCreator.GetIdFromNewLanguage();
-            var skillId = _testObjectCreator.GetIdFromNewSkill(_languageId);
+            _languageId = _testObjectCreator.GetIdForNewLanguage();
+            var skillId = _testObjectCreator.GetIdForNewSkill(_languageId);
 
             var response = _client.DeleteAsync($"{ControllerRouteEnum.Skills}/{skillId}").Result;
 
@@ -51,8 +51,8 @@ namespace Test.Integration.ControllerTests.SkillsControllerTests
         [TestMethod]
         public void DeleteSkill()
         {
-            _languageId = _testObjectCreator.GetIdFromNewLanguage();
-            var skillId = _testObjectCreator.GetIdFromNewSkill(_languageId);
+            _languageId = _testObjectCreator.GetIdForNewLanguage();
+            var skillId = _testObjectCreator.GetIdForNewSkill(_languageId);
 
             var _ = _client.DeleteAsync($"{ControllerRouteEnum.Skills}/{skillId}").Result;
             var response = _client.GetAsync($"{ControllerRouteEnum.Skills}/{skillId}").Result;
