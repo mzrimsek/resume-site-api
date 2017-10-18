@@ -29,12 +29,9 @@ namespace Web
             services.AddDbContext<DatabaseContext>(options => options.UseNpgsql(connectionString));
             services.AddAutoMapper();
             services.AddMvc();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new Info { Title = "Resume Site API", Version = "v1" });
-            });
-
+            
             DependencyInjectionConfiguration.Configure(services);
+            SwaggerConfiguration.Configure(services);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
