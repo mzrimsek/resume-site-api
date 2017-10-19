@@ -42,7 +42,7 @@ namespace Web
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
                 {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Resume Site API V1");
+                    c.SwaggerEndpoint($"/swagger/{SwaggerConfiguration.VERSION}/swagger.json", $"{SwaggerConfiguration.TITLE} {SwaggerConfiguration.VERSION}");
                 });
             }
 

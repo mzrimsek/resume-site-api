@@ -5,13 +5,16 @@ namespace Web.Configuration
 {
     public static class SwaggerConfiguration
     {
+        public static string TITLE = "Resume Site API";
+        public static string VERSION = "v1";
+        
         public static void Configure(IServiceCollection services)
         {
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { 
-                    Title = "Resume Site API", 
-                    Version = "v1",
+                c.SwaggerDoc(VERSION, new Info { 
+                    Title = TITLE, 
+                    Version = VERSION,
                     Contact = new Contact {
                         Name = "Mike Zrimsek",
                         Email = "mikezrimsek@gmail.com"
