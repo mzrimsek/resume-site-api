@@ -30,7 +30,6 @@ namespace Web
             services.AddMvc();
             
             DependencyInjectionConfiguration.Configure(services);
-            SwaggerConfiguration.Configure(services);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -38,11 +37,6 @@ namespace Web
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c =>
-                {
-                    c.SwaggerEndpoint($"/swagger/{SwaggerConfiguration.VERSION}/swagger.json", $"{SwaggerConfiguration.TITLE} {SwaggerConfiguration.VERSION}");
-                });
             }
 
             app.UseMvc();
