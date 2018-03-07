@@ -27,8 +27,7 @@ namespace Test.Integration
             services.AddDbContext<DatabaseContext>(options => options.UseInMemoryDatabase(databaseName));
             services.AddAutoMapper();
             services.AddMvc();
-
-            DependencyInjectionConfiguration.Configure(services);
+            services.ConfigureRepositories();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

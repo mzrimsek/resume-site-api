@@ -6,7 +6,7 @@ namespace Web.Configuration
 {
     public static class DependencyInjectionConfiguration
     {
-        public static void Configure(IServiceCollection services)
+        public static void ConfigureRepositories(this IServiceCollection services)
         {
             services.AddScoped<IJobRepository, JobRepository>();
             services.AddScoped<IJobProjectRepository, JobProjectRepository>();

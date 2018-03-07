@@ -28,8 +28,7 @@ namespace Web
             services.AddDbContext<DatabaseContext>(options => options.UseNpgsql(connectionString));
             services.AddAutoMapper();
             services.AddMvc();
-            
-            DependencyInjectionConfiguration.Configure(services);
+            services.ConfigureRepositories();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
